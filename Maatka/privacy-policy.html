@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | MAATKA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #101010;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 50%, #FFC107 100%);
+            --gold-glass: rgba(255, 215, 0, 0.12);
+            --text-light: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-border: rgba(255, 215, 0, 0.18);
+            --glass-bg: rgba(20, 20, 20, 0.78);
+            --shadow-glow: 0 8px 32px rgba(255, 215, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #151515 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.3;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 24px 0;
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        /* Legal Content */
+        .legal-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 80px;
+        }
+
+        .legal-header h1 {
+            font-size: 4rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .last-updated {
+            color: var(--gold-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .legal-body {
+            padding-bottom: 100px;
+        }
+
+        .legal-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        .legal-section h2 {
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .legal-section h2 i {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .legal-section p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-section ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-section li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        .legal-section li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold-primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            background: var(--black-secondary);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-primary);
+        }
+
+        @media (max-width: 768px) {
+            .legal-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .legal-section {
+                padding: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .footer-links a {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">MAATKA</a>
+            <div class="nav-links">
+                <a href="join.html" style="text-decoration: none;" class="btn btn-primary">JOIN NOW</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="legal-header">
+            <div class="last-updated">Last Updated: February 2026</div>
+            <h1>Privacy Policy</h1>
+        </header>
+
+        <main class="legal-body">
+            <section class="legal-section">
+                <h2><i class="fas fa-shield-alt"></i> Data Collection</h2>
+                <p>At MAATKA, your privacy is our institutional priority. We collect only the information necessary to
+                    provide you with a secure and personalized premium digital membership experience.</p>
+                <ul>
+                    <li><strong>Personal Identifiers:</strong> Name, email address, and phone number provided during
+                        onboarding.</li>
+                    <li><strong>Digital Identity:</strong> Information related to your Legacy ID and asset holdings.
+                    </li>
+                    <li><strong>Technical Data:</strong> IP address, device type, and interaction logs to prevent
+                        unauthorized access.</li>
+                    <li><strong>Financial Context:</strong> Transaction verification data related to your ₹900
+                        membership fee.</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-eye"></i> Use of Information</h2>
+                <p>We use your data strictly for operational excellence and community security. MAATKA does not sell
+                    your personal data to third parties.</p>
+                <ul>
+                    <li>Processing your premium membership and activating KRITA Credits.</li>
+                    <li>Managing Sudarshana Coin allocations and growth tracking.</li>
+                    <li>Facilitating the Prize Pot selection process via Legacy IDs.</li>
+                    <li>Providing real-time updates through your dashboard.</li>
+                    <li>Ensuring institutional-grade security for the entire ecosystem.</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-lock"></i> Data Security</h2>
+                <p>Our infrastructure utilizes end-to-end encryption and decentralized patterns to ensure your data
+                    remains untampered and private.</p>
+                <p>Access to personal data is restricted to authorized systems required for service delivery. We perform
+                    regular security audits to maintain our "Institutional Grade Security" standard.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-cookie-bite"></i> Cookies & Tracking</h2>
+                <p>We use essential cookies to maintain your session and remember your preferences. These enable the
+                    premium visual effects and dashboard persistence you experience on our platform.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-hands-helping"></i> Your Rights</h2>
+                <p>As a member of the MAATKA community, you have the right to request access to the personal information
+                    we hold about you. You may also request corrections to any inaccuracies or, in specific
+                    circumstances, the deletion of your account and associated data.</p>
+                <p>For any privacy-related inquiries, contact our compliance team at <strong>legal@maatka.com</strong>.
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <div>&copy; 2026 MAATKA. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="privacy-policy.html" style="color: var(--gold-primary);">Privacy Policy</a>
+                    <a href="terms-conditions.html">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

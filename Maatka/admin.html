@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAATKA | Admin Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #0f0f0f;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 100%);
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+            --success: #00e676;
+            --danger: #ff5252;
+            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Bg Animation (consistent with index) */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotate(-15deg);
+            top: -50%;
+            left: -50%;
+            opacity: 0.5;
+        }
+
+        /* Login Page Styles */
+        #loginPage {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--black-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 50px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .login-card:hover {
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .login-logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            opacity: 0.7;
+        }
+
+        .input-wrapper .toggle-password {
+            left: auto;
+            right: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .input-wrapper .toggle-password:hover {
+            color: var(--text-light);
+            opacity: 1;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 15px 14px 45px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: var(--gold-gradient);
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            color: var(--black-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Dashboard Styles */
+        #dashboardPage {
+            display: none;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--black-card);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.8rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+            margin-bottom: 50px;
+            padding-left: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .menu-link:hover,
+        .menu-link.active {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold-primary);
+        }
+
+        .menu-link i {
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: var(--danger);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+            background: rgba(255, 82, 82, 0.05);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 280px;
+            padding: 40px;
+            max-width: calc(100% - 280px);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .greeting-box h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .greeting-box p {
+            color: var(--text-gray);
+        }
+
+        .current-time {
+            text-align: right;
+            background: rgba(255, 215, 0, 0.05);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .current-time span {
+            display: block;
+            color: var(--gold-primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--black-card);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+        }
+
+        .stat-info h4 {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+
+        .stat-info span {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Table Section */
+        .table-section {
+            background: var(--black-card);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .table-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 15px 10px 40px;
+            border-radius: 10px;
+            color: white;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            opacity: 0.6;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            width: 350px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 15px;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(255, 215, 0, 0.02);
+        }
+
+        .payment-id {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--gold-primary);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: inline-block;
+            min-width: 90px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-reset {
+            border: 1px solid transparent !important;
+            background: transparent !important;
+            color: var(--text-gray) !important;
+        }
+
+        .btn-reset:hover {
+            color: var(--gold-primary) !important;
+            background: rgba(255, 215, 0, 0.1) !important;
+            border-color: rgba(255, 215, 0, 0.2) !important;
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 80px;
+                padding: 30px 10px;
+            }
+
+            .sidebar-logo {
+                display: none;
+            }
+
+            .menu-link span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+                max-width: calc(100% - 80px);
+            }
+
+            .logout-btn span {
+                display: none;
+            }
+        }
+
+        /* Pagination & Filters New Styles */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.05);
+        }
+
+        .filters-left {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            color-scheme: dark;
+        }
+
+        .filter-control:focus {
+            border-color: var(--gold-primary);
+        }
+
+        .export-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-export {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            background: rgba(255, 215, 0, 0.05);
+            color: var(--gold-primary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-apply {
+            background: var(--gold-primary) !important;
+            color: var(--black-primary) !important;
+            border: none !important;
+        }
+
+        .btn-apply:hover {
+            background: var(--gold-secondary) !important;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-export:hover {
+            background: var(--gold-primary);
+            color: var(--black-primary);
+            transform: translateY(-2px);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gold-primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--gold-primary);
+            color: var(--black-primary);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            min-width: 120px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage">
+        <div class="login-card">
+            <div class="login-logo">MAATKA</div>
+            <p style="margin-bottom: 30px; color: var(--text-gray);">Administrative Access Portal</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                        <i class="far fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">Authorize Access</button>
+            </form>
+            <div id="loginError" class="login-error">Invalid credentials. Please try again.</div>
+            <p style="margin-top: 25px; font-size: 0.8rem; color: var(--text-gray);">
+                Demo: admin / admin123
+            </p>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage">
+        <aside class="sidebar">
+            <div class="sidebar-logo">MAATKA</div>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="admin.html" class="menu-link active">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="members.html" class="menu-link">
+                        <i class="fas fa-users"></i>
+                        <span>Members</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="invoices.html" class="menu-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Invoices</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="transactions.html" class="menu-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="security-logs.html" class="menu-link">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Security Logs</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html" class="menu-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout Session</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="greeting-box">
+                    <h2 id="greetingText">Good Morning, Admin</h2>
+                    <p>Welcome back to the command center.</p>
+                </div>
+                <div class="current-time">
+                    <span id="timeDisplay">10:00:00 AM</span>
+                    <p id="dateDisplay">Wednesday, Feb 11, 2026</p>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+                    <div class="stat-info">
+                        <h4>Total Members</h4>
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <h4>Revenue growth</h4>
+                        <span>0%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+                    <div class="stat-info">
+                        <h4>Value Processed</h4>
+                        <span>₹0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <h4>System Health</h4>
+                        <span style="color: var(--success);">Optimal</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="table-section">
+                <div class="table-header">
+                    <h3 class="table-title">Members Directory</h3>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="memberSearch" placeholder="Search by name, email, or ID...">
+                    </div>
+                </div>
+
+                <div class="controls-bar">
+                    <div class="filters-left">
+                        <div class="filter-group">
+                            <label>Date From</label>
+                            <input type="date" id="dateFrom" class="filter-control">
+                        </div>
+                        <div class="filter-group">
+                            <label>Date To</label>
+                            <input type="date" id="dateTo" class="filter-control">
+                        </div>
+                        <button onclick="applyFilters()" class="btn-export btn-apply">
+                            <i class="fas fa-check"></i> Apply
+                        </button>
+                        <button onclick="clearFilters()" class="btn-export btn-reset">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                    <div class="export-actions">
+                        <button onclick="exportCSV()" class="btn-export"><i class="fas fa-file-csv"></i> Export
+                            CSV</button>
+                        <button onclick="exportPDF()" class="btn-export"><i class="fas fa-file-pdf"></i> Export
+                            PDF</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Name</th>
+                                <th>Join Date</th>
+                                <th>Phone</th>
+                                <th>Email ID</th>
+                                <th>Address</th>
+                                <th>Payment ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="memberTableBody">
+                            <!-- Data injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prevPage" class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <div id="pageInfo" class="page-info">Page 1 of 1</div>
+                    <button id="nextPage" class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Enhanced Mock Data with Dates
+        const mockMembers = [];
+
+        // Pagination State
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let filteredData = [...mockMembers];
+
+        const loginForm = document.getElementById('loginForm');
+        const loginPage = document.getElementById('loginPage');
+        const dashboardPage = document.getElementById('dashboardPage');
+        const loginError = document.getElementById('loginError');
+
+        // Access Control & Date Sync
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateFrom').max = today;
+        document.getElementById('dateTo').max = today;
+
+        if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+            showDashboard();
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if (u === 'admin' && p === 'admin123') {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                showDashboard();
+            } else {
+                loginError.style.display = 'block';
+                setTimeout(() => { loginError.style.display = 'none'; }, 3000);
+            }
+        });
+
+        // Toggle Password Visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+        function showDashboard() {
+            loginPage.style.display = 'none';
+            dashboardPage.style.display = 'flex';
+            updateGreeting();
+            updateTime();
+            applyFilters();
+            setInterval(updateTime, 1000);
+        }
+
+        function logout() {
+            sessionStorage.removeItem('isAdminLoggedIn');
+            location.reload();
+        }
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greetingEl = document.getElementById('greetingText');
+            let greet = "Good night";
+            if (hour >= 5 && hour < 12) greet = "Good morning";
+            else if (hour >= 12 && hour < 17) greet = "Good afternoon";
+            else if (hour >= 17 && hour < 21) greet = "Good evening";
+            greetingEl.textContent = `${greet}, Admin`;
+        }
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('timeDisplay').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // Filter Logic
+        function applyFilters() {
+            const searchTerm = document.getElementById('memberSearch').value.toLowerCase();
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            filteredData = mockMembers.filter(m => {
+                const matchesSearch = m.name.toLowerCase().includes(searchTerm) ||
+                    m.email.toLowerCase().includes(searchTerm) ||
+                    m.paymentId.toLowerCase().includes(searchTerm);
+
+                const matchesDate = (!dateFrom || m.joinDate >= dateFrom) &&
+                    (!dateTo || m.joinDate <= dateTo);
+
+                return matchesSearch && matchesDate;
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        function clearFilters() {
+            document.getElementById('memberSearch').value = '';
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+            applyFilters();
+        }
+
+        // Table Render with Pagination
+        function renderTable() {
+            const tbody = document.getElementById('memberTableBody');
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageData = filteredData.slice(start, end);
+
+            tbody.innerHTML = pageData.map((item, index) => `
+                <tr>
+                    <td>${start + index + 1}</td>
+                    <td style="font-weight: 600;">${item.name}</td>
+                    <td style="color: var(--text-gray);">${item.joinDate}</td>
+                    <td>${item.phone}</td>
+                    <td>${item.email}</td>
+                    <td>${item.address}</td>
+                    <td><span class="payment-id">${item.paymentId}</span></td>
+                </tr>
+            `).join('');
+
+            updatePaginationUI(totalPages);
+        }
+
+        function updatePaginationUI(totalPages) {
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+
+            pageInfo.textContent = `Page ${currentPage} of ${Math.max(1, totalPages)}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // Pagination Events
+        document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTable(); } };
+        document.getElementById('nextPage').onclick = () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (currentPage < totalPages) { currentPage++; renderTable(); }
+        };
+
+        // Export Functionality
+        async function exportPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(20);
+            doc.setTextColor(218, 165, 32); // Goldish
+            doc.text("MAATKA - Members Report", 14, 22);
+            doc.setFontSize(11);
+            doc.setTextColor(100);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
+
+            const tableData = filteredData.map((m, i) => [i + 1, m.name, m.joinDate, m.phone, m.email, m.address, m.paymentId]);
+
+            doc.autoTable({
+                startY: 40,
+                head: [['S.No', 'Name', 'Join Date', 'Phone', 'Email', 'Address', 'Payment ID']],
+                body: tableData,
+                theme: 'grid',
+                headStyles: { fillColor: [40, 40, 40], textColor: [255, 215, 0] }
+            });
+
+            doc.save("maatka_members_report.pdf");
+        }
+
+        function exportCSV() {
+            const headers = "S.No,Name,Join Date,Phone,Email,Address,Payment ID\n";
+            const rows = filteredData.map((m, i) => `${i + 1},${m.name},${m.joinDate},${m.phone},${m.email},${m.address},${m.paymentId}`).join("\n");
+            const blob = new Blob([headers + rows], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'maatka_members_report.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Global Event Listeners
+        document.getElementById('memberSearch').addEventListener('input', applyFilters);
+    </script>
+</body>
+
+</html>

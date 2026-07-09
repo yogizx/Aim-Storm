@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAATKA | Trust & Transparency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    
+    <style>
+        /* --- STYLES PRESERVED FROM TEMPLATE --- */
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #101010;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 50%, #FFC107 100%);
+            --gold-gradient-vertical: linear-gradient(180deg, #FFD700 0%, #F4B400 100%);
+            --gold-glass: rgba(255, 215, 0, 0.12);
+            --gold-light: rgba(255, 215, 0, 0.06);
+            --text-light: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-border: rgba(255, 215, 0, 0.18);
+            --glass-bg: rgba(20, 20, 20, 0.78);
+            --shadow-glow: 0 8px 32px rgba(255, 215, 0, 0.15);
+            --shadow-glow-strong: 0 12px 48px rgba(255, 215, 0, 0.25);
+            --gradient-primary: radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #101010 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--gradient-primary);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Added responsive image handling */
+        img, svg { max-width: 100%; height: auto; }
+
+        .section-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* --- BACKGROUND ANIMATION STYLES --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #151515 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 120s linear infinite;
+            opacity: 0.3;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .orbital-ring {
+            position: absolute;
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 50%;
+            animation: rotateOrbit 80s infinite linear;
+        }
+
+        /* Added back for the small dot */
+        .floating-3d-element {
+            position: absolute;
+            background: var(--gold-gradient);
+            opacity: 0.4;
+            filter: blur(1px);
+            animation: float3d 25s infinite ease-in-out;
+        }
+
+        /* Keyframes */
+        @keyframes gridMove { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(-50px, -50px) rotate(0.5deg); } }
+        @keyframes rotateOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes float3d { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-40px) rotate(180deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.7; text-shadow: 0 0 10px var(--gold-primary); } 50% { opacity: 1; text-shadow: 0 0 20px var(--gold-primary); } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 24px 0;
+            transition: var(--transition);
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+        }
+
+        .navbar.scrolled {
+            padding: 18px 0;
+            background: rgba(10, 10, 10, 0.96);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .logo::after { content: '✦'; font-size: 16px; opacity: 0.7; animation: pulse 2s infinite; }
+        .nav-links { display: flex; gap: 48px; }
+        .nav-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        .nav-link::before { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gold-gradient); transition: var(--transition); }
+        .nav-link:hover { color: var(--text-light); }
+        .nav-link:hover::before { width: 100%; }
+        .nav-actions { display: flex; gap: 16px; align-items: center; }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent); transition: 0.6s; }
+        .btn:hover::before { left: 100%; }
+        .btn-primary { background: var(--gold-gradient); color: var(--black-primary); box-shadow: var(--shadow-glow); font-weight: 700; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow-strong); }
+        
+        /* Hero */
+        .hero {
+            min-height: 90vh; 
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px;
+        }
+        .hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; width: 100%; text-align: center; }
+        .hero-centered { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .hero h1 {
+            font-size: 5rem;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #FFFFFF, var(--gold-primary), var(--gold-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            word-wrap: break-word;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 48px auto;
+            font-weight: 300;
+            line-height: 1.8;
+            padding: 0 10px;
+        }
+
+        /* 3D Icons */
+        .icon-3d { position: relative; width: 80px; height: 80px; perspective: 1000px; margin: 0 auto; }
+        .icon-3d-inner { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .icon-3d-front, .icon-3d-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .icon-3d-front { background: var(--gold-gradient); color: var(--black-primary); transform: rotateY(0deg); }
+        .icon-3d-back { background: var(--black-card); color: var(--gold-primary); border: 2px solid var(--gold-primary); transform: rotateY(180deg); }
+        .icon-3d:hover .icon-3d-inner { transform: rotateY(180deg); }
+
+        /* Trusted Badges Section */
+        .trusted-badges-section {
+            padding: 60px 0;
+            position: relative;
+            z-index: 2;
+            margin-top: -60px; /* Overlap hero slightly */
+            background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(255, 215, 0, 0.02) 50%, rgba(10,10,10,0) 100%);
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.05);
+        }
+
+        .badges-title {
+            text-align: center;
+            font-family: 'Clash Display', sans-serif;
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            letter-spacing: 0.02em;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .badges-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 32px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 50px;
+            color: var(--gold-secondary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            cursor: default;
+            letter-spacing: 0.03em;
+        }
+
+        .trust-badge i {
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .trust-badge:hover {
+            background: rgba(255, 215, 0, 0.08);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+            transform: translateY(-4px);
+            color: #fff;
+        }
+        
+        .trust-badge:hover i {
+            transform: scale(1.1);
+            text-shadow: 0 0 10px var(--gold-primary);
+        }
+
+        /* General Sections */
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content;
+            max-width: 100%;
+        }
+        .section-title::after { content: ''; position: absolute; bottom: -15px; left: 0; width: 100%; height: 2px; background: var(--gold-gradient); border-radius: 2px; opacity: 0.3; }
+
+        /* Benefits Grid */
+        .benefits-section { padding: 100px 0; position: relative; }
+        /* Modified grid for responsiveness */
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 40px; margin-top: 60px; }
+        .benefit-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 48px 36px;
+            transition: var(--transition);
+            backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center;
+        }
+        .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gold-gradient); opacity: 0; transition: var(--transition); }
+        .benefit-card:hover::before { opacity: 1; }
+        .benefit-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-glow-strong); }
+        
+        .benefit-header-center { margin-bottom: 24px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .benefit-icon-container { width: 80px; height: 80px; position: relative; margin: 0 auto; }
+        .benefit-icon-svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3)); }
+        
+        .benefit-card h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--text-light); }
+        .benefit-list { list-style-type: none; width: 100%; text-align: left; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .benefit-list li { margin-bottom: 12px; display: flex; align-items: flex-start; color: var(--text-gray); transition: var(--transition); font-size: 0.95rem; }
+        .benefit-list li i { color: var(--gold-primary); margin-right: 12px; margin-top: 5px; font-size: 0.8rem; }
+
+        /* Trust Grid */
+        .trust-section { padding: 80px 0; position: relative; }
+        /* Modified grid for responsiveness */
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-top: 60px; }
+        .trust-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-card:hover { transform: translateY(-10px); border-color: rgba(255, 215, 0, 0.35); box-shadow: var(--shadow-glow-strong); }
+        .trust-card h3 { font-size: 1.4rem; margin-bottom: 12px; color: var(--gold-primary); }
+        .trust-card p { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; }
+
+        /* FAQ Section */
+        .faq-section { padding: 100px 0; position: relative; }
+        .faq-container { max-width: 900px; margin: 60px auto 0; background: var(--black-card); padding: 40px; border-radius: 30px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-glow); }
+        .faq-item { border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 16px; padding-bottom: 16px; }
+        .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; transition: var(--transition); }
+        .faq-question.active { color: var(--gold-primary); }
+        .faq-question h3 { font-size: 1.3rem; font-weight: 500; }
+        .faq-toggle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 215, 0, 0.12); display: flex; align-items: center; justify-content: center; color: var(--gold-primary); font-size: 1rem; transition: var(--transition); flex-shrink: 0; }
+        .faq-question.active .faq-toggle { background: var(--gold-gradient); color: var(--black-primary); transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text-gray); line-height: 1.8; padding-left: 10px; border-left: 2px solid var(--gold-primary); margin-left: 5px;}
+        .faq-answer.open { max-height: 500px; padding-top: 16px; padding-bottom: 16px; }
+
+        /* CTA */
+        .cta-section { padding: 120px 0; position: relative; text-align: center; border-top: 1px solid rgba(255, 215, 0, 0.15); overflow: hidden; }
+        .cta-title { font-size: 3.5rem; max-width: 800px; margin: 0 auto 30px; line-height: 1.1; position: relative; z-index: 2; }
+        .cta-subtitle { font-size: 1.2rem; margin-bottom: 50px; color: var(--text-gray); position: relative; z-index: 2; padding: 0 10px; }
+        
+        /* Footer */
+        .footer { padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 60px; margin-bottom: 60px; }
+        .footer-logo { font-family: 'Clash Display', sans-serif; font-size: 30px; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; display: inline-block; }
+        .footer-description { color: var(--text-gray); line-height: 1.8; margin-bottom: 24px; font-size: 0.9rem; }
+        .footer-social { display: flex; gap: 15px; }
+        .social-link { width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--text-gray); transition: var(--transition); text-decoration: none; }
+        .social-link:hover { background: var(--gold-gradient); color: var(--black-primary); transform: translateY(-3px); }
+        .footer-column h4 { font-size: 1.1rem; margin-bottom: 24px; color: var(--text-light); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 14px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; transition: var(--transition); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--gold-primary); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-gray); font-size: 0.85rem; display: flex; justify-content: space-between; }
+        .footer-legal { display: flex; gap: 20px; }
+        .footer-legal a { color: var(--text-gray); text-decoration: none; }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .container { max-width: 960px; }
+            .hero h1 { font-size: 4rem; }
+        }
+
+        @media (max-width: 992px) {
+            .container { max-width: 720px; }
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.8rem; }
+            .benefits-grid, .trust-grid { gap: 30px; }
+            .footer-content { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .benefits-section, .trust-section, .faq-section, .cta-section { padding: 80px 0; }
+        }
+
+        @media (max-width: 768px) {
+            .container { max-width: 100%; padding: 0 24px; }
+            .nav-links { display: none; }
+            .hero { padding-top: 100px; min-height: auto; padding-bottom: 80px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .section-title { font-size: 2.2rem; }
+            .trusted-badges-section { padding: 40px 0; }
+            .badges-title { font-size: 1.5rem; }
+            
+            /* Force single column for better mobile experience */
+            .benefits-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr; }
+            
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; align-items: center; }
+            .footer-legal { justify-content: center; }
+            
+            .cta-title { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 2.2rem; margin-bottom: 16px; }
+            .hero p { font-size: 1rem; margin-bottom: 32px; }
+            .section-title { font-size: 1.8rem; }
+            
+            /* Smaller logo on mobile */
+            .logo { font-size: 24px; }
+            .logo::after { font-size: 12px; }
+            
+            /* Adjust buttons for touch targets */
+            .btn { padding: 14px 24px; width: 100%; }
+            .nav-actions .btn { width: auto; padding: 10px 16px; font-size: 0.8rem; }
+            
+            .trust-badge { width: 100%; justify-content: center; }
+            
+            .benefit-card { padding: 32px 24px; }
+            .trust-card { padding: 32px 24px; }
+            
+            .faq-container { padding: 24px 16px; }
+            .faq-question h3 { font-size: 1.1rem; }
+            
+            .cta-title { font-size: 2rem; }
+            .cta-section { padding: 80px 0; }
+            
+            /* Adjust footer spacing */
+            .footer { padding: 60px 0 30px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+        <canvas id="hero-canvas"></canvas>
+        <div class="orbital-ring" style="width: 80vw; height: 80vw; top: -30vw; left: -30vw; animation-duration: 120s;"></div>
+        <div class="orbital-ring" style="width: 60vw; height: 60vw; top: -20vw; left: -20vw; animation-duration: 80s; animation-direction: reverse;"></div>
+        
+        <div class="floating-3d-element" style="width: 40px; height: 40px; top: 15%; left: 10%; border-radius: 10px; animation-delay: 0s;"></div>
+        </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="dark.html" class="logo">MAATKA</a>
+            <div class="nav-links">
+                <a href="dark.html" class="nav-link">Home</a>
+                <a href="#security" class="nav-link">How It Works</a>
+                <a href="#transparency" class="nav-link">Benefits</a>
+                <a href="#compliance" class="nav-link">Trust</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#cta" class="btn btn-primary">JOIN NOW</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content hero-centered">
+            <div class="section-subtitle">BUILDING LASTING PARTNERSHIPS</div>
+            <h1>Trust & Transparency</h1>
+            <p>Our commitment to integrity, security, and open governance forms the bedrock of the MAATKA ecosystem.</p>
+            <div class="icon-3d">
+                <div class="icon-3d-inner">
+                    <div class="icon-3d-front"><i class="fas fa-shield-alt"></i></div>
+                    <div class="icon-3d-back"><i class="fas fa-lock"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trusted-badges-section">
+        <div class="container">
+            <h2 class="badges-title">Trusted By Members Across India</h2>
+            <div class="badges-row">
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i> Secure SSL
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-check"></i> Razorpay Verified
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-envelope"></i> Email Verified
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i> Data Protected
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="benefits-section">
+        <div class="container">
+            <div class="section-subtitle">UNCOMPROMISING SAFETY</div>
+            <h2 class="section-title">Security Measures</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                             <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#F4B400;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M50 15 L85 30 V55 C85 75 50 90 50 90 C50 90 15 75 15 55 V30 L50 15 Z" fill="none" stroke="url(#grad1)" stroke-width="3" />
+                                <circle cx="50" cy="50" r="10" fill="#FFD700" opacity="0.8"/>
+                            </svg>
+                        </div>
+                        <h3>Personal Security</h3>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> 24/7 Monitoring systems</li>
+                        <li><i class="fas fa-check"></i> Multi-factor authentication</li>
+                        <li><i class="fas fa-check"></i> Fraud detection AI</li>
+                        <li><i class="fas fa-check"></i> Biometric verification</li>
+                        <li><i class="fas fa-check"></i> Session management tools</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                            <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <rect x="25" y="40" width="50" height="40" rx="5" fill="rgba(255, 215, 0, 0.1)" stroke="url(#grad1)" stroke-width="3" />
+                                <path d="M35 40 V25 C35 15 65 15 65 25 V40" fill="none" stroke="#F4B400" stroke-width="3" />
+                                <circle cx="50" cy="60" r="5" fill="#FFD700"/>
+                                <line x1="50" y1="65" x2="50" y2="72" stroke="#FFD700" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Data Privacy</h3>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> End-to-End Encryption</li>
+                        <li><i class="fas fa-check"></i> Zero-Knowledge Architecture</li>
+                        <li><i class="fas fa-check"></i> No third-party data sharing</li>
+                        <li><i class="fas fa-check"></i> Anonymous browsing options</li>
+                        <li><i class="fas fa-check"></i> Decentralized storage</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                            <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#grad1)" stroke-width="3" />
+                                <path d="M50 30 L60 45 H40 Z" fill="#FFD700" />
+                                <rect x="45" y="50" width="10" height="20" fill="rgba(255,255,255,0.2)" />
+                                <path d="M20 50 L30 50" stroke="#F4B400" stroke-width="2"/>
+                                <path d="M70 50 L80 50" stroke="#F4B400" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Privacy Compliance</h3>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> Full GDPR Compliance</li>
+                        <li><i class="fas fa-check"></i> Regular Security Audits</li>
+                        <li><i class="fas fa-check"></i> Automated Threat Response</li>
+                        <li><i class="fas fa-check"></i> ISO 27001 Certified</li>
+                        <li><i class="fas fa-check"></i> White-hat bug bounty</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="transparency" class="faq-section">
+        <div class="container">
+            <div class="section-subtitle">OUR PROMISE</div>
+            <h2 class="section-title">Our Transparency Promise</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Clear Pricing</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer open">
+                        We believe in absolute clarity. All membership tiers, transaction fees, and operational costs are visible on the blockchain dashboard. There are no hidden charges, ever.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Honest Growth</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        MAATKA grows through genuine community engagement and value creation, not artificial inflation. We publish quarterly audits and roadmap updates accessible to all verified members.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Ethical Practices</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Our governance model prevents centralization of power. Decisions are made through DAO voting, ensuring that the community's ethical standards guide our evolution.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Zero Fees on Transfer</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Transfers of assets between Legacy ID holders incur zero platform fees. We prioritize liquidity and ease of movement for our loyal members over profit extraction.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Always On Support</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Our dedicated support team operates 24/7/365. We don't use bots for critical issues—you will always reach a human expert committed to resolving your concerns promptly.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="compliance" class="trust-section">
+        <div class="container">
+            <div class="section-subtitle">LEGAL FRAMEWORK</div>
+            <h2 class="section-title">Legal & Compliance</h2>
+            
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-balance-scale"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-gavel"></i></div>
+                        </div>
+                    </div>
+                    <h3>Anti-Money Laundering</h3>
+                    <p>Rigorous AML protocols ensuring a safe ecosystem free from illicit activities.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-file-contract"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-pen-nib"></i></div>
+                        </div>
+                    </div>
+                    <h3>Clear Terms</h3>
+                    <p>Plain English terms of service. No legalese designed to confuse or mislead.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-credit-card"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                    </div>
+                    <h3>Payment Compliance</h3>
+                    <p>Adherence to global payment standards (PCI-DSS) for all fiat transactions.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-database"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-server"></i></div>
+                        </div>
+                    </div>
+                    <h3>Data Protection</h3>
+                    <p>Your data is yours. We strictly adhere to data sovereignty laws globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Join With Confidence</h2>
+            <p class="cta-subtitle">Experience a platform built on the pillars of integrity, security, and transparency.</p>
+            <a href="#" class="btn btn-primary cta-button">
+                START YOUR JOURNEY <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+            
+            <div style="margin-top: 40px; color: var(--text-gray); font-size: 0.9rem;">
+                <i class="fas fa-shield-alt" style="color: var(--gold-primary); margin-right: 8px;"></i>
+                Verified & Audited by Top Tier Firms
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">MAATKA</div>
+                    <p class="footer-description">Premium digital membership platform for secure, collective growth. Institutional-grade security meets radical transparency.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="dark.html">Home</a></li>
+                        <li><a href="#security">How It Works</a></li>
+                        <li><a href="#transparency">Benefits</a></li>
+                        <li><a href="#">Trust</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Support@Maatka.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 MAATKA. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Canvas Network Animation ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const properties = { particleColor: 'rgba(255, 215, 0, 1)', connectionDistance: 150, mouseDistance: 200, particleCount: 70 };
+        let mouse = { x: null, y: null };
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1; this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < properties.mouseDistance) {
+                        const force = (properties.mouseDistance - distance) / properties.mouseDistance;
+                        this.x -= (dx / distance) * force * 2; this.y -= (dy / distance) * force * 2;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 40 : properties.particleCount;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x; let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < properties.connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 215, 0, ${(1 - distance / properties.connectionDistance) * 0.2})`;
+                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNetwork);
+        }
+
+        // --- UI Interactions ---
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+                
+                document.querySelectorAll('.faq-answer').forEach(item => item.classList.remove('open'));
+                document.querySelectorAll('.faq-question').forEach(item => item.classList.remove('active'));
+                
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    question.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Animation
+        let elementsAnimated = new Set();
+        function animateOnScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+
+            const animateElements = document.querySelectorAll('.benefit-card, .trust-card, .trust-badge');
+            animateElements.forEach(el => {
+                if (!elementsAnimated.has(el)) {
+                    const elPosition = el.getBoundingClientRect().top;
+                    if (elPosition < window.innerHeight * 0.85) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                        elementsAnimated.add(el);
+                    }
+                }
+            });
+        }
+
+        // Tilt Effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.benefit-card, .trust-card');
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const mouseX = (e.clientX - centerX) / centerX;
+            const mouseY = (e.clientY - centerY) / centerY;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const dist = Math.sqrt(Math.pow(e.clientX - (rect.left + rect.width/2), 2) + Math.pow(e.clientY - (rect.top + rect.height/2), 2));
+                
+                if (dist < 400) {
+                    const tiltX = (mouseY * 3);
+                    const tiltY = (-mouseX * 3);
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
+                } else {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                }
+            });
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            initParticles();
+            animateNetwork();
+            
+            // Set initial state for animations
+            document.querySelectorAll('.benefit-card, .trust-card, .trust-badge').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            animateOnScroll();
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

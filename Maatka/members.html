@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAATKA | Members Management</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #0f0f0f;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 100%);
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+            --success: #00e676;
+            --danger: #ff5252;
+            --warning: #ffb300;
+            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Bg Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotate(-15deg);
+            top: -50%;
+            left: -50%;
+            opacity: 0.5;
+        }
+
+        /* Dashboard Styles */
+        #membersPage {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--black-card);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.8rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+            margin-bottom: 50px;
+            padding-left: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .menu-link:hover,
+        .menu-link.active {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold-primary);
+        }
+
+        .menu-link i {
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: var(--danger);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+            background: rgba(255, 82, 82, 0.05);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 280px;
+            padding: 40px;
+            max-width: calc(100% - 280px);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .greeting-box h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .greeting-box p {
+            color: var(--text-gray);
+        }
+
+        .current-time {
+            text-align: right;
+            background: rgba(255, 215, 0, 0.05);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .current-time span {
+            display: block;
+            color: var(--gold-primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .btn-add {
+            background: var(--gold-gradient);
+            color: var(--black-primary);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Stats Section in Members */
+        .member-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .m-stat-card {
+            background: var(--black-card);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: b-space-between;
+            align-items: center;
+        }
+
+        .m-stat-info h4 {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .m-stat-info span {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Table Section */
+        .table-section {
+            background: var(--black-card);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px 12px 45px;
+            border-radius: 12px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+        }
+
+        .filters-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            outline: none;
+            color-scheme: dark;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 15px;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(255, 179, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .status-blocked {
+            background: rgba(255, 82, 82, 0.1);
+            color: var(--danger);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        .btn-action.delete:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gold-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Detail Modal Placeholder */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--black-card);
+            border: 1px solid var(--gold-primary);
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        @media (max-width: 1024px) {
+            .member-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-logo,
+            .menu-link span,
+            .logout-btn span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+                max-width: calc(100% - 80px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+    </div>
+
+    <div id="membersPage">
+        <aside class="sidebar">
+            <div class="sidebar-logo">MAATKA</div>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="admin.html" class="menu-link">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="members.html" class="menu-link active">
+                        <i class="fas fa-users"></i>
+                        <span>Members</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="invoices.html" class="menu-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Invoices</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="transactions.html" class="menu-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="security-logs.html" class="menu-link">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>Security Logs</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html" class="menu-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout Session</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="greeting-box">
+                    <h2>Member Management</h2>
+                    <p>Total authorized users in the system</p>
+                </div>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <button class="btn-add" onclick="alert('Functionality to add member coming soon!')">
+                        <i class="fas fa-plus"></i> New Member
+                    </button>
+                    <div class="current-time">
+                        <span id="timeDisplay">10:00:00 AM</span>
+                        <p id="dateDisplay">Wednesday, Feb 11, 2026</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="member-stats">
+                <div class="m-stat-card">
+                    <div class="m-stat-info">
+                        <h4>Active Members</h4>
+                        <span>0</span>
+                    </div>
+                    <i class="fas fa-user-check" style="color: var(--success); font-size: 1.5rem;"></i>
+                </div>
+                <div class="m-stat-card">
+                    <div class="m-stat-info">
+                        <h4>Pending Verify</h4>
+                        <span>0</span>
+                    </div>
+                    <i class="fas fa-clock" style="color: var(--warning); font-size: 1.5rem;"></i>
+                </div>
+                <div class="m-stat-card">
+                    <div class="m-stat-info">
+                        <h4>Blacklisted</h4>
+                        <span>0</span>
+                    </div>
+                    <i class="fas fa-user-slash" style="color: var(--danger); font-size: 1.5rem;"></i>
+                </div>
+            </div>
+
+            <section class="table-section">
+                <div class="controls-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="memberSearch" placeholder="Search members by name, ID, or email...">
+                    </div>
+                    <div class="filters-group">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                            <option value="blocked">Blocked</option>
+                        </select>
+                        <button onclick="exportCSV()" class="btn-action" title="Export CSV"
+                            style="width: 44px; height: 44px;"><i class="fas fa-file-csv"></i></button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Member Profile</th>
+                                <th>Contact Info</th>
+                                <th>Status</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersList">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span style="color: var(--text-gray)">Page 1 of 24</span>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Security Gate: Prevent direct access
+        if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
+            window.location.href = 'admin.html';
+        }
+
+        const members = [];
+
+        function renderMembers(data) {
+            const tbody = document.getElementById('membersList');
+            tbody.innerHTML = data.map((m, i) => `
+                <tr>
+                    <td style="color: var(--text-gray); font-size: 0.8rem;">#00${m.id}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 32px; height:32px; border-radius: 50%; background: var(--gold-primary); color: var(--black-primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem;">
+                                ${m.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">${m.name}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-gray);">${m.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-size: 0.85rem;">${m.phone}</div>
+                    </td>
+                    <td>
+                        <span class="status-badge status-${m.status}">${m.status}</span>
+                    </td>
+                    <td style="color: var(--text-gray); font-size: 0.85rem;">${m.date}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-action" title="View"><i class="fas fa-eye"></i></button>
+                            <button class="btn-action" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-action delete" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        renderMembers(members);
+
+        // Search and Filter Logic
+        document.getElementById('memberSearch').addEventListener('input', filterData);
+        document.getElementById('statusFilter').addEventListener('change', filterData);
+
+        function filterData() {
+            const search = document.getElementById('memberSearch').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+
+            const filtered = members.filter(m => {
+                const matchesSearch = m.name.toLowerCase().includes(search) || m.email.toLowerCase().includes(search) || m.phone.includes(search);
+                const matchesStatus = status === 'all' || m.status === status;
+                return matchesSearch && matchesStatus;
+            });
+
+            renderMembers(filtered);
+        }
+
+        function exportCSV() {
+            const headers = "ID,Name,Email,Phone,Status,Join Date\n";
+            const rows = members.map(m => `${m.id},${m.name},${m.email},${m.phone},${m.status},${m.date}`).join("\n");
+            const blob = new Blob([headers + rows], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "maatka_members.csv";
+            a.click();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('isAdminLoggedIn');
+            window.location.href = 'admin.html';
+        }
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('timeDisplay').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function logout() {
+            sessionStorage.removeItem('isAdminLoggedIn');
+            window.location.href = 'admin.html';
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+
+</html>

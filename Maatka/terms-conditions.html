@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions | MAATKA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #101010;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 50%, #FFC107 100%);
+            --gold-glass: rgba(255, 215, 0, 0.12);
+            --text-light: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-border: rgba(255, 215, 0, 0.18);
+            --glass-bg: rgba(20, 20, 20, 0.78);
+            --shadow-glow: 0 8px 32px rgba(255, 215, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #151515 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.3;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 24px 0;
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        /* Legal Content */
+        .legal-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 80px;
+        }
+
+        .legal-header h1 {
+            font-size: 4rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .last-updated {
+            color: var(--gold-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .legal-body {
+            padding-bottom: 100px;
+        }
+
+        .legal-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        .legal-section h2 {
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .legal-section h2 i {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .legal-section p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: var(--gold-gradient);
+            color: var(--black-primary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            background: var(--black-secondary);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-primary);
+        }
+
+        @media (max-width: 768px) {
+            .legal-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .legal-section {
+                padding: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .footer-links a {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">MAATKA</a>
+            <div class="nav-links">
+                <a href="join.html" style="text-decoration: none;" class="btn btn-primary">JOIN NOW</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="legal-header">
+            <div class="last-updated">Last Updated: February 2026</div>
+            <h1>Terms & Conditions</h1>
+        </header>
+
+        <main class="legal-body">
+            <section class="legal-section">
+                <h2><i class="fas fa-file-contract"></i> Membership Agreement</h2>
+                <p>Welcome to MAATKA. By accessing this platform and completing the onboarding process, you agree to
+                    comply with and be bound by the following terms and conditions. If you do not agree to these terms,
+                    please do not use our services.</p>
+                <p>Membership is exclusive and granted upon the successful payment of a one-time fee of <strong>₹900
+                        (inclusive of GST)</strong>.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-gem"></i> Digital Assets & Utility</h2>
+                <p>MAATKA provides members with various digital holdings as part of their membership package:</p>
+                <ul>
+                    <li><strong>Sudarshana Coin:</strong> A core ecosystem asset provided to support long-term member
+                        confidence and ecosystem utility. Holding this coin grants participation rights within the
+                        MAATKA network.</li>
+                    <li><strong>KRITA Credits:</strong> A utility balance provided for platform-specific operations,
+                        premium feature access, and campaign participation.</li>
+                    <li><strong>Legacy ID:</strong> A non-transferable permanent digital identity credential that serves
+                        as the basis for prize eligibility and ecosystem access levels.</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-trophy"></i> Prize Pot Program</h2>
+                <p>The MAATKA Prize Pot (₹1 Crore Primary Prize) is a milestone-based reward program designed for our
+                    community. The following conditions apply:</p>
+                <ul>
+                    <li>Selection and distribution of prizes will occur <strong>only after the platform reaches a
+                            minimum milestone of 10 million (1 Crore) verified participants</strong>.</li>
+                    <li>Probability of selection is based on the unique per-member Legacy ID.</li>
+                    <li>Prizes are subject to applicable taxes as per regional regulatory frameworks at the time of
+                        distribution.</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-user-shield"></i> User Responsibilities</h2>
+                <p>Members must provide accurate information during registration. You are responsible for maintaining
+                    the security of your account and Legacy ID. Any fraudulent activity or attempt to manipulate the
+                    platform will result in immediate termination of membership without refund.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Limitation of Liability</h2>
+                <p>MAATKA redefines premium membership but does not guarantee specific financial returns. The value of
+                    digital holdings and ecosystem participation is subject to platform growth and community engagement.
+                    MAATKA shall not be held liable for indirect, incidental, or consequential damages arising from your
+                    use of the platform.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2><i class="fas fa-gavel"></i> Governing Law</h2>
+                <p>These terms and conditions are governed by and construed in accordance with the laws applicable to
+                    the territory in which MAATKA operates. Any disputes shall be subject to the exclusive jurisdiction
+                    of the regional courts.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <div>&copy; 2026 MAATKA. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-conditions.html" style="color: var(--gold-primary);">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
