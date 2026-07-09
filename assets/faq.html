@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions | Aim Storm</title>
+    <meta name="description"
+        content="Everything you need to know about Aim Storm's web development, SEO, app development & branding services in Madurai and India.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Saira:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/b.css">
+    <link rel="stylesheet" href="assets/css/a.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="site-nav">
+        <div class="nav-inner">
+
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/" class="logo-link">
+                    <img src="assets/Images/Logo/Aim Storm Logo vertical.png" alt="Aim Storm" class="logo-img">
+                </a>
+            </div>
+
+            <!-- Right: Navigation Menu -->
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About&nbsp;Us</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="case-studies.html" class="nav-link">Case&nbsp;Studies</a></li>
+                    <li><a href="team.html" class="nav-link">Team</a></li>
+                    <li><a href="faq.html" class="nav-link nav-home">FAQ</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Mobile Button -->
+            <div class="nav-right">
+                <button id="mobileToggle" class="mobile-toggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Panel -->
+        <div id="mobilePanel" class="mobile-panel">
+            <a href="index.html" class="m-link">Home</a>
+            <a href="about.html" class="m-link">About Us</a>
+            <a href="services.html" class="m-link">Services</a>
+            <a href="case-studies.html" class="m-link">Case Studies</a>
+            <a href="team.html" class="nav-link">Team</a>
+            <a href="faq.html" class="m-link">FAQ</a>
+            <a href="contact.html" class="m-cta">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ========== Tiny JS for mobile toggle & keyboard behavior ========== -->
+    <script>
+        (function () {
+            const toggle = document.getElementById('mobileToggle');
+            const panel = document.getElementById('mobilePanel');
+
+            toggle.addEventListener("click", () => {
+                const isOpen = panel.style.display === "block";
+                panel.style.display = isOpen ? "none" : "block";
+            });
+
+            if (!mobileToggle || !mobilePanel) return;
+
+            mobileToggle.addEventListener('click', () => {
+                const open = mobilePanel.classList.toggle('open');
+                mobilePanel.style.display = open ? 'block' : 'none';
+                mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                mobilePanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+
+                // animate hamburger -> X
+                const spans = mobileToggle.querySelectorAll('span');
+                if (open) {
+                    spans[0].style.transform = 'translateY(8px) rotate(45deg)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+                } else {
+                    spans[0].style.transform = '';
+                    spans[1].style.opacity = '';
+                    spans[2].style.transform = '';
+                }
+            });
+
+            // close panel on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobilePanel.classList.contains('open')) {
+                    mobilePanel.classList.remove('open');
+                    mobilePanel.style.display = 'none';
+                    mobileToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // ensure panel hidden on resize > breakpoint
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 960) {
+                    mobilePanel.classList.remove('open'); mobilePanel.style.display = 'none';
+                    mobileToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+    </script><br><br>
+
+    <!-- Hero Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section__header reveal">
+                <h1 class="hero__title">Frequently Asked Questions</h1>
+                <p class="section__subtitle">
+                    Everything You Need to Know About Aim Storm's Web Development, SEO, App Development & Branding
+                    Services
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="faq-search reveal">
+                <input type="text" id="faq-search" placeholder="Search FAQs..." />
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ List -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-list reveal">
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q1: What is Aim Storm best known for?</summary>
+                    <div class="faq-item__answer">
+                        <p>
+                            Aim Storm is recognized as a web development company in Madurai, a mobile app development
+                            agency in India,
+                            and a digital marketing & SEO company for startups and enterprises. We provide end-to-end
+                            digital solutions including:
+                        </p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li>Website development (static, dynamic, e-commerce)</li>
+                            <li>Mobile app development (Android, iOS, hybrid)</li>
+                            <li>SEO services in Madurai & India</li>
+                            <li>Digital marketing (SMM, PPC, SEM, content marketing)</li>
+                            <li>Branding & creative design services</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q2: How much does it cost to build a website in Madurai or
+                        India?</summary>
+                    <div class="faq-item__answer">
+                        <p>The cost of website development depends on type & complexity:</p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li><strong>Static websites:</strong> ₹15,000 – ₹30,000</li>
+                            <li><strong>Dynamic websites:</strong> ₹40,000 – ₹80,000</li>
+                            <li><strong>E-commerce websites in India:</strong> ₹75,000 – ₹2,50,000 depending on features
+                                (payment gateway, inventory, analytics)</li>
+                            <li><strong>Custom web apps (ERP/CRM):</strong> ₹1.5 lakh – ₹10 lakh</li>
+                        </ul>
+                        <p>Aim Storm provides affordable website development in Madurai with premium quality.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q3: Which is the best SEO company in Madurai?</summary>
+                    <div class="faq-item__answer">
+                        <p>
+                            Aim Storm is considered one of the best SEO services companies in Madurai. Our SEO
+                            strategies include:
+                        </p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li><strong>On-page SEO:</strong> meta tags, content optimization</li>
+                            <li><strong>Off-page SEO:</strong> backlinks, directory listings</li>
+                            <li><strong>Technical SEO:</strong> mobile speed, sitemaps, schema</li>
+                        </ul>
+                        <p>We specialize in local SEO for Madurai businesses and national SEO for Indian startups.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q4: Do you provide digital marketing services outside Madurai?
+                    </summary>
+                    <div class="faq-item__answer">
+                        <p>
+                            Yes ✅. While Aim Storm is based in Madurai, we serve clients across India, UAE, and USA.
+                            Our digital marketing agency in India offers:
+                        </p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li>Facebook & Instagram ad campaigns</li>
+                            <li>Google Ads (SEM & PPC)</li>
+                            <li>YouTube Ads</li>
+                            <li>LinkedIn lead generation</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q5: How long does mobile app development take?</summary>
+                    <div class="faq-item__answer">
+                        <p>The timeline depends on the type of app:</p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li><strong>Simple Android/iOS apps:</strong> 1–2 months</li>
+                            <li><strong>E-commerce mobile apps:</strong> 3–5 months</li>
+                            <li><strong>Complex custom apps (healthcare/finance/ERP):</strong> 6+ months</li>
+                        </ul>
+                        <p>We follow agile development, so you get regular updates every week.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q6: Do you also provide branding services?</summary>
+                    <div class="faq-item__answer">
+                        <p>Yes ✅. Aim Storm is also a branding agency in Madurai. We provide:</p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li>Logo design</li>
+                            <li>Brochures, posters, flyers</li>
+                            <li>Social media branding kits</li>
+                            <li>Business stationery</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q7: What industries do you serve?</summary>
+                    <div class="faq-item__answer">
+                        <p>We have worked across:</p>
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li><strong>Education:</strong> training institutes, online learning platforms</li>
+                            <li><strong>Retail & E-commerce:</strong> mobile stores, boutiques, online shopping</li>
+                            <li><strong>Healthcare:</strong> clinics, medical apps</li>
+                            <li><strong>Finance:</strong> fintech startups, billing software</li>
+                            <li><strong>Cultural organizations:</strong> heritage festivals, NGOs</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q8: Do you provide support after project delivery?</summary>
+                    <div class="faq-item__answer">
+                        <p>
+                            Yes ✅. Aim Storm offers website maintenance, SEO monitoring, app updates, and branding
+                            support
+                            even after project delivery. We ensure long-term partnerships and growth.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q9: Why choose Aim Storm over other companies?</summary>
+                    <div class="faq-item__answer">
+                        <ul style="padding-left:var(--space-lg);color:var(--color-neutral-300);">
+                            <li>We provide end-to-end services under one roof</li>
+                            <li>115+ projects completed across industries</li>
+                            <li>Affordable pricing with premium quality</li>
+                            <li>SEO + technology = growth-driven approach</li>
+                            <li>Trusted in Madurai, India, and abroad</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-item__question">Q10: How can I contact Aim Storm?</summary>
+                    <div class="faq-item__answer">
+                        <p><strong>📍 Address:</strong> No - 18 Puliyur Village, Samanatham (P.O), Nedungulam Road,
+                            Madurai, India – 625001</p>
+                        <p><strong>📱 Mobile:</strong> +91 70927 00027</p>
+                        <p><strong>📧 Email:</strong> aimstormmdu@gmail.com | info@aimstorm.in</p>
+                        <p><strong>🌐 Website:</strong> www.aimstorm.in</p>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-block reveal">
+                <div>
+                    <h2 class="cta-block__title">Still Have Questions?</h2>
+                    <p class="cta-block__subtitle">
+                        Our team is ready to answer all your queries about web development, SEO, mobile apps, and
+                        digital marketing.
+                    </p>
+                    <a href="contact" class="btn btn--primary btn--large" style="margin-top:var(--space-lg);">
+                        Get In Touch
+                        <svg class="icon icon--arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </a>
+                </div>
+                <div>
+                    <img src="assets/Images/img/faq.jpg" alt="FAQ Support"
+                        style="width:100%;height:auto;border-radius:var(--radius-lg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-layzo">
+        <div class="footer-container">
+
+            <div class="footer-top">
+                <div class="footer-brand-col">
+                    <div class="brand-header"
+                        style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                        <div class="footer-bottom-logo" style="width: 50px;">
+                            <img src="assets/Images/Logo/Aim Storm white Logo.png" alt="Aim Storm"
+                                style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <div class="footer-logo-text" style="margin: 0; font-size: 2rem; line-height: 1;">Aim Storm
+                        </div>
+                    </div>
+
+                    <p class="footer-tagline">
+                        Together, we turn your<br>vision into a digital empire.
+                    </p>
+
+                    <div class="social-circles">
+                        <a href="#" class="social-circle" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.5-3.89 3.77-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-circle" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-circle" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aim-storm-7b0718169?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            class="social-circle" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-nav-grid">
+                    <div class="nav-col">
+                        <h4>Pages</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="case-studies.html">Case Studies</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Get in Touch</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-col">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">Mobile App Dev</a></li>
+                            <li><a href="#">SEO & Marketing</a></li>
+                            <li><a href="#">Branding</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-col contact-col">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-list">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>No - 18 Puliyur Village,
+                                    Samanatham (P.O), Nedungulam Road,
+                                    Madurai, India – 625001</span>
+                            </li>
+                            <li>
+                                <a href="tel:+917092700027">
+                                    <i class="fas fa-phone-alt"></i> +91 70927 00027
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:info@aimstorm.in">
+                                    <i class="fas fa-envelope"></i> info@aimstorm.in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-newsletter-centered">
+                <h3>Subscribe to Our Newsletter</h3>
+
+                <form class="footer-pill-form">
+                    <input type="email" placeholder="Enter your email" class="pill-input" required>
+                    <button type="submit" class="pill-btn">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-credits" style="text-align: center;">
+                © 2025 AimStorm. Make demand. Not noise.
+            </div>
+        </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/0000000000?text=HelloAimStorm" target="_blank" rel="noopener" class="fab fab--whatsapp"
+        aria-label="WhatsApp Business">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
+        <span class="fab__text">Let's Talk</span>
+    </a>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        // FAQ Search Functionality
+        document.getElementById('faq-search').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-item__question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-item__answer').textContent.toLowerCase();
+
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

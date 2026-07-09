@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="assets/css/b.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Case Studies — Red & Black</title>
+  <style>
+    /* RED & BLACK COLOR SYSTEM */
+    :root {
+      --color-primary: #D41414;
+      /* Your Red */
+      --color-primary-hover: #ff1f1f;
+      --color-accent: #FF4444;
+
+      --color-success: #22C55E;
+      --color-success-bg: rgba(34, 197, 94, 0.15);
+
+      /* Dark Scale */
+      --color-black: #000000;
+      --color-dark-1: #0A0A0A;
+      /* Main Background */
+      --color-dark-2: #141414;
+      /* Card Background */
+      --color-dark-3: #1F1F1F;
+      /* Borders / Secondary */
+
+      /* Text Colors */
+      --text-main: #FFFFFF;
+      --text-muted: #A3A3A3;
+
+      /* Functional Mappings */
+      --bg: var(--color-dark-1);
+      --card: var(--color-dark-2);
+      --border: var(--color-dark-3);
+
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      --shadow-red: 0 8px 30px rgba(212, 20, 20, 0.25);
+
+      --radius: 14px;
+      --container: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", Arial;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    /* Page wrapper */
+    .wrap {
+      max-width: var(--container);
+      margin: 36px auto;
+      padding: 28px;
+    }
+
+    /* Top hero - Centered Layout */
+    .hero {
+      display: flex;
+      /* Changed to flex for full centering */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .hero-left {
+      padding: 18px;
+      max-width: 700px;
+    }
+
+    /* H1 Styling: Red "Case", White "Studies" */
+    h1 {
+      font-size: 56px;
+      /* Made larger */
+      margin: 0 0 16px;
+      line-height: 1;
+      color: var(--text-main);
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    p.lead {
+      color: var(--text-muted);
+      margin: 0 auto;
+      font-size: 18px;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    /* Hero Stats Bar (Moved below text) */
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .stat {
+      flex: 1;
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--color-primary);
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .stat small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-red);
+    }
+
+    .thumb {
+      height: 200px;
+      background: var(--color-dark-3);
+      opacity: 0.9;
+      position: relative;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .card:hover .thumb img {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 18px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      background: rgba(212, 20, 20, 0.1);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(212, 20, 20, 0.2);
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .card-cta {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+    }
+
+    .mini {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--color-primary);
+      background: transparent;
+      color: var(--color-primary);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+
+    .mini:hover {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    /* DETAIL PANEL */
+    .detail {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-height: 90vh;
+      background: var(--color-dark-1);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -10px 80px rgba(0, 0, 0, 1);
+      transform: translateY(110%);
+      transition: transform .5s cubic-bezier(.19, 1, .22, 1);
+      z-index: 999;
+      padding: 40px;
+      overflow: auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .detail.open {
+      transform: translateY(0);
+    }
+
+    .detail-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    .detail-title {
+      font-size: 32px;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .close {
+      background: var(--card);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .close:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(212, 20, 20, 0.05);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 48px;
+    }
+
+    /* Detail Content */
+    .detail-content p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 16px;
+      margin-top: 0;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section h4 {
+      margin: 0 0 12px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section h4::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 16px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    /* --- RESULTS CARDS --- */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .res-card {
+      background: var(--color-dark-2);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .res-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .res-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--color-primary), #B01010);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 15px rgba(212, 20, 20, 0.4);
+    }
+
+    .res-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-success);
+      background: var(--color-success-bg);
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .res-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .res-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin: 8px 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+    }
+
+    .res-context {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Sidebar CTA */
+    .detail-side {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      height: fit-content;
+    }
+
+    .btn {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: var(--shadow-red);
+      transition: all 0.2s ease;
+      width: 100%;
+      font-size: 15px;
+    }
+
+    .btn:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 20, 20, 0.4);
+    }
+
+    /* Responsive */
+    @media(max-width:1100px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .results-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:760px) {
+      .wrap {
+        padding: 16px
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero-stats {
+        flex-direction: column
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a href="/" class="logo-link">
+          <img src="assets/Images/Logo/Aim Storm Logo vertical.png" alt="Aim Storm" class="logo-img">
+        </a>
+      </div>
+
+      <!-- Right: Navigation Menu -->
+      <div class="nav-menu">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link ">Home</a></li>
+          <li><a href="about.html" class="nav-link">About&nbsp;Us</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="case-studies.html" class="nav-link nav-home">Case&nbsp;Studies</a></li>
+          <li><a href="team.html" class="nav-link">Team</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Mobile Button -->
+      <div class="nav-right">
+        <button id="mobileToggle" class="mobile-toggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Panel -->
+    <div id="mobilePanel" class="mobile-panel">
+      <a href="index.html" class="m-link">Home</a>
+      <a href="about.html" class="m-link">About Us</a>
+      <a href="services.html" class="m-link">Services</a>
+      <a href="case-studies.html" class="m-link">Case Studies</a>
+      <a href="team.html" class="nav-link">Team</a>
+      <a href="faq.html" class="m-link">FAQ</a>
+      <a href="contact.html" class="m-cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ========== Tiny JS for mobile toggle & keyboard behavior ========== -->
+  <script>
+    (function () {
+      const toggle = document.getElementById('mobileToggle');
+      const panel = document.getElementById('mobilePanel');
+
+      toggle.addEventListener("click", () => {
+        const isOpen = panel.style.display === "block";
+        panel.style.display = isOpen ? "none" : "block";
+      });
+
+      if (!mobileToggle || !mobilePanel) return;
+
+      mobileToggle.addEventListener('click', () => {
+        const open = mobilePanel.classList.toggle('open');
+        mobilePanel.style.display = open ? 'block' : 'none';
+        mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mobilePanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+
+        // animate hamburger -> X
+        const spans = mobileToggle.querySelectorAll('span');
+        if (open) {
+          spans[0].style.transform = 'translateY(8px) rotate(45deg)';
+          spans[1].style.opacity = '0';
+          spans[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+        } else {
+          spans[0].style.transform = '';
+          spans[1].style.opacity = '';
+          spans[2].style.transform = '';
+        }
+      });
+
+      // close panel on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobilePanel.classList.contains('open')) {
+          mobilePanel.classList.remove('open');
+          mobilePanel.style.display = 'none';
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // ensure panel hidden on resize > breakpoint
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 960) {
+          mobilePanel.classList.remove('open'); mobilePanel.style.display = 'none';
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="hero-left">
+        <h1><span style="color:var(--color-primary)">Case</span> Studies</h1>
+
+        <p class="lead">Select a project below to view the challenge, our strategy, and the final impact.</p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><strong>+220%</strong><small>Avg Growth</small></div>
+        <div class="stat"><strong>4.3x</strong><small>Avg ROI</small></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" data-id="1">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" /></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">E‑Commerce Growth</div>
+            <div class="tag">Fashion</div>
+          </div>
+          <div class="card-desc">Paid social + CRO to scale an online fashion brand.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-id="2">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" /></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">Real Estate Leads</div>
+            <div class="tag">Real Estate</div>
+          </div>
+          <div class="card-desc">High intent leads with performance landing pages.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-id="3">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1" /></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">Restaurant Sales</div>
+            <div class="tag">F&B</div>
+          </div>
+          <div class="card-desc">Influencer + local ads to grow orders across cities.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-id="4">
+        <div class="thumb"><img src="https://observenow.com/wp-content/uploads/2024/06/Edtech-Platforms.png" /></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">EdTech Enrollment</div>
+            <div class="tag">Education</div>
+          </div>
+          <div class="card-desc">Funnel automation and WhatsApp CRM for enrollments.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-id="5">
+        <div class="thumb"><img
+            src="https://thecrossroadscarmel.com/wp-content/uploads/2020/11/Small-Businesses-scaled-2560x1280.jpg" />
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">Local Retail</div>
+            <div class="tag">Retail</div>
+          </div>
+          <div class="card-desc">Omnichannel to boost in-store + online sales.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-id="6">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" /></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="card-title">SaaS Conversion</div>
+            <div class="tag">SaaS</div>
+          </div>
+          <div class="card-desc">Product-led growth + onboarding emails.</div>
+          <div class="card-cta"><button class="mini" data-open>View Case</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail">
+    <div class="detail-head">
+      <div class="detail-title">Case Title</div>
+      <button class="close" id="close">Close</button>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-content">
+        <p class="eyebrow"
+          style="color:var(--text-muted);margin:6px 0 12px;font-size:13px;text-transform:uppercase;letter-spacing:1px;font-weight:700;">
+          Strategy Breakdown</p>
+
+        <div class="section">
+          <h4>The Problem</h4>
+          <p id="d-prob" style="font-size:16px; color:#fff; font-weight:500;">—</p>
+        </div>
+
+        <div class="section">
+          <h4>Context</h4>
+          <p id="d-desc">—</p>
+        </div>
+
+        <div class="section">
+          <h4>The Solution</h4>
+          <p id="d-solution">—</p>
+        </div>
+
+        <div class="section">
+          <h4>Impact Delivered</h4>
+          <div class="results-grid">
+
+            <div class="res-card">
+              <div class="res-top">
+                <div class="res-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                  </svg>
+                </div>
+                <div class="res-badge">Metric 1</div>
+              </div>
+              <h3 class="res-num" id="r1-num">0</h3>
+              <h4 class="res-label" id="r1-label">Label</h4>
+              <p class="res-context" id="r1-context">Short description here.</p>
+            </div>
+
+            <div class="res-card">
+              <div class="res-top">
+                <div class="res-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div class="res-badge">Metric 2</div>
+              </div>
+              <h3 class="res-num" id="r2-num">0</h3>
+              <h4 class="res-label" id="r2-label">Label</h4>
+              <p class="res-context" id="r2-context">Short description here.</p>
+            </div>
+
+            <div class="res-card">
+              <div class="res-top">
+                <div class="res-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  </svg>
+                </div>
+                <div class="res-badge">Metric 3</div>
+              </div>
+              <h3 class="res-num" id="r3-num">0</h3>
+              <h4 class="res-label" id="r3-label">Label</h4>
+              <p class="res-context" id="r3-context">Short description here.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <aside class="detail-side">
+        <div class="section" style="margin-top:0">
+          <h4 style="margin-bottom:12px">Want this result?</h4>
+          <p style="color:var(--text-muted);font-size:14px; margin-bottom:20px;">Book a quick call and we'll review how
+            to get similar outcomes for your brand.</p>
+          <button class="btn">Schedule Call</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer-layzo">
+    <div class="footer-container">
+
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="brand-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+            <div class="footer-bottom-logo" style="width: 50px;">
+              <img src="assets/Images/Logo/Aim Storm white Logo.png" alt="Aim Storm"
+                style="width: 100%; height: auto; display: block;">
+            </div>
+            <div class="footer-logo-text" style="margin: 0; font-size: 2rem; line-height: 1;">Aim Storm
+            </div>
+          </div>
+
+          <p class="footer-tagline">
+            Together, we turn your<br>vision into a digital empire.
+          </p>
+
+          <div class="social-circles">
+            <a href="#" class="social-circle" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.5-3.89 3.77-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z" />
+              </svg>
+            </a>
+            <a href="#" class="social-circle" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+              </svg>
+            </a>
+            <a href="#" class="social-circle" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/aim-storm-7b0718169?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              class="social-circle" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-nav-grid">
+          <div class="nav-col">
+            <h4>Pages</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="case-studies.html">Case Studies</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="contact.html">Get in Touch</a></li>
+            </ul>
+          </div>
+          <div class="nav-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Mobile App Dev</a></li>
+              <li><a href="#">SEO & Marketing</a></li>
+              <li><a href="#">Branding</a></li>
+            </ul>
+          </div>
+          <div class="nav-col contact-col">
+            <h4>Contact Us</h4>
+            <ul class="contact-list">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>No - 18 Puliyur Village,
+                  Samanatham (P.O), Nedungulam Road,
+                  Madurai, India – 625001</span>
+              </li>
+              <li>
+                <a href="tel:+917092700027">
+                  <i class="fas fa-phone-alt"></i> +91 70927 00027
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@aimstorm.in">
+                  <i class="fas fa-envelope"></i> info@aimstorm.in
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-newsletter-centered">
+        <h3>Subscribe to Our Newsletter</h3>
+
+        <form class="footer-pill-form">
+          <input type="email" placeholder="Enter your email" class="pill-input" required>
+          <button type="submit" class="pill-btn">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="footer-divider"></div>
+      <div class="footer-credits" style="text-align: center;">
+        © 2025 AimStorm. Make demand. Not noise.
+      </div>
+    </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/0000000000?text=HelloAimStorm" target="_blank" rel="noopener" class="fab fab--whatsapp"
+    aria-label="WhatsApp Business">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+    <span class="fab__text">Let's Talk</span>
+  </a>
+
+  <script>
+    const CASES = {
+      1: {
+        title: 'E‑Commerce Growth',
+        category: 'Fashion',
+        prob: 'The brand was experiencing high traffic but low conversion rates (1.2%) and a stagnant Average Order Value (AOV). They struggled to retain customers post-purchase.',
+        desc: 'A fast-growing online fashion brand wanted better conversions and higher average order value.',
+        sol: 'We implemented a full-funnel strategy: prospecting ads for new traffic, dynamic retargeting for cart abandoners, and a VIP email flow to boost lifetime value.',
+        stats: [
+          { num: '220%', label: 'Sales Growth', text: 'Driven by consistent scaling of top-of-funnel ads across 3 regions.' },
+          { num: '180%', label: 'Conversion Rate', text: 'Achieved through simplified checkout and mobile optimizations.' },
+          { num: '4.5x', label: 'Total ROI', text: 'Sustained profitability even during high-spend seasonal peaks.' }
+        ]
+      },
+      2: {
+        title: 'Real Estate Leads',
+        category: 'Real Estate',
+        prob: 'Lead quality was poor, with sales teams wasting time on cold inquiries. Cost per lead (CPL) was rising uncontrollably in competitive metro markets.',
+        desc: 'Premium apartment builder needed high-quality property leads from metro cities.',
+        sol: 'We shifted focus to "High Intent" search terms and created dedicated landing pages with virtual tour gating to filter for serious buyers.',
+        stats: [
+          { num: '310%', label: 'Lead Volume', text: 'Generated high-intent inquiries from Tier-1 metro cities.' },
+          { num: '-42%', label: 'Cost Per Lead', text: 'Reduced acquisition costs by refining audience targeting parameters.' },
+          { num: '3.9x', label: 'Pipeline Value', text: 'Significant increase in qualified site visits and bookings.' }
+        ]
+      },
+      3: {
+        title: 'Restaurant Sales',
+        category: 'F&B',
+        prob: 'Despite good food, the chain had low weekday footfall and inconsistent delivery orders across their 5 different locations.',
+        desc: 'A restaurant chain wanted more online orders across multiple locations.',
+        sol: 'We utilized geo-fenced ads targeting office workers for lunch specials and leveraged food influencers to drive weekend dinner reservations.',
+        stats: [
+          { num: '170%', label: 'Online Orders', text: 'Boosted weekend and weekday delivery volume consistently.' },
+          { num: '210%', label: 'Social Reach', text: 'Viral content strategy increased brand visibility locally.' },
+          { num: '4.1x', label: 'Ad Spend Return', text: 'High efficiency on localized geo-targeted campaigns.' }
+        ]
+      },
+      4: {
+        title: 'EdTech Enrollment',
+        category: 'Education',
+        prob: 'The platform had a high drop-off rate during the registration process, and potential students were not returning to complete their applications.',
+        desc: 'Online education platform needed rapid student enrollment.',
+        sol: 'We automated the follow-up process using WhatsApp API and simplified the lead form. Webinars were used as a "lead magnet" to build trust.',
+        stats: [
+          { num: '260%', label: 'Enrollments', text: 'Rapid intake of students for the Fall 2024 cohort batch.' },
+          { num: '4.2x', label: 'Engagement', text: 'Higher email open rates and webinar attendance ratios.' },
+          { num: '5.2x', label: 'Revenue ROI', text: 'Exceptional return on ad spend due to high ticket value.' }
+        ]
+      },
+      5: {
+        title: 'Local Retail',
+        category: 'Retail',
+        prob: 'Physical stores were losing traffic to online competitors, and their digital presence was disconnected from their in-store inventory.',
+        desc: 'A multi-location retail brand needed both footfall and online sales growth.',
+        sol: 'We launched "Local Inventory Ads" on Google to show nearby shoppers what was in stock, driving them to visit the store physically.',
+        stats: [
+          { num: '145%', label: 'Store Footfall', text: 'Driven by "Get Directions" campaigns and local offers.' },
+          { num: '120%', label: 'Online Sales', text: 'Seamless omnichannel experience for local customers.' },
+          { num: '3.2x', label: 'Overall Growth', text: 'Steady growth across both physical and digital channels.' }
+        ]
+      },
+      6: {
+        title: 'SaaS Trial Conversion',
+        category: 'SaaS',
+        prob: 'Users were signing up for free trials but abandoning the software within 2 days due to a complex dashboard and lack of guidance.',
+        desc: 'A B2B SaaS needed higher quality free-trial signups and onboarding completion.',
+        sol: 'We redesigned the onboarding email sequence to deliver "Quick Wins" and used LinkedIn ads to target decision-makers specifically.',
+        stats: [
+          { num: '190%', label: 'Trial Signups', text: 'High quality leads from LinkedIn and specialized search terms.' },
+          { num: '160%', label: 'Activation Rate', text: 'Users reaching "Aha!" moment within the first 24 hours.' },
+          { num: '4.0x', label: 'LTV Increase', text: 'Better onboarding led to higher retention and lifetime value.' }
+        ]
+      }
+    }
+
+    // open detail panel
+    const openButtons = document.querySelectorAll('[data-open]')
+    const detail = document.getElementById('detail')
+    const close = document.getElementById('close')
+
+    openButtons.forEach(btn => btn.addEventListener('click', (e) => {
+      const id = e.target.closest('.card').dataset.id
+      openDetail(id)
+    }))
+
+    close.addEventListener('click', () => detail.classList.remove('open'))
+
+    function openDetail(id) {
+      const data = CASES[id]
+      if (!data) return
+
+      detail.querySelector('.detail-title').innerText = data.title
+
+      // Populate New Problem Section
+      document.getElementById('d-prob').innerText = data.prob || "Problem statement not available.";
+
+      document.getElementById('d-desc').innerText = data.desc
+      document.getElementById('d-solution').innerText = data.sol
+
+      // Populate New Card Stats
+      if (data.stats && data.stats.length === 3) {
+        document.getElementById('r1-num').innerText = data.stats[0].num;
+        document.getElementById('r1-label').innerText = data.stats[0].label;
+        document.getElementById('r1-context').innerText = data.stats[0].text;
+
+        document.getElementById('r2-num').innerText = data.stats[1].num;
+        document.getElementById('r2-label').innerText = data.stats[1].label;
+        document.getElementById('r2-context').innerText = data.stats[1].text;
+
+        document.getElementById('r3-num').innerText = data.stats[2].num;
+        document.getElementById('r3-label').innerText = data.stats[2].label;
+        document.getElementById('r3-context').innerText = data.stats[2].text;
+      }
+
+      // open
+      detail.classList.add('open')
+    }
+
+    // keyboard escape to close
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') detail.classList.remove('open') })
+
+  </script>
+</body>
+
+</html>

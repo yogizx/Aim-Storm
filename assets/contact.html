@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AimStorm - Contact Us</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css" />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/b.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/a.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D41414',       /* --color-primary */
+                        'primary-light': '#E21221', /* --color-primary-light */
+                        'primary-dark': '#B01010',  /* --color-primary-dark */
+                        accent: '#FF4444',        /* --color-accent */
+                        success: '#22C55E',       /* --color-success */
+                        charcoal: '#0A0A0A',      /* --color-charcoal */
+                        black: '#000000',         /* --color-black */
+                        slate: '#1A1A1A',         /* --color-slate */
+                        'slate-light': '#242424', /* --color-slate-light */
+                        'neutral-100': '#FFFFFF', /* --color-neutral-100 */
+                        'neutral-200': '#E5E5E5', /* --color-neutral-200 */
+                        'neutral-300': '#999999', /* --color-neutral-300 */
+                        'neutral-400': '#666666', /* --color-neutral-400 */
+                        'neutral-500': '#333333', /* --color-neutral-500 */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <nav class="site-nav">
+        <div class="nav-inner">
+
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="/" class="logo-link">
+                    <img src="assets/Images/Logo/Aim Storm Logo vertical.png" alt="Aim Storm" class="logo-img">
+                </a>
+            </div>
+
+            <!-- Right: Navigation Menu -->
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About&nbsp;Us</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="case-studies.html" class="nav-link">Case&nbsp;Studies</a></li>
+                    <li><a href="team.html" class="nav-link">Team</a></li>
+                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                    <li><a href="contact.html" class="nav-link nav-home">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Mobile Button -->
+            <div class="nav-right">
+                <button id="mobileToggle" class="mobile-toggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Panel -->
+        <div id="mobilePanel" class="mobile-panel">
+            <a href="index.html" class="m-link">Home</a>
+            <a href="about.html" class="m-link">About Us</a>
+            <a href="services.html" class="m-link">Services</a>
+            <a href="case-studies.html" class="m-link">Case Studies</a>
+            <a href="team.html" class="nav-link">Team</a>
+            <a href="faq.html" class="m-link">FAQ</a>
+            <a href="contact.html" class="m-cta">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ========== Tiny JS for mobile toggle & keyboard behavior ========== -->
+    <script>
+            (function () {
+                const toggle = document.getElementById('mobileToggle');
+                const panel = document.getElementById('mobilePanel');
+
+                toggle.addEventListener("click", () => {
+                    const isOpen = panel.style.display === "block";
+                    panel.style.display = isOpen ? "none" : "block";
+                });
+
+                if (!mobileToggle || !mobilePanel) return;
+
+                mobileToggle.addEventListener('click', () => {
+                    const open = mobilePanel.classList.toggle('open');
+                    mobilePanel.style.display = open ? 'block' : 'none';
+                    mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    mobilePanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+
+                    // animate hamburger -> X
+                    const spans = mobileToggle.querySelectorAll('span');
+                    if (open) {
+                        spans[0].style.transform = 'translateY(8px) rotate(45deg)';
+                        spans[1].style.opacity = '0';
+                        spans[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+                    } else {
+                        spans[0].style.transform = '';
+                        spans[1].style.opacity = '';
+                        spans[2].style.transform = '';
+                    }
+                });
+
+                // close panel on Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && mobilePanel.classList.contains('open')) {
+                        mobilePanel.classList.remove('open');
+                        mobilePanel.style.display = 'none';
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // ensure panel hidden on resize > breakpoint
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 960) {
+                        mobilePanel.classList.remove('open'); mobilePanel.style.display = 'none';
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            })();
+    </script>
+
+    <header class="relative pt-32 pb-28 bg-charcoal overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop"
+                alt="Contact background" class="w-full h-full object-cover object-center">
+
+            <div class="absolute inset-0 bg-charcoal/90 mix-blend-multiply"></div>
+
+            <div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+        </div>
+
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-4xl bg-primary/20 blur-[120px] rounded-full pointer-events-none z-0">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Contact us</h1>
+            <p class="text-neutral-200 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-md">
+                Start the conversation to establish good relationships and business.
+            </p>
+        </div>
+    </header>
+
+
+
+    <section class="bg-charcoal pb-20 pt-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+                <div class="lg:col-span-5 space-y-8">
+
+                    <div>
+                        <span class="text-primary font-bold tracking-wider text-xs uppercase mb-2 block">GET IN
+                            TOUCH</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
+                            Seamless Communication, Global Impact.
+                        </h2>
+                        <p class="text-neutral-400 leading-relaxed text-sm">
+                            Ready to elevate your digital presence? We are here to provide the right solutions tailored
+                            to your needs.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-slate-light flex items-center justify-center border border-neutral-500/30 group-hover:border-primary/50 transition-colors">
+                                <i class="fa-solid fa-location-dot text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm uppercase mb-1">HEAD OFFICE</h4>
+                                <p class="text-neutral-400 text-xs leading-relaxed">Jln Cempaka Wangi No 22<br>Jakarta -
+                                    Indonesia</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-slate-light flex items-center justify-center border border-neutral-500/30 group-hover:border-primary/50 transition-colors">
+                                <i class="fa-solid fa-envelope text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm uppercase mb-1">EMAIL SUPPORT</h4>
+                                <p class="text-neutral-400 text-xs leading-relaxed">
+                                    support@aimstorm.com<br>hello@aimstorm.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-slate-light flex items-center justify-center border border-neutral-500/30 group-hover:border-primary/50 transition-colors">
+                                <i class="fa-solid fa-phone text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm uppercase mb-1">LET'S TALK</h4>
+                                <p class="text-neutral-400 text-xs leading-relaxed">Phone: +91 1234 567 890</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-slate-light flex items-center justify-center border border-neutral-500/30 group-hover:border-primary/50 transition-colors">
+                                <i class="fa-solid fa-clock text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-sm uppercase mb-1">WORKING HOURS</h4>
+                                <p class="text-neutral-400 text-xs leading-relaxed">Mon - Fri: 09am - 06pm</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-slate-light border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-primary/10 blur-2xl rounded-full"></div>
+
+                        <h3 class="text-primary font-bold text-xl mb-4 relative z-10">Why Contact Aim Storm?</h3>
+                        <ul class="space-y-3 relative z-10">
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                </div>
+                                <span class="text-neutral-300 text-sm"><strong class="text-white">Fast Replies</strong>
+                                    - your time matters</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                </div>
+                                <span class="text-neutral-300 text-sm"><strong class="text-white">Free
+                                        Consultation</strong> for Startups</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                </div>
+                                <span class="text-neutral-300 text-sm"><strong class="text-white">Custom
+                                        Proposals</strong> tailored to needs</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                </div>
+                                <span class="text-neutral-300 text-sm"><strong class="text-white">Long-term
+                                        Support</strong> - We grow with you</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-neutral-500/20">
+                        <h4 class="text-white text-sm mb-4">Follow our social media</h4>
+                        <div class="flex gap-3">
+                            <a href="#"
+                                class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-300">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-300">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-300">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-300">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="bg-slate border border-neutral-500/20 rounded-2xl p-8 lg:p-10 shadow-2xl relative z-20">
+                        <h3 class="text-2xl font-bold text-white mb-2">Send us a message</h3>
+                        <p class="text-neutral-400 text-sm mb-8">Please feel free to send us any questions. Fields
+                            marked with <span class="text-primary">*</span> are mandatory.</p>
+
+                        <form action="#" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-neutral-300 ml-1">Name <span
+                                            class="text-primary">*</span></label>
+                                    <input type="text" placeholder="Your Name" required
+                                        class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-neutral-300 ml-1">Company</label>
+                                    <input type="text" placeholder="Company Name"
+                                        class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-neutral-300 ml-1">Phone <span
+                                            class="text-primary">*</span></label>
+
+                                    <input id="phone" type="tel"
+                                        class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="text-xs font-semibold text-neutral-300 ml-1">Email <span
+                                            class="text-primary">*</span></label>
+                                    <input type="email" placeholder="example@email.com" required
+                                        class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-neutral-300 ml-1">Service Interested In <span
+                                        class="text-primary">*</span></label>
+                                <div class="relative">
+                                    <select required
+                                        class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none custom-select cursor-pointer">
+                                        <option value="" disabled selected class="text-neutral-500">Select a Service
+                                        </option>
+                                        <optgroup label="Web & App" class="bg-slate-light text-neutral-300">
+                                            <option value="web-dev">Web Development</option>
+                                            <option value="app-dev">App Development</option>
+                                            <option value="ui-ux">UI/UX Design</option>
+                                        </optgroup>
+                                        <optgroup label="Digital Marketing" class="bg-slate-light text-neutral-300">
+                                            <option value="seo">SEO Optimization</option>
+                                            <option value="smm">Social Media Marketing</option>
+                                            <option value="ppc">PPC & Ads</option>
+                                            <option value="content">Content Marketing</option>
+                                        </optgroup>
+                                        <option value="other" class="bg-slate-light text-neutral-300">Other Inquiry
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-neutral-300 ml-1">Message <span
+                                        class="text-primary">*</span></label>
+                                <textarea rows="4" placeholder="Tell us about your project..." required
+                                    class="w-full bg-slate-light border border-neutral-500/30 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none"></textarea>
+                            </div>
+
+                            <div id="success-message"
+                                class="hidden mt-4 p-4 bg-success/20 border border-success rounded-lg flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-success"></i>
+                                <span class="text-success font-semibold text-sm">Thank you! Your message has been sent
+                                    successfully.</span>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-light hover:to-primary text-white font-bold py-4 rounded-full shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-1 uppercase tracking-wide text-sm flex items-center justify-center gap-2">
+                                <i class="fa-regular fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full h-96 map-container bg-neutral-900 border-t border-b border-neutral-500/20">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1389.752595813923!2d78.15264728196651!3d9.865972061207776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1765188670317!5m2!1sen!2sin"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+
+    <footer class="footer-layzo">
+        <div class="footer-container">
+
+            <div class="footer-top">
+                <div class="footer-brand-col">
+                    <div class="brand-header"
+                        style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                        <div class="footer-bottom-logo" style="width: 50px;">
+                            <img src="assets/Images/Logo/Aim Storm white Logo.png" alt="Aim Storm"
+                                style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <div class="footer-logo-text" style="margin: 0; font-size: 2rem; line-height: 1;">Aim Storm
+                        </div>
+                    </div>
+
+                    <p class="footer-tagline">
+                        Together, we turn your<br>vision into a digital empire.
+                    </p>
+
+                    <div class="social-circles">
+                        <a href="#" class="social-circle" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.5-3.89 3.77-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-circle" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-circle" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aim-storm-7b0718169?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            class="social-circle" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-nav-grid">
+                    <div class="nav-col">
+                        <h4>Pages</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="case-studies.html">Case Studies</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="contact.html">Get in Touch</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-col">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">Mobile App Dev</a></li>
+                            <li><a href="#">SEO & Marketing</a></li>
+                            <li><a href="#">Branding</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-col contact-col">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-list">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>No - 18 Puliyur Village,
+                                    Samanatham (P.O), Nedungulam Road,
+                                    Madurai, India – 625001</span>
+                            </li>
+                            <li>
+                                <a href="tel:+917092700027">
+                                    <i class="fas fa-phone-alt"></i> +91 70927 00027
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:info@aimstorm.in">
+                                    <i class="fas fa-envelope"></i> info@aimstorm.in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-newsletter-centered">
+                <h3>Subscribe to Our Newsletter</h3>
+
+                <form class="footer-pill-form">
+                    <input type="email" placeholder="Enter your email" class="pill-input" required>
+                    <button type="submit" class="pill-btn">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-credits" style="text-align: center;">
+                © 2025 AimStorm. Make demand. Not noise.
+            </div>
+        </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/0000000000?text=HelloAimStorm" target="_blank" rel="noopener" class="fab fab--whatsapp"
+        aria-label="WhatsApp Business">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
+        <span class="fab__text">Let's Talk</span>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const countrySelect = document.getElementById('country-select');
+
+            // Comprehensive list of countries, flags, and dial codes
+            const countries = [
+                { code: "+93", flag: "🇦🇫", name: "Afghanistan" },
+                { code: "+355", flag: "🇦🇱", name: "Albania" },
+                { code: "+213", flag: "🇩🇿", name: "Algeria" },
+                { code: "+1", flag: "🇦🇸", name: "American Samoa" },
+                { code: "+376", flag: "🇦🇩", name: "Andorra" },
+                { code: "+244", flag: "🇦🇴", name: "Angola" },
+                { code: "+1", flag: "🇦🇮", name: "Anguilla" },
+                { code: "+1", flag: "🇦🇬", name: "Antigua" },
+                { code: "+54", flag: "🇦🇷", name: "Argentina" },
+                { code: "+374", flag: "🇦🇲", name: "Armenia" },
+                { code: "+297", flag: "🇦🇼", name: "Aruba" },
+                { code: "+61", flag: "🇦🇺", name: "Australia" },
+                { code: "+43", flag: "🇦🇹", name: "Austria" },
+                { code: "+994", flag: "🇦🇿", name: "Azerbaijan" },
+                { code: "+1", flag: "🇧🇸", name: "Bahamas" },
+                { code: "+973", flag: "🇧🇭", name: "Bahrain" },
+                { code: "+880", flag: "🇧🇩", name: "Bangladesh" },
+                { code: "+1", flag: "🇧🇧", name: "Barbados" },
+                { code: "+375", flag: "🇧🇾", name: "Belarus" },
+                { code: "+32", flag: "🇧🇪", name: "Belgium" },
+                { code: "+501", flag: "🇧🇿", name: "Belize" },
+                { code: "+229", flag: "🇧🇯", name: "Benin" },
+                { code: "+1", flag: "🇧🇲", name: "Bermuda" },
+                { code: "+975", flag: "🇧🇹", name: "Bhutan" },
+                { code: "+591", flag: "🇧🇴", name: "Bolivia" },
+                { code: "+387", flag: "🇧🇦", name: "Bosnia" },
+                { code: "+267", flag: "🇧🇼", name: "Botswana" },
+                { code: "+55", flag: "🇧🇷", name: "Brazil" },
+                { code: "+1", flag: "🇻🇬", name: "British Virgin Is." },
+                { code: "+673", flag: "🇧🇳", name: "Brunei" },
+                { code: "+359", flag: "🇧🇬", name: "Bulgaria" },
+                { code: "+226", flag: "🇧🇫", name: "Burkina Faso" },
+                { code: "+257", flag: "🇧🇮", name: "Burundi" },
+                { code: "+855", flag: "🇰🇭", name: "Cambodia" },
+                { code: "+237", flag: "🇨🇲", name: "Cameroon" },
+                { code: "+1", flag: "🇨🇦", name: "Canada" },
+                { code: "+238", flag: "🇨🇻", name: "Cape Verde" },
+                { code: "+1", flag: "🇰🇾", name: "Cayman Is." },
+                { code: "+236", flag: "🇨🇫", name: "Central African Rep." },
+                { code: "+235", flag: "🇹🇩", name: "Chad" },
+                { code: "+56", flag: "🇨🇱", name: "Chile" },
+                { code: "+86", flag: "🇨🇳", name: "China" },
+                { code: "+57", flag: "🇨🇴", name: "Colombia" },
+                { code: "+269", flag: "🇰🇲", name: "Comoros" },
+                { code: "+242", flag: "🇨🇬", name: "Congo" },
+                { code: "+243", flag: "🇨🇩", name: "DR Congo" },
+                { code: "+682", flag: "🇨🇰", name: "Cook Is." },
+                { code: "+506", flag: "🇨🇷", name: "Costa Rica" },
+                { code: "+385", flag: "🇭🇷", name: "Croatia" },
+                { code: "+53", flag: "🇨🇺", name: "Cuba" },
+                { code: "+599", flag: "🇨🇼", name: "Curaçao" },
+                { code: "+357", flag: "🇨🇾", name: "Cyprus" },
+                { code: "+420", flag: "🇨🇿", name: "Czech Republic" },
+                { code: "+45", flag: "🇩🇰", name: "Denmark" },
+                { code: "+253", flag: "🇩🇯", name: "Djibouti" },
+                { code: "+1", flag: "🇩🇲", name: "Dominica" },
+                { code: "+1", flag: "🇩🇴", name: "Dominican Rep." },
+                { code: "+593", flag: "🇪🇨", name: "Ecuador" },
+                { code: "+20", flag: "🇪🇬", name: "Egypt" },
+                { code: "+503", flag: "🇸🇻", name: "El Salvador" },
+                { code: "+240", flag: "🇬🇶", name: "Equatorial Guinea" },
+                { code: "+291", flag: "🇪🇷", name: "Eritrea" },
+                { code: "+372", flag: "🇪🇪", name: "Estonia" },
+                { code: "+251", flag: "🇪🇹", name: "Ethiopia" },
+                { code: "+500", flag: "🇫🇰", name: "Falkland Is." },
+                { code: "+298", flag: "🇫🇴", name: "Faroe Is." },
+                { code: "+679", flag: "🇫🇯", name: "Fiji" },
+                { code: "+358", flag: "🇫🇮", name: "Finland" },
+                { code: "+33", flag: "🇫🇷", name: "France" },
+                { code: "+594", flag: "🇬🇫", name: "French Guiana" },
+                { code: "+689", flag: "🇵🇫", name: "French Polynesia" },
+                { code: "+241", flag: "🇬🇦", name: "Gabon" },
+                { code: "+220", flag: "🇬🇲", name: "Gambia" },
+                { code: "+995", flag: "🇬🇪", name: "Georgia" },
+                { code: "+49", flag: "🇩🇪", name: "Germany" },
+                { code: "+233", flag: "🇬🇭", name: "Ghana" },
+                { code: "+350", flag: "🇬🇮", name: "Gibraltar" },
+                { code: "+30", flag: "🇬🇷", name: "Greece" },
+                { code: "+299", flag: "🇬🇱", name: "Greenland" },
+                { code: "+1", flag: "🇬🇩", name: "Grenada" },
+                { code: "+590", flag: "🇬🇵", name: "Guadeloupe" },
+                { code: "+1", flag: "🇬🇺", name: "Guam" },
+                { code: "+502", flag: "🇬🇹", name: "Guatemala" },
+                { code: "+44", flag: "🇬🇬", name: "Guernsey" },
+                { code: "+224", flag: "🇬🇳", name: "Guinea" },
+                { code: "+245", flag: "🇬🇼", name: "Guinea-Bissau" },
+                { code: "+592", flag: "🇬🇾", name: "Guyana" },
+                { code: "+509", flag: "🇭🇹", name: "Haiti" },
+                { code: "+504", flag: "🇭🇳", name: "Honduras" },
+                { code: "+852", flag: "🇭🇰", name: "Hong Kong" },
+                { code: "+36", flag: "🇭🇺", name: "Hungary" },
+                { code: "+354", flag: "🇮🇸", name: "Iceland" },
+                { code: "+91", flag: "🇮🇳", name: "India" },
+                { code: "+62", flag: "🇮🇩", name: "Indonesia" },
+                { code: "+98", flag: "🇮🇷", name: "Iran" },
+                { code: "+964", flag: "🇮🇶", name: "Iraq" },
+                { code: "+353", flag: "🇮🇪", name: "Ireland" },
+                { code: "+44", flag: "🇮🇲", name: "Isle of Man" },
+                { code: "+972", flag: "🇮🇱", name: "Israel" },
+                { code: "+39", flag: "🇮🇹", name: "Italy" },
+                { code: "+225", flag: "🇨🇮", name: "Ivory Coast" },
+                { code: "+1", flag: "🇯🇲", name: "Jamaica" },
+                { code: "+81", flag: "🇯🇵", name: "Japan" },
+                { code: "+44", flag: "🇯🇪", name: "Jersey" },
+                { code: "+962", flag: "🇯🇴", name: "Jordan" },
+                { code: "+7", flag: "🇰🇿", name: "Kazakhstan" },
+                { code: "+254", flag: "🇰🇪", name: "Kenya" },
+                { code: "+686", flag: "🇰🇮", name: "Kiribati" },
+                { code: "+965", flag: "🇰🇼", name: "Kuwait" },
+                { code: "+996", flag: "🇰🇬", name: "Kyrgyzstan" },
+                { code: "+856", flag: "🇱🇦", name: "Laos" },
+                { code: "+371", flag: "🇱🇻", name: "Latvia" },
+                { code: "+961", flag: "🇱🇧", name: "Lebanon" },
+                { code: "+266", flag: "🇱🇸", name: "Lesotho" },
+                { code: "+231", flag: "🇱🇷", name: "Liberia" },
+                { code: "+218", flag: "🇱🇾", name: "Libya" },
+                { code: "+423", flag: "🇱🇮", name: "Liechtenstein" },
+                { code: "+370", flag: "🇱🇹", name: "Lithuania" },
+                { code: "+352", flag: "🇱🇺", name: "Luxembourg" },
+                { code: "+853", flag: "🇲🇴", name: "Macau" },
+                { code: "+389", flag: "🇲🇰", name: "Macedonia" },
+                { code: "+261", flag: "🇲🇬", name: "Madagascar" },
+                { code: "+265", flag: "🇲🇼", name: "Malawi" },
+                { code: "+60", flag: "🇲🇾", name: "Malaysia" },
+                { code: "+960", flag: "🇲🇻", name: "Maldives" },
+                { code: "+223", flag: "🇲🇱", name: "Mali" },
+                { code: "+356", flag: "🇲🇹", name: "Malta" },
+                { code: "+692", flag: "🇲🇭", name: "Marshall Is." },
+                { code: "+596", flag: "🇲🇶", name: "Martinique" },
+                { code: "+222", flag: "🇲🇷", name: "Mauritania" },
+                { code: "+230", flag: "🇲🇺", name: "Mauritius" },
+                { code: "+262", flag: "🇾🇹", name: "Mayotte" },
+                { code: "+52", flag: "🇲🇽", name: "Mexico" },
+                { code: "+691", flag: "🇫🇲", name: "Micronesia" },
+                { code: "+373", flag: "🇲🇩", name: "Moldova" },
+                { code: "+377", flag: "🇲🇨", name: "Monaco" },
+                { code: "+976", flag: "🇲🇳", name: "Mongolia" },
+                { code: "+382", flag: "🇲🇪", name: "Montenegro" },
+                { code: "+1", flag: "🇲🇸", name: "Montserrat" },
+                { code: "+212", flag: "🇲🇦", name: "Morocco" },
+                { code: "+258", flag: "🇲🇿", name: "Mozambique" },
+                { code: "+95", flag: "🇲🇲", name: "Myanmar" },
+                { code: "+264", flag: "🇳🇦", name: "Namibia" },
+                { code: "+674", flag: "🇳🇷", name: "Nauru" },
+                { code: "+977", flag: "🇳🇵", name: "Nepal" },
+                { code: "+31", flag: "🇳🇱", name: "Netherlands" },
+                { code: "+687", flag: "🇳🇨", name: "New Caledonia" },
+                { code: "+64", flag: "🇳🇿", name: "New Zealand" },
+                { code: "+505", flag: "🇳🇮", name: "Nicaragua" },
+                { code: "+227", flag: "🇳🇪", name: "Niger" },
+                { code: "+234", flag: "🇳🇬", name: "Nigeria" },
+                { code: "+683", flag: "🇳🇺", name: "Niue" },
+                { code: "+672", flag: "🇳🇫", name: "Norfolk Island" },
+                { code: "+1", flag: "🇲🇵", name: "Northern Mariana Is." },
+                { code: "+47", flag: "🇳🇴", name: "Norway" },
+                { code: "+968", flag: "🇴🇲", name: "Oman" },
+                { code: "+92", flag: "🇵🇰", name: "Pakistan" },
+                { code: "+680", flag: "🇵🇼", name: "Palau" },
+                { code: "+970", flag: "🇵🇸", name: "Palestine" },
+                { code: "+507", flag: "🇵🇦", name: "Panama" },
+                { code: "+675", flag: "🇵🇬", name: "Papua New Guinea" },
+                { code: "+595", flag: "🇵🇾", name: "Paraguay" },
+                { code: "+51", flag: "🇵🇪", name: "Peru" },
+                { code: "+63", flag: "🇵🇭", name: "Philippines" },
+                { code: "+48", flag: "🇵🇱", name: "Poland" },
+                { code: "+351", flag: "🇵🇹", name: "Portugal" },
+                { code: "+1", flag: "🇵🇷", name: "Puerto Rico" },
+                { code: "+974", flag: "🇶🇦", name: "Qatar" },
+                { code: "+262", flag: "🇷🇪", name: "Réunion" },
+                { code: "+40", flag: "🇷🇴", name: "Romania" },
+                { code: "+7", flag: "🇷🇺", name: "Russia" },
+                { code: "+250", flag: "🇷🇼", name: "Rwanda" },
+                { code: "+1", flag: "🇰🇳", name: "St. Kitts & Nevis" },
+                { code: "+1", flag: "🇱🇨", name: "St. Lucia" },
+                { code: "+590", flag: "🇲🇫", name: "St. Martin" },
+                { code: "+508", flag: "🇵🇲", name: "St. Pierre & Miquelon" },
+                { code: "+1", flag: "🇻🇨", name: "St. Vincent" },
+                { code: "+685", flag: "🇼🇸", name: "Samoa" },
+                { code: "+378", flag: "🇸🇲", name: "San Marino" },
+                { code: "+239", flag: "🇸🇹", name: "Sao Tome" },
+                { code: "+966", flag: "🇸🇦", name: "Saudi Arabia" },
+                { code: "+221", flag: "🇸🇳", name: "Senegal" },
+                { code: "+381", flag: "🇷🇸", name: "Serbia" },
+                { code: "+248", flag: "🇸🇨", name: "Seychelles" },
+                { code: "+232", flag: "🇸🇱", name: "Sierra Leone" },
+                { code: "+65", flag: "🇸🇬", name: "Singapore" },
+                { code: "+1", flag: "🇸🇽", name: "Sint Maarten" },
+                { code: "+421", flag: "🇸🇰", name: "Slovakia" },
+                { code: "+386", flag: "🇸🇮", name: "Slovenia" },
+                { code: "+677", flag: "🇸🇧", name: "Solomon Is." },
+                { code: "+252", flag: "🇸🇴", name: "Somalia" },
+                { code: "+27", flag: "🇿🇦", name: "South Africa" },
+                { code: "+82", flag: "🇰🇷", name: "South Korea" },
+                { code: "+211", flag: "🇸🇸", name: "South Sudan" },
+                { code: "+34", flag: "🇪🇸", name: "Spain" },
+                { code: "+94", flag: "🇱🇰", name: "Sri Lanka" },
+                { code: "+249", flag: "🇸🇩", name: "Sudan" },
+                { code: "+597", flag: "🇸🇷", name: "Suriname" },
+                { code: "+268", flag: "🇸🇿", name: "Swaziland" },
+                { code: "+46", flag: "🇸🇪", name: "Sweden" },
+                { code: "+41", flag: "🇨🇭", name: "Switzerland" },
+                { code: "+963", flag: "🇸🇾", name: "Syria" },
+                { code: "+886", flag: "🇹🇼", name: "Taiwan" },
+                { code: "+992", flag: "🇹🇯", name: "Tajikistan" },
+                { code: "+255", flag: "🇹🇿", name: "Tanzania" },
+                { code: "+66", flag: "🇹🇭", name: "Thailand" },
+                { code: "+670", flag: "🇹🇱", name: "Timor-Leste" },
+                { code: "+228", flag: "🇹🇬", name: "Togo" },
+                { code: "+676", flag: "🇹🇴", name: "Tonga" },
+                { code: "+1", flag: "🇹🇹", name: "Trinidad & Tobago" },
+                { code: "+216", flag: "🇹🇳", name: "Tunisia" },
+                { code: "+90", flag: "🇹🇷", name: "Turkey" },
+                { code: "+993", flag: "🇹🇲", name: "Turkmenistan" },
+                { code: "+1", flag: "🇹🇨", name: "Turks & Caicos Is." },
+                { code: "+688", flag: "🇹🇻", name: "Tuvalu" },
+                { code: "+256", flag: "🇺🇬", name: "Uganda" },
+                { code: "+380", flag: "🇺🇦", name: "Ukraine" },
+                { code: "+971", flag: "🇦🇪", name: "UAE" },
+                { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
+                { code: "+1", flag: "🇺🇸", name: "United States" },
+                { code: "+598", flag: "🇺🇾", name: "Uruguay" },
+                { code: "+998", flag: "🇺🇿", name: "Uzbekistan" },
+                { code: "+678", flag: "🇻🇺", name: "Vanuatu" },
+                { code: "+39", flag: "🇻🇦", name: "Vatican City" },
+                { code: "+58", flag: "🇻🇪", name: "Venezuela" },
+                { code: "+84", flag: "🇻🇳", name: "Vietnam" },
+                { code: "+967", flag: "🇾🇪", name: "Yemen" },
+                { code: "+260", flag: "🇿🇲", name: "Zambia" },
+                { code: "+263", flag: "🇿🇼", name: "Zimbabwe" }
+            ];
+
+            // Sort countries alphabetically
+            countries.sort((a, b) => a.name.localeCompare(b.name));
+
+            // Clear existing options
+            countrySelect.innerHTML = '';
+
+            // Add options to select
+            countries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.code;
+                // Format: 🇮🇳 +91 (India)
+                option.text = `${country.flag} ${country.code}`;
+                option.setAttribute('title', country.name); // Tooltip for full name
+
+                // Default to India if needed
+                if (country.code === "+91" && country.name === "India") {
+                    option.selected = true;
+                }
+
+                countrySelect.appendChild(option);
+            });
+        });
+        // Init intl-tel-input and tweak dropdown width to match input
+        document.addEventListener('DOMContentLoaded', function () {
+            const phoneInput = document.querySelector('#phone');
+
+            if (phoneInput) {
+                // Initialize intl-tel-input
+                // We don't need custom click handlers because we fixed the CSS
+                const iti = window.intlTelInput(phoneInput, {
+                    initialCountry: 'in', // India
+                    separateDialCode: true,
+                    autoHideDialCode: false,
+                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js',
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
