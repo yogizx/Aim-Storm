@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venba Infotech - Empowering Businesses with Smart Odoo Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00695c;
+            --secondary-color: #b2dfdb;
+            --accent-color: #004d40;
+            --light-bg: #e0f2f1;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --section-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --nav-bg-color:#D0E8E5;
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #26a69a;
+            --secondary-color: #00695c;
+            --accent-color: #004d40;
+            --light-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --section-bg: #1a1a1a;
+            --border-color: #333;
+            --nav-bg-color:#222222;
+        }
+        
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+            body {
+                /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+                font-family: 'Inter', sans-serif;
+                color: var(--text-color);
+                background-color: var(--bg-color);
+            }
+        
+        .navbar {
+            background-color: var(--nav-bg-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .logo-light {
+            display: none;
+        }
+        
+        .logo-dark {
+            display: inline-block;
+        }
+        
+        [data-theme="dark"] .logo-light {
+            display: inline-block;
+        }
+        
+        [data-theme="dark"] .logo-dark {
+            display: none;
+        }
+        
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+        
+        .theme-toggle {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--accent-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgb(0 0 0 / 17%), rgb(0 0 0 / 21%)), url(assets/hero-bg.jpg);
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 150px 0;
+            min-height: 600px;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,105,92,0.4) 100%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: right;
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            line-height: 1.6;
+        }
+        
+        .hero-section .btn {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .section-subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 50px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            border: 1px solid var(--border-color);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 1rem;
+        }
+
+        .service-icon-align{
+            background-color:#D3F4F1;
+            margin-top: -65px;
+            border-radius: 10px;
+        }
+        
+        .stats-section {
+            background-color: var(--section-bg);
+            /* padding: 60px 0; */
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .mission-vision-section {
+            background-color: var(--section-bg);
+            padding: 60px 0;
+        }
+        
+        .mission-box, .vision-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mission-box {
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .vision-box {
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .feature-box {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 15px 0;
+            height: 100%;
+        }
+        
+        .feature-box h4 {
+            margin-bottom: 15px;
+        }
+        
+        .odoo-services-section {
+            background: var(--section-bg);
+            padding: 60px 0;
+        }
+        
+        .odoo-service-bubble {
+            background: var(--card-bg);
+            border-radius: 50%;
+            padding: 50px 30px;
+            margin: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .odoo-service-bubble:hover {
+            transform: scale(1.05);
+        }
+        
+        .pricing-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            height: 100%;
+        }
+        
+        .pricing-card.featured {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .industry-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .industry-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .careers-hero {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .job-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .job-tag {
+            display: inline-block;
+            background: var(--light-bg);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-control, .form-select {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 105, 92, 0.25);
+        }
+        
+        footer {
+            background: var(--accent-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .bg-light-custom {
+            background-color: var(--section-bg) !important;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .odoo-service-bubble {
+                border-radius: 20px;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="assets/dark_logo.png" alt="Venba Infotech Logo" class="logo-light">
+                <img src="assets/light_logo.png" alt="Venba Infotech Logo" class="logo-dark">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#odoo">Odoo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#careers">Careers</a></li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item"><a class="btn btn-primary" href="#contact">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-7">
+                    <h1 style="color: #ffffff;">Empowering Businesses with Smart Odoo and Software Solutions</h1>
+                    <p style="color: #ffffff;">Venba Infotech helps enterprises integrate Odoo ERP, develop custom apps, and streamline operations with cloud-driven technology</p>
+                    <a href="#services" class="btn btn-primary btn-lg">Let's Build the Future Together <i class="fa-solid fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Partner Section -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="section-title">Your Complete Technology Partner</h2>
+            <p class="section-subtitle">Beyond Odoo — we design and build robust web and mobile solutions, cloud <br>integrations, and secure IT setups.</p>
+            
+            <div class="row mt-7">
+                <div class="col-md-3" style="margin-bottom: 4rem;">
+                    <div class="service-card">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 service-icon-align">
+                              <i class="fas fa-mobile-alt service-icon"></i>
+                            </div>
+                        </div>
+                        <h5 class="mt-3" style="height: 4rem;">Web & Mobile Application Development</h5>
+                        <p style="color: #4B5563;">Build modern and scalable web and mobile applications with our expert team.</p>
+                    </div>
+                </div>
+                 <div class="col-md-3" style="margin-bottom: 4rem;">
+                    <div class="service-card">
+                        <div class="row">
+                            <div class="col-md-3 service-icon-align">
+                              <i class="fas fa-laptop-code service-icon"></i>
+                            </div>
+                        </div>
+                        <h5 class="mt-3" style="height: 4rem;">Web & Mobile Application Development</h5>
+                        <p style="color: #4B5563;">We provide all-in-one solutions for web and mobile app development.</p>
+                    </div>
+                </div>
+                 <div class="col-md-3" style="margin-bottom: 4rem;">
+                    <div class="service-card">
+                        <div class="row">
+                            <div class="col-md-3 service-icon-align">
+                              <i class="fas fa-chart-line service-icon"></i>
+                            </div>
+                        </div>
+                       <h5 class="mt-3" style="height: 4rem;">Data Analytics & Cloud Integration</h5>
+                        <p style="color: #4B5563;">Transform your data into actionable insights with our analytics solutions.</p>
+                    </div>
+                </div>
+                 <div class="col-md-3" style="margin-bottom: 4rem;">
+                    <div class="service-card">
+                         <div class="row">
+                            <div class="col-md-3 service-icon-align">
+                              <i class="fas fa-headset service-icon"></i>
+                            </div>
+                        </div>
+                        <h5 class="mt-3" style="height: 4rem;">IT Consulting & Support</h5>
+                        <p style="color: #4B5563;">Expert advice to move your IT infrastructure to the next level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Statement -->
+    <section class="py-5 bg-light-custom">
+        <div class="container text-center">
+            <h2 class="section-title">Technology That Works. People Who Care.</h2>
+            <p class="lead">As Venba Infotech, we bring a decade of experience helping businesses achieve digital transformation through technology. Our team blends technical mastery with strategic thinking—delivering systems that work, scale, and evolve.</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="stat-item">
+                        <div class="stat-number">3+</div>
+                        <p>Clients in 3+ countries</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <p>Years of Expertise</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <p>Projects Delivered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section id="about" class="mission-vision-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="mission-box">
+                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                        <p>To empower businesses by navigating digital complexities with customised, scalable, and reliable software solutions.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="vision-box">
+                        <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                        <p>To be a global leader in technology innovation, enabling clients to transform their business and achieve lasting success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Sets Us Apart -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">What Sets Us Apart</h2>
+            <p class="text-center section-subtitle">Discover the core strengths that make us a trusted partner for businesses seeking innovation, security, and success.</p>
+            
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="feature-box">
+                        <h4>Tailored Solutions</h4>
+                        <p>Every project is crafted to align perfectly with our client's needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="feature-box">
+                        <h4>End-to-End Security</h4>
+                        <p>Your data's safety and security are built for your growth.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="feature-box">
+                        <h4>Client-Centric Approach</h4>
+                        <p>We are transparent and work side-by-side for your growth.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="feature-box">
+                        <h4>Innovative Technology</h4>
+                        <p>From AI to web platforms, we stay ahead of the curve.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Odoo Services -->
+    <section id="odoo" class="odoo-services-section">
+        <div class="container">
+            <h2 class="section-title text-center">We Build Better Businesses with Odoo</h2>
+            <p class="text-center section-subtitle">From implementation to customization, we help businesses leverage Odoo's modular ERP power to automate, integrate, and scale.</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <div class="odoo-service-bubble">
+                        <h5>Odoo Implementation</h5>
+                        <p>End-to-end deployment of Odoo ERP tailored for your business processes.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="odoo-service-bubble">
+                        <h5>Customization & Development</h5>
+                        <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="odoo-service-bubble">
+                        <h5>Integration Services</h5>
+                        <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="odoo-service-bubble">
+                        <h5>Odoo Support & Maintenance</h5>
+                        <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title text-center text-white">Choose Your Plan Today</h2>
+            <p class="text-center mb-5 text-white">We Offerings Quick - Start Business Automation Package - Giving You A Fully Functional Odoo Setup And A Professional Website. All At An Affordable Price.</p>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div class="pricing-card">
+                        <h3>Growth</h3>
+                        <div class="pricing-price">₹ 20,000</div>
+                        <p>7- Day Free Trial</p>
+                        <hr>
+                        <h5>Plan Includes</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Get doc licenses - no markups and hidden fees</li>
+                            <li><i class="fas fa-check text-success"></i> We'll set up your core odoo system for free.</li>
+                            <li><i class="fas fa-check text-success"></i> Choose a support package based on your nees</li>
+                        </ul>
+                        <button class="btn btn-primary w-100 mt-3">GET STARTED</button>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="pricing-card featured">
+                        <h3>Pro</h3>
+                        <div class="pricing-price">₹ 35,000</div>
+                        <p>7- Day Free Trial</p>
+                        <hr>
+                        <h5>Plan Includes</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check"></i> Get doc licenses - no markups and hidden fees</li>
+                            <li><i class="fas fa-check"></i> We'll set up your core odoo system for free.</li>
+                            <li><i class="fas fa-check"></i> Choose a support package based on your nees</li>
+                        </ul>
+                        <button class="btn btn-light w-100 mt-3">CURRENT PLAN</button>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="pricing-card">
+                        <h3>Enterprise</h3>
+                        <div class="pricing-price">₹ 65,000</div>
+                        <p>7- Day Free Trial</p>
+                        <hr>
+                        <h5>Plan Includes</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Get doc licenses - no markups and hidden fees</li>
+                            <li><i class="fas fa-check text-success"></i> We'll set up your core odoo system for free.</li>
+                            <li><i class="fas fa-check text-success"></i> Choose a support package based on your nees</li>
+                        </ul>
+                        <button class="btn btn-primary w-100 mt-3">UPGRADE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Solutions -->
+    <section id="services" class="py-5 bg-light-custom">
+        <div class="container">
+            <h2 class="section-title text-center">Industry Solutions with Odoo</h2>
+            <p class="text-center section-subtitle">Specialized Odoo implementations tailored for different industries</p>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-industry service-icon"></i>
+                        <h5>Manufacturing Process</h5>
+                        <p>Complete manufacturing management with production planning, quality control, and inventory optimization.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-users service-icon"></i>
+                        <h5>Human Resource Management</h5>
+                        <p>Comprehensive HR solutions including payroll, attendance, recruitment, and performance management.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-boxes service-icon"></i>
+                        <h5>Inventory Management</h5>
+                        <p>Smart inventory control with real-time tracking, automated reordering, and warehouse optimization.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-chart-line service-icon"></i>
+                        <h5>Sales & CRM</h5>
+                        <p>Complete customer relationship management with lead tracking, sales automation, and analytics.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-tasks service-icon"></i>
+                        <h5>Project Management</h5>
+                        <p>Efficient project planning, task management, time tracking, and resource allocation solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industry-card">
+                        <i class="fas fa-calculator service-icon"></i>
+                        <h5>Accounting & Finance</h5>
+                        <p>Advanced financial management with automated invoicing, expense tracking, and financial reporting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-5">
+        <div class="careers-hero">
+            <div class="container">
+                <h2 class="section-title text-white">Join Our Team</h2>
+                <p>We are always seeking talented and driven individuals to join our team.</p>
+                <div class="mt-3">
+                    <span class="badge bg-white text-dark me-2"><i class="fas fa-users"></i> Growing Team</span>
+                    <span class="badge bg-white text-dark me-2"><i class="fas fa-lightbulb"></i> Innovation</span>
+                    <span class="badge bg-white text-dark"><i class="fas fa-award"></i> Excellence</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container mt-5">
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <h3>Why Work With Us?</h3>
+                    <p>At Venba Infotech, we are constantly looking for passionate and motivated professionals who are eager to make a difference. We believe in fostering an environment where creativity, innovation, and collaboration thrive.</p>
+                    <div class="row mt-4">
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-lightbulb text-primary"></i> <strong>Innovation</strong><br>Creative solutions
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-chart-line text-success"></i> <strong>Growth</strong><br>Career development
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-handshake text-info"></i> <strong>Collaboration</strong><br>Team work
+                        </div>
+                        <div class="col-6 mb-3">
+                            <i class="fas fa-award text-warning"></i> <strong>Impact</strong><br>Meaningful work
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23e0f2f1' width='600' height='400'/><text x='50%25' y='50%25' font-size='24' fill='%2300695c' text-anchor='middle' dominant-baseline='middle'>Team Collaboration</text></svg>" alt="Team" class="img-fluid rounded">
+                </div>
+            </div>
+
+            <h3 class="text-center mb-4">Current Openings</h3>
+            
+            <div class="job-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4>Business Development Executive</h4>
+                        <p><i class="fas fa-clock"></i> Full-time &nbsp; <i class="fas fa-map-marker-alt"></i> Bengaluru/Hybrid &nbsp; <i class="fas fa-level-up-alt"></i> Immediate</p>
+                    </div>
+                    <i class="fas fa-briefcase service-icon"></i>
+                </div>
+                <p><strong>Job Summary:</strong><br>We're looking for a driven Odoo Sales Executive to promote and sell Odoo ERP solutions to new clients, helping businesses optimize their processes with Odoo.</p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>Key Responsibilities:</h6>
+                        <ul>
+                            <li>Identify and target new clients for Odoo solutions</li>
+                            <li>Conduct product demos and presentations</li>
+                            <li>Build and manage sales pipelines</li>
+                            <li>Negotiate contracts and close deals</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Requirements:</h6>
+                        <ul>
+                            <li>Experience in B2B or software sales, preferably in ERP solutions</li>
+                            <li>Strong communication and negotiation skills</li>
+                            <li>Knowledge of Odoo ERP is a plus</li>
+                            <li>Ability to work independently and in teams</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="job-tag">Sales</span>
+                    <span class="job-tag">ERP</span>
+                    <span class="job-tag">B2B</span>
+                </div>
+                <button class="btn btn-primary mt-3">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4>Techno-Functional Consultant</h4>
+                        <p><i class="fas fa-clock"></i> Full-time &nbsp; <i class="fas fa-map-marker-alt"></i> Bengaluru/Hybrid &nbsp; <i class="fas fa-level-up-alt"></i> Immediate</p>
+                    </div>
+                    <i class="fas fa-cogs service-icon"></i>
+                </div>
+                <p><strong>Job Summary:</strong><br>We are seeking a skilled Odoo Techno-Functional Consultant to bridge business needs and technical solutions, ensuring smooth implementation and customization of Odoo.</p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>Key Responsibilities:</h6>
+                        <ul>
+                            <li>Gather business requirements and create functional specifications</li>
+                            <li>Configure Odoo modules and customize features as needed</li>
+                            <li>Perform data migration and integrate Odoo with other systems</li>
+                            <li>Provide user training and post-implementation support</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Requirements:</h6>
+                        <ul>
+                            <li>Strong knowledge of Odoo ERP, Python, and SQL</li>
+                            <li>Experience in business process analysis and system integration</li>
+                            <li>Excellent problem-solving and communication skills</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="job-tag">Technical</span>
+                    <span class="job-tag">Odoo</span>
+                    <span class="job-tag">Python</span>
+                </div>
+                <button class="btn btn-primary mt-3">Apply Now</button>
+            </div>
+
+            <div class="text-center mt-5">
+                <h4>Ready to Join Our Team?</h4>
+                <p>Don't see a position that fits? Send us your resume and we'll keep you in mind for future opportunities.</p>
+                <button class="btn btn-primary btn-lg me-3">Send Your Resume</button>
+                <button class="btn btn-outline-primary btn-lg">Learn More About Us</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light-custom">
+        <div class="container">
+            <h2 class="section-title text-center">Let's Talk</h2>
+            <p class="text-center section-subtitle">Have some big ideas or need to develop a need web? Then reach out, we'd love to hear about your project and provide help.</p>
+            
+            <div class="row mt-5">
+                <div class="col-md-6 mb-4">
+                    <div class="contact-form">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" placeholder="Your name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="info@venba.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" placeholder="+91 807 299 8024">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="Tell us about your project"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <h4>Contact Information</h4>
+                        <div class="mb-4">
+                            <h6><i class="fas fa-map-marker-alt text-primary"></i> Address</h6>
+                            <p>No.10/21, 27th Street, Thilai Ganga Nagar, Nanganallur,<br>Chennai - 600061</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6><i class="fas fa-phone text-primary"></i> Phone</h6>
+                            <p>+91 807 299 8024</p>
+                        </div>
+                        <div class="mb-4">
+                            <h6><i class="fas fa-envelope text-primary"></i> Email</h6>
+                            <p>info@venbainfotech.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="logo-light.png" alt="Venba Infotech Logo" class="footer-logo mb-3">
+                    <p class="mt-3">Empowering businesses with innovative technology solutions and expert Odoo ERP implementations.</p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#odoo">Packages</a></li>
+                        <li><a href="#contact">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Solutions</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#services">Web development</a></li>
+                        <li><a href="#services">App Development</a></li>
+                        <li><a href="#services">Cyber Security</a></li>
+                        <li><a href="#services">Data Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Venba Information Technology Pvt Ltd</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> No.10/21, 27th Street Thilai Ganga Nagar, Nanganallur, Chennai - 600061</p>
+                    <p><i class="fas fa-phone"></i> +91 807 299 8024</p>
+                    <p><i class="fas fa-envelope"></i> info@venbainfotech.com</p>
+                </div>
+            </div>
+            <hr style="background-color: rgba(255,255,255,0.3);">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; Copyright Venba Infotech. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeToggle.title = 'Switch to light mode';
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeToggle.title = 'Switch to dark mode';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                }
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 15px rgba(0,0,0,0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Form submission handler
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Animate stats on scroll
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const finalNumber = statNumber.textContent;
+                    let currentNumber = 0;
+                    const increment = finalNumber.includes('+') ? 
+                        parseInt(finalNumber) / 50 : 
+                        parseInt(finalNumber) / 50;
+                    
+                    const timer = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= parseInt(finalNumber)) {
+                            statNumber.textContent = finalNumber;
+                            clearInterval(timer);
+                        } else {
+                            statNumber.textContent = Math.floor(currentNumber) + '+';
+                        }
+                    }, 30);
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat-item').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Add animation on scroll for cards
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.service-card, .industry-card, .job-card').forEach(card => {
+            cardObserver.observe(card);
+        });
+    </script>
+</body>
+</html>
