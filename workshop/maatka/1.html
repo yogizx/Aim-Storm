@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAATKA | Membership Benefits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    
+    <style>
+        /* --- COPYING ALL STYLES EXACTLY FROM DARK.HTML --- */
+        :root {
+            --black-primary: #0a0a0a;
+            --black-secondary: #101010;
+            --black-card: rgba(18, 18, 18, 0.92);
+            --gold-primary: #FFD700;
+            --gold-secondary: #F4B400;
+            --gold-accent: #FFC107;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #F4B400 50%, #FFC107 100%);
+            --gold-gradient-vertical: linear-gradient(180deg, #FFD700 0%, #F4B400 100%);
+            --gold-glass: rgba(255, 215, 0, 0.12);
+            --gold-light: rgba(255, 215, 0, 0.06);
+            --text-light: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass-border: rgba(255, 215, 0, 0.18);
+            --glass-bg: rgba(20, 20, 20, 0.78);
+            --shadow-glow: 0 8px 32px rgba(255, 215, 0, 0.15);
+            --shadow-glow-strong: 0 12px 48px rgba(255, 215, 0, 0.25);
+            --gradient-primary: radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #101010 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black-primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--gradient-primary);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Responsive images */
+        img, svg { max-width: 100%; height: auto; }
+
+        .section-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* --- BACKGROUND ANIMATION STYLES --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #151515 0%, #0a0a0a 100%);
+        }
+
+        .gold-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 215, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 120s linear infinite;
+            opacity: 0.3;
+        }
+
+        /* Restored Canvas for Network Animation (Image 2) */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .orbital-ring {
+            position: absolute;
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 50%;
+            animation: rotateOrbit 80s infinite linear;
+        }
+
+        .floating-3d-element {
+            position: absolute;
+            background: var(--gold-gradient);
+            opacity: 0.4;
+            filter: blur(1px);
+            animation: float3d 25s infinite ease-in-out;
+        }
+
+        /* Keyframes */
+        @keyframes gridMove { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(-50px, -50px) rotate(0.5deg); } }
+        @keyframes rotateOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes float3d { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-40px) rotate(180deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.7; text-shadow: 0 0 10px var(--gold-primary); } 50% { opacity: 1; text-shadow: 0 0 20px var(--gold-primary); } }
+        @keyframes breathing { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 24px 0;
+            transition: var(--transition);
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+        }
+
+        .navbar.scrolled {
+            padding: 18px 0;
+            background: rgba(10, 10, 10, 0.96);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .logo::after { content: '✦'; font-size: 16px; opacity: 0.7; animation: pulse 2s infinite; }
+        .nav-links { display: flex; gap: 48px; }
+        .nav-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        .nav-link::before { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gold-gradient); transition: var(--transition); }
+        .nav-link:hover { color: var(--text-light); }
+        .nav-link:hover::before { width: 100%; }
+        .nav-actions { display: flex; gap: 16px; align-items: center; }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent); transition: 0.6s; }
+        .btn:hover::before { left: 100%; }
+        .btn-primary { background: var(--gold-gradient); color: var(--black-primary); box-shadow: var(--shadow-glow); font-weight: 700; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow-strong); }
+        .btn-secondary { background: transparent; color: var(--gold-primary); border: 1px solid rgba(255, 215, 0, 0.3); backdrop-filter: blur(10px); }
+        .btn-secondary:hover { background: rgba(255, 215, 0, 0.12); border-color: var(--gold-primary); transform: translateY(-2px); }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh; 
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px;
+        }
+        .hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; width: 100%; text-align: center; }
+        
+        .hero-centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #FFFFFF, var(--gold-primary), var(--gold-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            word-wrap: break-word;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 48px auto;
+            font-weight: 300;
+            line-height: 1.8;
+            padding: 0 10px;
+        }
+
+        /* 3D Icons */
+        .icon-3d { position: relative; width: 80px; height: 80px; perspective: 1000px; margin: 0 auto; }
+        .icon-3d-inner { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .icon-3d-front, .icon-3d-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .icon-3d-front { background: var(--gold-gradient); color: var(--black-primary); transform: rotateY(0deg); }
+        .icon-3d-back { background: var(--black-card); color: var(--gold-primary); border: 2px solid var(--gold-primary); transform: rotateY(180deg); }
+        .icon-3d:hover .icon-3d-inner { transform: rotateY(180deg); }
+
+        /* General Sections */
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content;
+            max-width: 100%;
+        }
+        .section-title::after { content: ''; position: absolute; bottom: -15px; left: 0; width: 100%; height: 2px; background: var(--gold-gradient); border-radius: 2px; opacity: 0.3; }
+
+        /* Benefits Grid */
+        .benefits-section { padding: 100px 0; position: relative; }
+        /* Adjusted minmax for better mobile responsiveness on small devices */
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 40px; margin-top: 60px; }
+        .benefit-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 48px 36px;
+            transition: var(--transition);
+            backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center;
+        }
+        .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gold-gradient); opacity: 0; transition: var(--transition); }
+        .benefit-card:hover::before { opacity: 1; }
+        .benefit-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-glow-strong); }
+        
+        .benefit-header-center { margin-bottom: 24px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .benefit-icon-container { width: 80px; height: 80px; position: relative; margin: 0 auto; }
+        .benefit-icon-svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3)); }
+        
+        .benefit-value-large {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .benefit-card h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--text-light); }
+        .benefit-list { list-style-type: none; width: 100%; text-align: left; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .benefit-list li { margin-bottom: 12px; display: flex; align-items: flex-start; color: var(--text-gray); transition: var(--transition); font-size: 0.95rem; }
+        .benefit-list li i { color: var(--gold-primary); margin-right: 12px; margin-top: 5px; font-size: 0.8rem; }
+
+        /* Trust Grid */
+        .trust-section { padding: 80px 0; position: relative; }
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-top: 60px; }
+        .trust-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-card:hover { transform: translateY(-10px); border-color: rgba(255, 215, 0, 0.35); box-shadow: var(--shadow-glow-strong); }
+        .trust-card h3 { font-size: 1.4rem; margin-bottom: 12px; color: var(--gold-primary); }
+        .trust-card p { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; }
+
+        /* FAQ Section */
+        .faq-section { padding: 100px 0; position: relative; }
+        .faq-container { max-width: 900px; margin: 60px auto 0; background: var(--black-card); padding: 40px; border-radius: 30px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-glow); }
+        .faq-item { border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 16px; padding-bottom: 16px; }
+        .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; transition: var(--transition); }
+        .faq-question.active { color: var(--gold-primary); }
+        .faq-question h3 { font-size: 1.3rem; font-weight: 500; }
+        .faq-toggle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 215, 0, 0.12); display: flex; align-items: center; justify-content: center; color: var(--gold-primary); font-size: 1rem; transition: var(--transition); flex-shrink: 0; }
+        .faq-question.active .faq-toggle { background: var(--gold-gradient); color: var(--black-primary); transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text-gray); line-height: 1.8; padding-left: 10px; border-left: 2px solid var(--gold-primary); margin-left: 5px;}
+        .faq-answer.open { max-height: 500px; padding-top: 16px; padding-bottom: 16px; }
+
+        /* CTA */
+        .cta-section { padding: 120px 0; position: relative; text-align: center; border-top: 1px solid rgba(255, 215, 0, 0.15); overflow: hidden; }
+        .cta-title { font-size: 3.5rem; max-width: 800px; margin: 0 auto 30px; line-height: 1.1; position: relative; z-index: 2; }
+        .cta-subtitle { font-size: 1.2rem; margin-bottom: 50px; color: var(--text-gray); position: relative; z-index: 2; padding: 0 10px; }
+        
+        /* Footer */
+        .footer { padding: 80px 0 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 60px; margin-bottom: 60px; }
+        .footer-logo { font-family: 'Clash Display', sans-serif; font-size: 30px; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; display: inline-block; }
+        .footer-description { color: var(--text-gray); line-height: 1.8; margin-bottom: 24px; font-size: 0.9rem; }
+        .footer-social { display: flex; gap: 15px; }
+        .social-link { width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--text-gray); transition: var(--transition); text-decoration: none; }
+        .social-link:hover { background: var(--gold-gradient); color: var(--black-primary); transform: translateY(-3px); }
+        .footer-column h4 { font-size: 1.1rem; margin-bottom: 24px; color: var(--text-light); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 14px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; transition: var(--transition); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--gold-primary); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-gray); font-size: 0.85rem; display: flex; justify-content: space-between; }
+        .footer-legal { display: flex; gap: 20px; }
+        .footer-legal a { color: var(--text-gray); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container { max-width: 960px; }
+            .hero h1 { font-size: 4rem; }
+        }
+
+        @media (max-width: 992px) {
+            .container { max-width: 720px; }
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.8rem; }
+            .footer-content { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .benefits-section, .trust-section, .faq-section, .cta-section { padding: 80px 0; }
+        }
+
+        @media (max-width: 768px) {
+            .container { max-width: 100%; padding: 0 24px; }
+            .nav-links { display: none; }
+            .hero { padding-top: 100px; min-height: auto; padding-bottom: 80px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .section-title { font-size: 2.2rem; }
+            
+            /* Force single column for better mobile experience */
+            .benefits-grid, .trust-grid { grid-template-columns: 1fr; }
+            .benefits-grid { margin-top: 40px; }
+            
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; align-items: center; }
+            .footer-legal { justify-content: center; }
+            
+            .cta-title { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 2.2rem; margin-bottom: 16px; }
+            .hero p { font-size: 1rem; margin-bottom: 32px; }
+            .section-title { font-size: 1.8rem; }
+            
+            /* Smaller logo on mobile */
+            .logo { font-size: 24px; }
+            .logo::after { font-size: 12px; }
+            
+            /* Adjust buttons for touch targets */
+            .btn { padding: 14px 24px; width: 100%; }
+            .nav-actions .btn { width: auto; padding: 10px 16px; font-size: 0.8rem; }
+            
+            .benefit-card { padding: 32px 20px; }
+            .benefit-value-large { font-size: 2.8rem; }
+            .trust-card { padding: 32px 20px; }
+            
+            .faq-container { padding: 24px 16px; }
+            .faq-question h3 { font-size: 1.1rem; }
+            
+            .cta-title { font-size: 2rem; }
+            .cta-section { padding: 80px 0; }
+            
+            /* Adjust footer spacing */
+            .footer { padding: 60px 0 30px; }
+            .footer-content { gap: 30px; margin-bottom: 40px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="gold-grid"></div>
+        
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="orbital-ring" style="width: 80vw; height: 80vw; top: -30vw; left: -30vw; animation-duration: 120s;"></div>
+        <div class="orbital-ring" style="width: 60vw; height: 60vw; top: -20vw; left: -20vw; animation-duration: 80s; animation-direction: reverse;"></div>
+        <div class="floating-3d-element" style="width: 40px; height: 40px; top: 15%; left: 10%; border-radius: 10px; animation-delay: 0s;"></div>
+        </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="dark.html" class="logo">MAATKA</a>
+            <div class="nav-links">
+                <a href="dark.html" class="nav-link">Home</a>
+                <a href="#what-you-receive" class="nav-link">How It Works</a>
+                <a href="#why-it-matters" class="nav-link">Benefits</a>
+                <a href="#important-info" class="nav-link">Trust</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#cta" class="btn btn-primary">JOIN NOW</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content hero-centered">
+            <div class="section-subtitle">UNLOCK EXCLUSIVE ADVANTAGES</div>
+            <h1>Your Membership Benefits</h1>
+            <p>Every verified member gets guaranteed assets, access, and institutional-grade security.</p>
+            <div class="icon-3d">
+                <div class="icon-3d-inner">
+                    <div class="icon-3d-front"><i class="fas fa-crown"></i></div>
+                    <div class="icon-3d-back"><i class="fas fa-gem"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="what-you-receive" class="benefits-section">
+        <div class="container">
+            <div class="section-subtitle">GUARANTEED ASSETS</div>
+            <h2 class="section-title">What You Receive</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                             <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#F4B400;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M50 10 L90 35 L50 90 L10 35 Z" fill="none" stroke="url(#grad1)" stroke-width="3" />
+                                <path d="M10 35 L90 35" stroke="url(#grad1)" stroke-width="1" />
+                                <path d="M25 35 L50 90 L75 35" stroke="url(#grad1)" stroke-width="1" />
+                                <path d="M50 10 L50 35" stroke="url(#grad1)" stroke-width="1" />
+                            </svg>
+                        </div>
+                        <h3>KRITA Credits</h3>
+                        <div class="benefit-value-large">100</div>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> Instant digital wallet credit</li>
+                        <li><i class="fas fa-check"></i> Redeemable for internal services</li>
+                        <li><i class="fas fa-check"></i> Future utility updates</li>
+                        <li><i class="fas fa-check"></i> Premium dashboard access</li>
+                        <li><i class="fas fa-check"></i> Non-expiring asset value</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                            <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="rgba(255, 215, 0, 0.1)" stroke="url(#grad1)" stroke-width="3" />
+                                <circle cx="50" cy="50" r="30" fill="none" stroke="#F4B400" stroke-width="1" stroke-dasharray="4 4" />
+                                <text x="50" y="65" text-anchor="middle" fill="#FFD700" font-size="40" font-family="Clash Display" font-weight="bold">$</text>
+                            </svg>
+                        </div>
+                        <h3>Sudarshana Coin</h3>
+                        <div class="benefit-value-large">1</div>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> Asset-backed token value</li>
+                        <li><i class="fas fa-check"></i> DAO governance rights</li>
+                        <li><i class="fas fa-check"></i> Quarterly dividend eligibility</li>
+                        <li><i class="fas fa-check"></i> Pre-staking value claimed</li>
+                        <li><i class="fas fa-check"></i> Transferable secure wallet</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-header-center">
+                        <div class="benefit-icon-container">
+                            <svg class="benefit-icon-svg" viewBox="0 0 100 100">
+                                <rect x="15" y="30" width="70" height="40" rx="5" fill="none" stroke="url(#grad1)" stroke-width="3" />
+                                <line x1="65" y1="30" x2="65" y2="70" stroke="#F4B400" stroke-width="2" stroke-dasharray="5 5" />
+                                <circle cx="40" cy="50" r="12" fill="#FFD700" />
+                            </svg>
+                        </div>
+                        <h3>Legacy ID</h3>
+                        <div class="benefit-value-large">1</div>
+                    </div>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check"></i> Immutable identity on-chain</li>
+                        <li><i class="fas fa-check"></i> Whitelist for NFT drops</li>
+                        <li><i class="fas fa-check"></i> Tier 1 verification status</li>
+                        <li><i class="fas fa-check"></i> Global event pass access</li>
+                        <li><i class="fas fa-check"></i> Estate planning features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-it-matters" class="trust-section">
+        <div class="container">
+            <div class="section-subtitle">VALUE PROPOSITION</div>
+            <h2 class="section-title">Why These Benefits Matter</h2>
+            
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-cube"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-layer-group"></i></div>
+                        </div>
+                    </div>
+                    <h3>Digital Asset</h3>
+                    <p>Assets that actually grow in value over time, secured by math and cryptography.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-rocket"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-clock"></i></div>
+                        </div>
+                    </div>
+                    <h3>Future Ready</h3>
+                    <p>The MAATKA ecosystem is built for Web3, ensuring you are ahead of the curve.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-search-dollar"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-eye"></i></div>
+                        </div>
+                    </div>
+                    <h3>Transparent Value</h3>
+                    <p>No hidden fees. Real-time tracking of your portfolio via our dashboard.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="icon-3d" style="width: 50px; height: 50px; margin-bottom: 20px;">
+                        <div class="icon-3d-inner">
+                            <div class="icon-3d-front"><i class="fas fa-infinity"></i></div>
+                            <div class="icon-3d-back"><i class="fas fa-lock"></i></div>
+                        </div>
+                    </div>
+                    <h3>Permanent Access</h3>
+                    <p>Your Legacy ID grants you lifetime access to exclusive opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="important-info" class="faq-section">
+        <div class="container">
+            <div class="section-subtitle">DETAILS</div>
+            <h2 class="section-title">Important Information</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>About KRITA Credits</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer open">
+                        KRITA Credits act as the internal utility currency of the ecosystem. They are redeemed for platform fees, unlocking special reports, or participating in community governance votes. They are automatically credited upon membership activation.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>About Sudarshana Coin</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        The Sudarshana Coin is our core loyalty asset. It represents your stake in the community's collective success. Holders are eligible for quarterly dividends based on platform growth and have voting rights on future roadmap items.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>About Your Legacy ID</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Your Legacy ID is a non-transferable identifier (SBT - Soulbound Token) that proves your early adoption status. It grants you whitelist access to all future partner drops and serves as your key to physical events worldwide.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Claim Your Benefits Today</h2>
+            <p class="cta-subtitle">Join the community of 10,250+ elite members participating in true ownership.</p>
+            <a href="#" class="btn btn-primary cta-button">
+                JOIN MAATKA NOW <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+            
+            <div style="margin-top: 40px; color: var(--text-gray); font-size: 0.9rem;">
+                <i class="fas fa-shield-alt" style="color: var(--gold-primary); margin-right: 8px;"></i>
+                Secured by Institutional Grade Encryption
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">MAATKA</div>
+                    <p class="footer-description">Premium digital membership platform for secure, collective growth. Institutional-grade security meets radical transparency.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="dark.html">Home</a></li>
+                        <li><a href="#what-you-receive">How It Works</a></li>
+                        <li><a href="#important-info">Benefits</a></li>
+                        <li><a href="#">Trust</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Support@Maatka.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 MAATKA. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- RESTORED: Canvas Network Animation (Image 2 Style) ---
+        // This draws the connected lines and nodes, matching the second image.
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const properties = { particleColor: 'rgba(255, 215, 0, 1)', connectionDistance: 150, mouseDistance: 200, particleCount: 70 };
+        let mouse = { x: null, y: null };
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1; this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < properties.mouseDistance) {
+                        const force = (properties.mouseDistance - distance) / properties.mouseDistance;
+                        this.x -= (dx / distance) * force * 2; this.y -= (dy / distance) * force * 2;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 40 : properties.particleCount;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x; let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < properties.connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 215, 0, ${(1 - distance / properties.connectionDistance) * 0.2})`;
+                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNetwork);
+        }
+
+        // --- UI Interactions ---
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+                
+                document.querySelectorAll('.faq-answer').forEach(item => item.classList.remove('open'));
+                document.querySelectorAll('.faq-question').forEach(item => item.classList.remove('active'));
+                
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    question.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Animation
+        let elementsAnimated = new Set();
+        function animateOnScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+
+            const cards = document.querySelectorAll('.benefit-card, .trust-card');
+            cards.forEach(card => {
+                if (!elementsAnimated.has(card)) {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    if (cardPosition < window.innerHeight * 0.85) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        elementsAnimated.add(card);
+                    }
+                }
+            });
+        }
+
+        // Tilt Effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.benefit-card, .trust-card');
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const mouseX = (e.clientX - centerX) / centerX;
+            const mouseY = (e.clientY - centerY) / centerY;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const dist = Math.sqrt(Math.pow(e.clientX - (rect.left + rect.width/2), 2) + Math.pow(e.clientY - (rect.top + rect.height/2), 2));
+                
+                if (dist < 400) {
+                    const tiltX = (mouseY * 3);
+                    const tiltY = (-mouseX * 3);
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
+                } else {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                }
+            });
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            // Only start the Canvas Network Animation (Image 2)
+            initParticles();
+            animateNetwork();
+            
+            // Set initial state for animations
+            document.querySelectorAll('.benefit-card, .trust-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            animateOnScroll();
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

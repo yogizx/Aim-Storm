@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - MAATKA</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Invoice Specific Styles */
+        .invoice-container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            background: #ffffff;
+            color: #0a0a0a;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #d4af37;
+        }
+        
+        .invoice-brand h1 {
+            font-family: var(--font-serif);
+            font-size: 48px;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .invoice-brand p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .invoice-number {
+            text-align: right;
+        }
+        
+        .invoice-number h3 {
+            color: #0a0a0a;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .invoice-number p {
+            color: #d4af37;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .detail-section h4 {
+            color: #d4af37;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .detail-section p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .invoice-items {
+            margin-bottom: 40px;
+        }
+        
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .invoice-table thead {
+            background: #d4af37;
+            color: #0a0a0a;
+        }
+        
+        .invoice-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .invoice-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .invoice-table tbody tr:last-child td {
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .invoice-total {
+            text-align: right;
+            margin-top: 30px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 100px;
+            padding: 15px 0;
+        }
+        
+        .total-row.grand-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: #d4af37;
+            border-top: 3px solid #d4af37;
+            padding-top: 20px;
+        }
+        
+        .benefits-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        
+        .benefits-section h3 {
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+        
+        .invoice-footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+            margin-top: 50px;
+        }
+        
+        .invoice-footer p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #d4af37;
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            margin: 30px 0;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #b8932c;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .invoice-container, .invoice-container * {
+                visibility: visible;
+            }
+            .invoice-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                box-shadow: none;
+            }
+            .download-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body style="background: #0a0a0a;">
+    
+    <div class="invoice-container" id="invoiceContent">
+        <!-- Invoice Header -->
+        <div class="invoice-header">
+            <div class="invoice-brand">
+                <h1>MAATKA</h1>
+                <p>Small Contribution. Long-Term Vision.</p>
+                <p>www.maatka.com</p>
+            </div>
+            <div class="invoice-number">
+                <h3>INVOICE</h3>
+                <p id="invoiceNumber">INV-00000</p>
+                <p style="font-size: 14px; color: #666; margin-top: 10px;" id="invoiceDate">Date: --/--/----</p>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <div class="detail-section">
+                <h4>Member Details</h4>
+                <p id="memberName"><strong>Name:</strong> Loading...</p>
+                <p id="memberEmail"><strong>Email:</strong> Loading...</p>
+                <p id="memberMobile"><strong>Mobile:</strong> Loading...</p>
+                <p id="memberAddress"><strong>Address:</strong> Loading...</p>
+            </div>
+            <div class="detail-section">
+                <h4>Membership Information</h4>
+                <p><strong>Legacy ID:</strong> <span id="legacyId">Loading...</span></p>
+                <p><strong>Payment Status:</strong> <span style="color: green;">Confirmed</span></p>
+                <p><strong>Payment ID:</strong> <span id="paymentId">Loading...</span></p>
+            </div>
+        </div>
+
+        <!-- Invoice Items -->
+        <div class="invoice-items">
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th style="text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MAATKA Digital Membership</td>
+                        <td>1</td>
+                        <td style="text-align: right;">₹900.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="invoice-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>₹900.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax:</span>
+                    <span>₹0.00</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Paid:</span>
+                    <span>₹900.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h3>Membership Benefits Credited</h3>
+            <div class="benefit-item">
+                <span>💎 KRYTA Credits</span>
+                <span><strong>100 Credits</strong></span>
+            </div>
+            <div class="benefit-item">
+                <span>🪙 Sudarshana Coin (Symbolic)</span>
+                <span><strong>1 Coin</strong></span>
+            </div>
+            <div class="benefit-item">
+                <span>🎫 MAATKA Legacy ID</span>
+                <span><strong>1 Unique ID</strong></span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="invoice-footer">
+            <p><strong>Thank you for joining MAATKA</strong></p>
+            <p>This is a computer-generated invoice and does not require a signature.</p>
+            <p>For support, contact us at support@maatka.com</p>
+            <p style="margin-top: 20px; font-size: 12px;">
+                MAATKA | www.maatka.com<br>
+                All contributions are final and non-refundable.
+            </p>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding-bottom: 50px;">
+        <a href="#" class="download-btn" onclick="window.print(); return false;">Download PDF</a>
+        <a href="success.html" class="download-btn" style="background: transparent; border: 2px solid #d4af37; color: #d4af37;">Return to Success Page</a>
+    </div>
+
+    <script>
+        // Get invoice data from URL or API
+        const urlParams = new URLSearchParams(window.location.search);
+        const legacyId = urlParams.get('id');
+        
+        if (legacyId) {
+            // Fetch invoice data
+            fetch(`api/get-invoice.php?id=${legacyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Populate invoice
+                        document.getElementById('invoiceNumber').textContent = data.invoice_number;
+                        document.getElementById('invoiceDate').textContent = 'Date: ' + data.date;
+                        document.getElementById('memberName').innerHTML = '<strong>Name:</strong> ' + data.name;
+                        document.getElementById('memberEmail').innerHTML = '<strong>Email:</strong> ' + data.email;
+                        document.getElementById('memberMobile').innerHTML = '<strong>Mobile:</strong> ' + data.mobile;
+                        document.getElementById('memberAddress').innerHTML = '<strong>Address:</strong> ' + data.address;
+                        document.getElementById('legacyId').textContent = data.legacy_id;
+                        document.getElementById('paymentId').textContent = data.payment_id;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading invoice:', error);
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+# MAATKA Platform - Git Ignore
+
+# Vendor directory
+/vendor/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+/logs/
+/api/error.log
+/admin/error.log
+
+# Database backups
+*.sql.gz
+*.sql.bak
+/backups/
+
+# Uploaded files
+/invoices/*.pdf
+/uploads/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Composer
+composer.lock
+composer.phar
+
+# Node modules (if using)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Cache
+/cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Installation file (should be deleted after install)
+install.php
+.installed
+
+# Sensitive configuration
+.htpasswd
+config.local.php
+
+# OS generated files
+*~
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# PHP
+*.php~
+*.phps
+
+# Security
+*.pem
+*.key
+*.crt

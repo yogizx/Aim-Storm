@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odoo Services - Venba Infotech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-green: #106b5c;
+            --light-teal: #d7fafa;
+            --text-dark: #222;
+            --text-gray: #555;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --header-bg: #d1ebe8;
+            --card-bg: #D9F5F3;
+            --footer-bg: #d1ebe8;
+            --solution-card-bg: #ffffff;
+            --pricing-card-bg: #ffffff;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary-green: #106b5c;
+            /* Keep original green for light cards */
+            --light-teal: #d7fafa;
+            --text-dark: #222;
+            --text-gray: #555;
+
+            --bg-light: #232323;
+            /* Deep Dark Background for Page */
+            --white: #ffffff;
+
+            --header-bg: #d1ebe8;
+            /* Light Mint Header in Dark Mode (User Req) */
+
+            /* High Contrast: Light Cards in Dark Mode */
+            --card-bg: #ffffff;
+            /* White Service Circles */
+            --footer-bg: #d1ebe8;
+            /* Light Footer */
+            --solution-card-bg: #ffffff;
+            /* White Solution Cards */
+            --pricing-card-bg: #ffffff;
+            /* White Pricing Cards */
+        }
+
+        /* Dark Mode Global Text Overrides */
+        body.dark-mode {
+            background-color: var(--bg-light);
+            color: #fff;
+        }
+
+        /* Dark Mode Navbar - Light Background needs Dark Text */
+        body.dark-mode nav a {
+            color: #333;
+            /* Dark text for light header */
+        }
+
+        body.dark-mode nav a:hover {
+            color: var(--primary-green);
+            /* Ensure hover is visible */
+        }
+
+        /* Dark Mode Header Icons */
+        body.dark-mode .theme-toggle,
+        body.dark-mode .mobile-menu-btn {
+            color: #333;
+        }
+
+        /* Service Cards (Circles) - White in Dark Mode */
+        body.dark-mode .service-card {
+            background: var(--card-bg);
+            color: #222;
+            /* Dark text inside white card */
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+            /* Soft glow */
+        }
+
+        body.dark-mode .service-card h3 {
+            color: #106b5c;
+        }
+
+        body.dark-mode .service-card p {
+            color: #555;
+        }
+
+        /* Hero Text */
+        body.dark-mode .hero h1 {
+            color: #fff;
+        }
+
+        body.dark-mode .hero p {
+            color: #ccc;
+        }
+
+        /* Pricing Section - Retains Gradient, Cards are White */
+        body.dark-mode .plan-card {
+            background: var(--pricing-card-bg);
+            color: #333;
+        }
+
+        body.dark-mode .plan-name {
+            color: #111;
+        }
+
+        /* Pro Plan overrides are inline, so they persist (Dark Green bg, White text) - Correct */
+
+        body.dark-mode .plan-card p,
+        body.dark-mode .plan-card li,
+        body.dark-mode .trial-text {
+            color: #555 !important;
+        }
+
+        /* Exception for Pro Plan text which is already white stylings inline */
+        body.dark-mode .plan-card[style*="background-color: #0d423b"] p,
+        body.dark-mode .plan-card[style*="background-color: #0d423b"] li,
+        body.dark-mode .plan-card[style*="background-color: #0d423b"] .trial-text {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        body.dark-mode .plan-card .green-tick {
+            color: #22c55e;
+        }
+
+        /* Solutions Section - Dark Background, White Cards */
+        body.dark-mode .solutions-section {
+            background-color: var(--bg-light);
+            /* Dark BG for section */
+        }
+
+        body.dark-mode .solutions-section h2 {
+            color: #fff;
+            /* White Title */
+        }
+
+        body.dark-mode .solutions-section>p {
+            color: #aaa !important;
+            /* Light Subtitle */
+        }
+
+        body.dark-mode .solution-card {
+            background: var(--solution-card-bg);
+            /* White Card */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .solution-card h3 {
+            color: #222;
+        }
+
+        body.dark-mode .solution-card p {
+            color: #666 !important;
+        }
+
+        /* Footer - Light in Dark Mode */
+        body.dark-mode footer {
+            background-color: var(--footer-bg);
+            color: #555;
+        }
+
+        body.dark-mode .footer-col h4 {
+            color: #111;
+        }
+
+        body.dark-mode .footer-links a {
+            color: #444;
+        }
+
+        body.dark-mode .footer-links a:hover {
+            color: var(--primary-green);
+        }
+
+        body.dark-mode .contact-info p {
+            color: #444;
+        }
+
+        body.dark-mode .copyright {
+            color: #111;
+        }
+
+        body.dark-mode .mobile-menu-btn {
+            color: #fff;
+        }
+
+        /* Toggle Button - Minimalist Icon Style */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: black;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            /* Spacing from button */
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--primary-green);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: #fff;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            color: var(--primary-green);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        /* Animation Classes (Optical Flow) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 1.0s cubic-bezier(0.22, 1, 0.36, 1), transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
+            /* Ultra Smooth Ease Out */
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Staggered Delay Utilities */
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .hover-scale {
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background-color: var(--header-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo img {
+            height: 40px;
+            /* Reduced size as requested */
+            object-fit: contain;
+        }
+
+        /* Nav Wrapper to group Menu + Button for mobile toggle */
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .btn-contact {
+            background-color: #0c4a40;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-contact:hover {
+            background-color: #06332c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(12, 74, 64, 0.3);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Mobile Responsive Navigation */
+        @media (max-width: 900px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-wrapper {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+                /* Closed State */
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            .nav-wrapper.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .btn-contact {
+                width: 80%;
+                text-align: center;
+            }
+        }
+
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3.5rem 10% 2rem;
+            /* Reduced top padding */
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: var(--text-gray);
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            /* Reduced bottom margin */
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            /* Organized grid-like feel */
+        }
+
+        .service-card {
+            width: 260px;
+            padding: 35px 28px;
+            background: #D9F5F3;
+            border-radius: 160px;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background-color: #2d8b7b;
+            color: white;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-subtitle {
+            margin-bottom: 4rem;
+            font-size: 1.05rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-row {
+            display: flex;
+            flex-direction: row;
+            /* Laptop: Horizontal */
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 0 auto 4rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            /* Slightly tighter for horizontal row */
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            text-align: left;
+        }
+
+        .feature-icon {
+            background: white;
+            color: #000;
+            min-width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-section {
+            background: linear-gradient(to bottom, #1e8e82, #d2eded);
+            /* Gradient from reference */
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .pricing-subtitle {
+            color: white !important;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: white;
+            color: #333;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: left;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Animation Classes (Optical Flow) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            /* Smoother, more relaxed curve */
+        }
+
+        /* ... (skipping some lines) ... */
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            /* border-bottom: 1px solid #eee;  <-- Removed as requested */
+            padding-bottom: 0.5rem;
+            /* Reduced padding since border is gone */
+        }
+
+        .plan-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .plan-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: currentColor;
+            /* Matches text color (Dark or White) */
+            border-radius: 2px;
+        }
+
+        .plan-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .trial-text {
+            display: block;
+            text-align: right;
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: -8px;
+            margin-bottom: 8px;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            margin: 1.5rem 0 2.5rem;
+            flex-grow: 1;
+        }
+
+        .plan-card li {
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .green-tick {
+            color: #22c55e;
+            margin-top: 3px;
+        }
+
+        .plan-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 2px solid var(--primary-green);
+            transition: all 0.3s;
+        }
+
+        .plan-btn.primary {
+            background-color: #0d423b;
+            color: white;
+            border-color: #0d423b;
+        }
+
+        .plan-btn.primary:hover {
+            background-color: #06302a;
+        }
+
+        .plan-btn.secondary {
+            background-color: white;
+            color: #0d423b;
+            border-color: #eee;
+        }
+
+        .plan-btn.secondary:hover {
+            background-color: #f0fdfa;
+        }
+
+        /* Solutions Section */
+        .solutions-section {
+            padding: 1rem 10% 8rem 10%;
+            /* Reduced top, Increased bottom */
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .solutions-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0px;
+            /* No bottom margin */
+            color: #111;
+        }
+
+        .solutions-section p {
+            margin-top: 0.2rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* Strict 3 columns */
+            gap: 20px;
+            /* Tighter gap */
+            margin-top: 0px;
+            /* Removed margin completely as p has margin */
+            text-align: left;
+            max-width: 1150px;
+            /* Reduced overall width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .solution-card {
+            aspect-ratio: 16 / 9;
+            /* 16:9 Landscape rectangle */
+            height: auto;
+            padding: 1.5rem;
+            /* Reduced padding to fit content in shorter box */
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 4px 50px rgba(0, 0, 0, .05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Center vertically */
+            min-height: 0;
+            /* allow shrinking */
+        }
+
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .sol-icon {
+            width: 48px;
+            height: 48px;
+            /* Compact icon */
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+            /* Reduced margin */
+            font-size: 1.4rem;
+        }
+
+        /* Colored Icons Backgrounds */
+        .bg-orange {
+            background-color: #fff7ed;
+            color: #ea580c;
+        }
+
+        .bg-green {
+            background-color: #ecfdf5;
+            color: #059669;
+        }
+
+        .bg-purple {
+            background-color: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .bg-blue {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+
+        .bg-red {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+
+        .bg-indigo {
+            background-color: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .solution-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+
+        .solution-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #d1ebe8;
+            padding: 5rem 10% 2rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 2fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #111;
+            font-weight: 700;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--primary-green);
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-logo img {
+            height: 90px;
+            /* Bigger footer logo for desktop */
+            object-fit: contain;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #444;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .contact-info p {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1rem;
+            color: #444;
+            align-items: flex-start;
+        }
+
+        .copyright {
+            text-align: right;
+            /* Aligned to right */
+            padding-top: 2rem;
+            /* Removed border-top */
+            font-size: 0.9rem;
+            color: #111;
+            /* Darker text */
+            font-weight: 500;
+        }
+
+
+        /* =========================================
+           RESPONSIVE DESIGN (PHONE & LAPTOP)
+           ========================================= */
+
+        /* Laptop / Standard Desktop (Default above is mostly efficient, ensuring specific constraints) */
+        @media (min-width: 1025px) {
+            .container {
+                flex-wrap: nowrap;
+            }
+
+            .services-circles {
+                flex-wrap: nowrap;
+                /* Force row */
+            }
+
+            .plans-grid {
+                grid-template-columns: repeat(3, 1fr);
+                /* 3 cols side by side */
+            }
+        }
+
+        /* Tablet (Responsive bridge) */
+        @media (max-width: 1100px) {
+
+            /* Increased breakpoint slightly to prevent overflow before wrap */
+            .services-circles {
+                flex-wrap: wrap;
+                /* Allow wrap on smaller laptops/tablets */
+                gap: 28px;
+            }
+
+            .plans-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                gap: 20px;
+            }
+
+            .service-card {
+                width: calc(50% - 20px);
+                flex: 1 1 40%;
+                /* Allow 2 per row */
+            }
+
+            .service-card {
+                min-width: 45%;
+                /* 2 per row */
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 cols for tablet */
+                max-width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Phone (Strict vertical stack as described for 1st image) */
+        @media (max-width: 768px) {
+            /* Header logic handled above in max-width: 900px block */
+
+            /* Hero */
+            .hero {
+                padding: 3rem 5% 1.5rem 5%;
+                /* Reduced bottom padding */
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+                /* Smaller heading */
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                /* Reduced bottom margin */
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            p,
+            li,
+            a,
+            .plan-card p,
+            .solution-card p {
+                font-size: 0.85rem !important;
+            }
+
+            .logo img {
+                height: 45px;
+                /* Smaller logo for phone */
+            }
+
+            .footer-logo img {
+                height: 70px;
+            }
+
+            /* Service Circles -> Stack Vertically */
+            .services-circles {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .service-card {
+                width: 100%;
+                max-width: 300px;
+                /* Comfortable mobile width */
+                min-width: 0;
+                /* Reset tablet min-width */
+                flex: 1 1 100%;
+                /* Force one per row */
+                margin: 0 auto;
+                /* Center it */
+            }
+
+
+            /* Plans -> Stack */
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-row {
+                flex-direction: column;
+                align-items: flex-start;
+                width: fit-content;
+                margin: 0 auto 2rem;
+                gap: 1.5rem;
+            }
+
+            .feature-item {
+                max-width: 100%;
+                justify-content: flex-start;
+            }
+
+            /* Footer */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: left;
+                /* Left align on mobile as requested */
+                gap: 30px;
+            }
+
+            .copyright {
+                text-align: center;
+                /* Center on mobile */
+            }
+
+            .footer-logo {
+                justify-content: flex-start;
+                /* Left align logo as requested */
+            }
+
+            .contact-info p {
+                justify-content: flex-start;
+                /* Left align contact icons */
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+                /* Consistent gap between cards */
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .solution-card {
+                padding: 1.25rem;
+                /* Slightly more padding for the wider box */
+                max-width: 90%;
+                /* Full width allowed */
+                min-height: auto;
+                aspect-ratio: auto;
+                width: 100%;
+                /* Force full width */
+                margin: 0 auto;
+            }
+
+            .solution-card h3 {
+                font-size: 1.1rem;
+                /* Slightly larger title for wider card */
+                margin-bottom: 0.4rem;
+            }
+
+            .solution-card p {
+                font-size: 0.85rem !important;
+                /* Slightly larger text for wider card */
+                line-height: 1.5;
+            }
+
+            .sol-icon {
+                width: 40px;
+                /* Slightly bigger icon */
+                height: 40px;
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+
+            .solutions-section {
+                padding: 0.5rem 10px 1.5rem 10px;
+                /* Minimal side gaps (10px) */
+            }
+
+            .solutions-section h2 {
+                font-size: 1.25rem !important;
+                /* Smaller heading for phone */
+            }
+
+            .solutions-section p {
+                font-size: 0.8rem !important;
+                /* Smaller subtitle for phone */
+            }
+
+            /* Pricing Section Mobile Sizes */
+            .pricing-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .pricing-subtitle {
+                font-size: 0.9rem !important;
+            }
+
+            .feature-item {
+                font-size: 0.9rem;
+            }
+
+            /* Pricing Cards Mobile Refinement */
+            .plan-card {
+                padding: 2rem;
+                margin: 0 auto 1.5rem;
+                border-radius: 16px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                max-width: 320px;
+                width: 100%;
+            }
+
+            .plan-btn {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <!-- Referencing D:\oddo\logo.png directly via relative path as files are in same dir -->
+            <img src="logo.png" alt="Venba Infotech Logo">
+        </div>
+
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-wrapper">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Odoo</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" aria-label="Toggle Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <a href="#" class="btn-contact">Contact us</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="reveal">We Build Better Businesses with Odoo</h1>
+        <p class="reveal delay-100">From implementation to customization, we help businesses leverage Odoo's modular ERP
+            power to automate, integrate, and scale.</p>
+    </section>
+
+    <div class="container hero-services">
+
+        <div class="service-card reveal delay-100">
+            <h3>Odoo Implementation</h3>
+            <br>
+            <p>End-to-end deployment of
+                Odoo ERP tailored for your
+                business processes.</p>
+        </div>
+
+        <div class="service-card reveal delay-200">
+            <h3>Customization & Development</h3>
+            <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+        </div>
+
+        <div class="service-card reveal delay-300">
+            <h3>Integration Services</h3>
+            <br>
+            <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+        </div>
+
+        <div class="service-card reveal delay-400">
+            <h3>Odoo Support & Maintenance</h3>
+            <p>Custom modules, workflows and UI tweaks to fit your unique needs.</p>
+        </div>
+
+    </div>
+    <br>
+    <br>
+
+    <section class="pricing-section">
+        <div class="reveal">
+            <h2>Choose Your Plan Today</h2>
+            <p class="pricing-subtitle">We Offer Quick-Start Business Automation Packages - Giving You A Fully
+                Functional Odoo Setup And A Professional Website. All At An Affordable Price.</p>
+
+            <div class="features-row">
+                <div class="feature-item"><span class="feature-icon"><i class="fa-solid fa-cube"></i></span> Custom Odoo
+                </div>
+                <div class="feature-item"><span class="feature-icon"><i class="fa-solid fa-laptop-code"></i></span> Odoo
+                    Webdesign</div>
+                <div class="feature-item"><span class="feature-icon"><i class="fa-solid fa-rocket"></i></span> Instant
+                    Deployment</div>
+                <div class="feature-item"><span class="feature-icon"><i class="fa-solid fa-toggle-on"></i></span> User
+                    Enablement</div>
+            </div>
+        </div>
+
+        <div class="plans-grid">
+            <!-- Growth Plan -->
+            <div class="plan-card reveal delay-100">
+                <div class="plan-header">
+                    <span class="plan-name">Growth</span>
+                    <span class="plan-price">₹ 20,000</span>
+                </div>
+                <span class="trial-text">7-Day Free Trial</span>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #666;">Plan Includes</p>
+                <ul>
+                    <li><i class="fa-solid fa-check green-tick"></i> Get one license - no markups and hidden fees</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> We'll set up your core odoo system for free.</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> Choose a support package based on your needs</li>
+                </ul>
+                <a href="#" class="plan-btn primary">GET STARTED</a>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="plan-card reveal delay-200" style="background-color: #0d423b; color: white;">
+                <div class="plan-header">
+                    <span class="plan-name">Pro</span>
+                    <span class="plan-price">₹ 35,000</span>
+                </div>
+                <span class="trial-text" style="color: rgba(255,255,255,0.6);">7-Day Free Trial</span>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: rgba(255,255,255,0.8);">Plan Includes</p>
+                <ul style="color: rgba(255,255,255,0.9);">
+                    <li><i class="fa-solid fa-check green-tick"></i> Get one license - no markups and hidden fees</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> We'll set up your core odoo system for free.</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> Choose a support package based on your needs</li>
+                </ul>
+                <a href="#" class="plan-btn secondary">CURRENT PLAN</a>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="plan-card reveal delay-300">
+                <div class="plan-header">
+                    <span class="plan-name">Enterprise</span>
+                    <span class="plan-price">₹ 65,000</span>
+                </div>
+                <span class="trial-text">7-Day Free Trial</span>
+                <p style="font-size: 0.9rem; margin-top: 1rem; color: #666;">Plan Includes</p>
+                <ul>
+                    <li><i class="fa-solid fa-check green-tick"></i> Get one license - no markups and hidden fees</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> We'll set up your core odoo system for free.</li>
+                    <li><i class="fa-solid fa-check green-tick"></i> Choose a support package based on your needs</li>
+                </ul>
+                <a href="#" class="plan-btn primary">UPGRADE</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="solutions-section">
+        <br>
+        <h2 class="reveal">Industry Solutions with Odoo</h2>
+        <p class="reveal" style="color: #666; max-width: 600px; margin: 0 auto;">Specialized Odoo implementations
+            tailored for different industries</p>
+    </section>
+    <div class="solutions-grid">
+        <!-- Card 1 -->
+        <div class="solution-card reveal delay-100">
+            <div class="sol-icon bg-orange"><i class="fa-solid fa-industry"></i></div>
+            <h3>Manufacturing Process</h3>
+            <p>Complete manufacturing management with production planning, quality control, and inventory
+                optimization.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="solution-card reveal delay-200">
+            <div class="sol-icon bg-green"><i class="fa-solid fa-users"></i></div>
+            <h3>Human Resource Management</h3>
+            <p>Comprehensive HR solutions including payroll, attendance, recruitment, and performance management.
+            </p>
+        </div>
+        <!-- Card 3 -->
+        <div class="solution-card reveal delay-300">
+            <div class="sol-icon bg-purple"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h3>Inventory Management</h3>
+            <p>Smart inventory control with real-time tracking, automated reordering, and warehouse optimization.
+            </p>
+        </div>
+        <!-- Card 4 -->
+        <div class="solution-card reveal delay-100">
+            <div class="sol-icon bg-blue"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Sales & CRM</h3>
+            <p>Complete customer relationship management with lead tracking, sales automation, and analytics.</p>
+        </div>
+        <!-- Card 5 -->
+        <div class="solution-card reveal delay-200">
+            <div class="sol-icon bg-red"><i class="fa-solid fa-list-check"></i></div>
+            <h3>Project Management</h3>
+            <p>Efficient project planning, task management, time tracking, and resource allocation solutions.</p>
+        </div>
+        <!-- Card 6 -->
+        <div class="solution-card reveal delay-300">
+            <div class="sol-icon bg-indigo"><i class="fa-solid fa-calculator"></i></div>
+            <h3>Accounting & Finance</h3>
+            <p>Advanced financial management with automated invoicing, expense tracking, and financial reporting.
+            </p>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Venba">
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Packages</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Web development</a></li>
+                    <li><a href="#">App Development</a></li>
+                    <li><a href="#">Cyber Security</a></li>
+                    <li><a href="#">Data Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Venba Information Technology Pvt Ltd</h4>
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-location-dot" style="margin-top:4px;"></i> No.10/21, 27th Street, Thillai
+                        Ganga Nagar, Nanganallur, Chennai - 600061</p>
+                    <p><i class="fa-solid fa-phone" style="margin-top:4px;"></i> +91 807 299 8024</p>
+                    <p><i class="fa-solid fa-envelope" style="margin-top:4px;"></i> info@venbainfotech.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            Copyright © Venba Infotech
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Logic
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const body = document.body;
+
+        // Check Local Storage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navWrapper = document.querySelector('.nav-wrapper');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            navWrapper.classList.toggle('active');
+
+            // Toggle Icon
+            if (navWrapper.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Smooth Optical Flow Reveal Effect
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: Stop observing once revealed for better performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

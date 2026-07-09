@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance - MAATKA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .maintenance-container {
+            max-width: 600px;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 800;
+            color: #d4af37;
+            margin-bottom: 30px;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .icon {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .timer-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+        
+        .timer-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af37;
+            display: block;
+        }
+        
+        .timer-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .contact {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .contact a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .social {
+            margin-top: 30px;
+        }
+        
+        .social a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 24px;
+            color: #d4af37;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social a:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-container">
+        <div class="logo">MAATKA</div>
+        <div class="icon">⚙️</div>
+        <h1>We'll Be Back Soon!</h1>
+        <p>
+            Our platform is currently undergoing scheduled maintenance to improve your experience. 
+            We appreciate your patience.
+        </p>
+        
+        <div class="timer">
+            <div class="timer-box">
+                <span class="timer-number" id="hours">00</span>
+                <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="minutes">00</span>
+                <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="seconds">00</span>
+                <span class="timer-label">Seconds</span>
+            </div>
+        </div>
+        
+        <p>
+            If you have any urgent questions, please contact us at 
+            <a href="mailto:support@maatka.com">support@maatka.com</a>
+        </p>
+        
+        <div class="contact">
+            <p style="font-size: 14px;">Thank you for your understanding.</p>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.5);">
+                - The MAATKA Team
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Set maintenance end time (example: 2 hours from now)
+        const endTime = new Date().getTime() + (2 * 60 * 60 * 1000);
+        
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+            
+            if (distance < 0) {
+                document.querySelector('.timer').innerHTML = '<p>Maintenance complete! Refreshing...</p>';
+                setTimeout(() => location.reload(), 3000);
+                return;
+            }
+            
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
