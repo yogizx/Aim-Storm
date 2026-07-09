@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elevated IQ Academy | IT & Medical Coding Courses</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+
+  <style>
+    :root{
+      --primary:#3b82f6; --secondary:#8b5cf6; --accent:#ec4899;
+    }
+    html,body{height:100%}
+    body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);color:#0b1220;overflow-x:hidden}
+
+    /* ----------------- Animations & Utilities ----------------- */
+    @keyframes float {0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(4deg)}}
+    @keyframes fadeInUp {from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes bounceSoft {0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes rotate {from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    @keyframes gradientShift {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes shimmer {0%{background-position:-200% center}100%{background-position:200% center}}
+    @keyframes pulse-glow {0%,100%{box-shadow:0 0 20px rgba(59,130,246,0.4)}50%{box-shadow:0 0 30px rgba(139,92,246,0.6)}}
+    @keyframes scroll {0% { transform: translateX(0); } 100% { transform: translateX(calc(-250px * 7)); }}
+
+    .animate-float{animation:float 7s ease-in-out infinite}
+    .animate-fade-up{animation:fadeInUp .7s ease forwards}
+    .animate-bounce-soft{animation:bounceSoft 3s ease-in-out infinite}
+    .animate-rotate{animation:rotate 20s linear infinite}
+    .gradient-shift{background:linear-gradient(-45deg,var(--primary),var(--secondary),var(--accent),var(--primary));background-size:300% 300%;animation:gradientShift 8s ease infinite}
+    .glass{background:rgba(255,255,255,0.16);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.22)}
+    .card-shine{position:relative;overflow:hidden}
+    .card-shine::before{content:"";position:absolute;left:-120%;top:0;bottom:0;width:80%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-12deg);transition:left .9s ease}
+    .card-shine:hover::before{left:140%}
+    .hover-lift{transition:transform .28s ease,box-shadow .28s ease}
+    .hover-lift:hover{transform:translateY(-10px);box-shadow:0 28px 60px rgba(11,18,34,.08)}
+    .nav-underline{position:relative}
+    .nav-underline::after{content:"";position:absolute;left:0;bottom:-6px;height:3px;width:0;border-radius:3px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .28s ease}
+    .nav-underline:hover::after,.nav-underline.active::after{width:100%}
+    .animate-shimmer{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+    .animate-pulse-glow{animation:pulse-glow 2s ease-in-out infinite}
+    
+    /* Horizontal scroll for testimonials */
+    .testimonial-scroll-container {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 transparent;
+    }
+    .testimonial-scroll-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .testimonial-scroll-container::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+    .testimonial-scroll-container::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 10px;
+    }
+    .testimonial-scroll-wrapper {
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 1rem;
+      min-width: min-content;
+    }
+    .testimonial-card {
+      flex: 0 0 auto;
+      width: 320px;
+    }
+    @media (min-width: 768px) {
+      .testimonial-card {
+        width: 350px;
+      }
+    }
+
+    /* particle basics (created via JS with inline styles) */
+    .particle{position:fixed;border-radius:999px;pointer-events:none;z-index:0;opacity:.35;mix-blend-mode:screen}
+
+    /* counters */
+    .counter{font-variation-settings: 'wght' 800;font-weight:800}
+
+    /* FAQ accordion */
+    .faq-item{border-bottom:1px solid #e2e8f0;overflow:hidden}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.5s ease}
+    .faq-item.active .faq-answer{max-height:500px}
+    .faq-item.active .faq-toggle i{transform:rotate(180deg)}
+    .faq-toggle i{transition:transform 0.3s ease}
+
+    /* accessibility focus */
+    :focus{outline:3px solid rgba(59,130,246,.12);outline-offset:3px}
+    button:focus{outline-offset:3px}
+
+    /* responsive tweaks for header elements */
+    header .container{max-width:1300px}
+    .logo-box{width:56px;height:56px;border-radius:14px}
+
+    /* course badge */
+    .course-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:0.7rem;font-weight:600;margin-right:4px;margin-bottom:4px}
+    .tech-badge{background:rgba(59,130,246,0.1);color:#3b82f6}
+    .nontech-badge{background:rgba(236,72,153,0.1);color:#ec4899}
+
+    /* phone input with flag */
+    .phone-input-container {
+      position: relative;
+    }
+    .phone-input-container .fi {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      z-index: 10;
+    }
+    .phone-input-container input {
+      padding-left: 50px;
+    }
+    .phone-input-container::before {
+      content: "+91";
+      position: absolute;
+      left: 42px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4b5563;
+      font-weight: 500;
+      z-index: 10;
+    }
+
+    /* enhance responsive design */
+    @media (max-width: 640px) {
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .testimonial-card {
+        width: 280px;
+      }
+    }
+    @media (max-width: 768px) {
+      .course-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .why-choose-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* reduce motion when user prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float,.animate-bounce-soft,.animate-rotate,.gradient-shift,.card-shine::before{animation:none;transition:none}
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ================= Header ================= -->
+<header id="siteHeader" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+  <div class="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
+    <div class="flex items-center justify-between gap-3">
+      <!-- LEFT: Logo -->
+      <div class="flex items-center gap-3">
+        <img
+          src="Logo/elevated-iq-academy-logo.png"
+          alt="Elevated IQ Academy Logo"
+          class="logo-img w-20 h-20 sm:w-20 sm:h-14 md:w-30 md:h-18 lg:w-36 lg:h-22 object-contain rounded-lg"
+        />
+        <!-- title shown on md+ -->
+        <div class="brand-text">
+          <div class="brand-main">Elevated IQ Academy</div>
+          <div class="brand-sub">Medical Coding • IT</div>
+        </div>
+      </div>
+
+      <!-- CENTER: navigation (hidden on small screens) -->
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Medical Coding Dropdown (full original content preserved) -->
+        <div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>Medical Coding</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[300px] sm:w-[500px] md:w-[700px] lg:w-[800px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 origin-top">
+    <!-- Header Section -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-blue-600 to-teal-600 p-2 rounded-lg">
+          <i class="fas fa-stethoscope text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">Medical Coding Courses</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Specialized training programs for healthcare documentation and billing</p>
+    </div>
+
+    <!-- Medical Coding Courses Grid - Responsive columns (3 columns at large screens) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-h-[400px] overflow-y-auto pr-2 sm:pr-3 custom-scrollbar">
+
+      <!-- Column 1: Medical Coding Fundamentals -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-blue-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-book-medical text-blue-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Medical Coding Fundamentals</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="bmt.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">BMCT</p>
+              <p class="text-xs text-gray-500">Basic Medical Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Professional Certifications -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-green-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-award text-green-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Professional Certifications</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="cpc.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">CPC</p>
+              <p class="text-xs text-gray-500">Certified Professional Coder</p>
+            </div>
+          </a>
+          <a href="abmt.html" class="group flex items-center hover:text-red-600 transition">
+            <div class="w-1.5 h-1.5 bg-red-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Advanced Medical Coding</p>
+              <p class="text-xs text-gray-500">Specialized Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Medical Billing Specialist -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-file-invoice-dollar text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Billing & Practice</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="mbs.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Medical Billing Specialist</p>
+              <p class="text-xs text-gray-500">Healthcare Billing Professional</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Start your healthcare career today</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Get certified in medical coding</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all text-sm text-center">
+            View All Medical Coding →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- IT Courses Dropdown (full original content preserved) -->
+        <!-- FIXED: IT Courses Dropdown (AI & Specialized moved into the main grid; responsive columns; single scrollable panel) -->
+<div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>IT Courses</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <!-- Use a flexible width and a responsive grid. Keep the panel centered and scrollable. -->
+  <div
+    class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[92vw] max-w-[1100px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 origin-top"
+    role="menu" aria-hidden="true" aria-label="IT courses menu"
+  >
+    <!-- Header -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-2 rounded-lg">
+          <i class="fas fa-laptop-code text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">IT (Technical & Non-Technical Courses)</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Comprehensive training in modern technology and software development</p>
+    </div>
+
+    <!-- GRID: responsive columns. On XL use 5 columns so AI sits in the same row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 max-h-[420px] overflow-y-auto pr-2 sm:pr-3">
+      <!-- Programming -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-code text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Programming</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="c.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">C & C++</p>
+              <p class="text-xs text-gray-500">Fundamentals to Advanced</p>
+            </div>
+          </a>
+          <a href="java.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Java</p>
+              <p class="text-xs text-gray-500">Core & Advanced Java</p>
+            </div>
+          </a>
+          <a href="python.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Python</p>
+              <p class="text-xs text-gray-500">Python Programming</p>
+            </div>
+          </a>
+          <a href="web.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Web Development</p>
+              <p class="text-xs text-gray-500">HTML, PHP, MySQL</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- App Development -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-indigo-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-mobile-alt text-indigo-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">App Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="android.html" class="group flex items-center hover:text-indigo-600 transition">
+            <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Android App</p>
+              <p class="text-xs text-gray-500">Android Development</p>
+            </div>
+          </a>
+          <a href="ios.html" class="group flex items-center hover:text-gray-600 transition">
+            <div class="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">iOS App</p>
+              <p class="text-xs text-gray-500">iOS Development</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Full Stack -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-layer-group text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Full Stack Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="full-java.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Java</p>
+              <p class="text-xs text-gray-500">Java Full Stack Development</p>
+            </div>
+          </a>
+          <a href="full-python.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Python</p>
+              <p class="text-xs text-gray-500">Python Full Stack Development</p>
+            </div>
+          </a>
+          <a href="mern.html" class="group flex items-center hover:text-teal-600 transition">
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">MERN Stack</p>
+              <p class="text-xs text-gray-500">MongoDB, Express, React, Node</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cloud & Testing -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-orange-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-cloud text-orange-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Cloud & Testing</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="testing.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Automation Testing</p>
+              <p class="text-xs text-gray-500">Selenium, TestNG</p>
+            </div>
+          </a>
+          <a href="aws.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">AWS</p>
+              <p class="text-xs text-gray-500">Amazon Web Services</p>
+            </div>
+          </a>
+          <a href="google-cloud.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Google Cloud</p>
+              <p class="text-xs text-gray-500">Google Cloud Computing</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Design & AI (combined: this column contains Design and AI items if you prefer fewer columns) -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-pink-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-palette text-pink-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Design & Multimedia</h4>
+        </div>
+
+        <!-- Design items -->
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11 mb-4">
+          <a href="ui.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">UI/UX Design</p>
+              <p class="text-xs text-gray-500">User Interface/Experience</p>
+            </div>
+          </a>
+          <a href="photoshop.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Photoshop</p>
+              <p class="text-xs text-gray-500">Adobe Photoshop</p>
+            </div>
+          </a>
+          <a href="illustator.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Illustrator</p>
+              <p class="text-xs text-gray-500">Adobe Illustrator</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+        <a href="lightroom.html" class="group flex items-center hover:text-yellow-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-yellow-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Lightroom</p> 
+            <p class="text-xs text-gray-500">Adobe Lightroom</p> 
+          </div> 
+        </a> 
+        <a href="after_effect.html" class="group flex items-center hover:text-purple-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">After Effects</p> 
+            <p class="text-xs text-gray-500">Adobe After Effects</p> 
+          </div> 
+        </a> 
+        <a href="premiere_pro.html" class="group flex items-center hover:text-green-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Premiere Pro</p> 
+            <p class="text-xs text-gray-500">Adobe Premiere Pro</p> 
+          </div> 
+        </a> 
+        </div>
+      </div>
+
+      <!-- AI Section   -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-teal-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-robot text-teal-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">AI & Specialized</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="gen_AI.html" class="group flex items-center hover:text-teal-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Generative AI</p> 
+              <p class="text-xs text-gray-500">AI Content Generation</p> 
+            </div> 
+          </a> 
+          <a href="vibe_coding.html" class="group flex items-center hover:text-blue-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Coding</p> 
+              <p class="text-xs text-gray-500">AI-Assisted Programming</p> 
+            </div> 
+          </a> 
+          <a href="vibe_marketing.html" class="group flex items-center hover:text-purple-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Marketing</p> 
+              <p class="text-xs text-gray-500">AI Marketing Strategies</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+
+      <!-- Digital Marketing -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-red-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-globe text-red-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Digital Marketing</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="digital.html" class="group flex items-center hover:text-red-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Digital Marketing</p> 
+              <p class="text-xs text-gray-500">Digital Marketing Foundation</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Need technical career guidance?</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Talk to our IT career counselor</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-purple-600 text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-all text-sm text-center">
+            View All IT Courses →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- <a href="#career" class="nav-link">Career</a> -->
+        <a href="about.html" class="nav-link">About Us</a>
+        <!-- <a href="#contact" class="nav-link">Contact</a> -->
+      </nav>
+
+      <!-- RIGHT: small contact + icon-only Enroll CTA + mobile menu button -->
+      <div class="right-actions">
+        <!-- subtle contact (shows only on xl) -->
+        <div class="contact-block" aria-hidden="true">
+          <div class="contact-label">Admissions Open</div>
+          <a class="contact-phone" href="tel:+919345417570">+91 93454 17570</a>
+        </div>
+
+        <!-- Icon-only enroll CTA (accessible) -->
+        <a href="https://forms.gle/CbnvYkT1ytVNj7CU6" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+            <i class="fas fa-user-plus"></i>
+            <span class="font-semibold">Register Now</span>
+          </a>
+
+        <!-- Mobile menu toggle -->
+        <button id="mobileMenuButton" class="mobile-button" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu-hidden">
+    <!-- Mobile Menu Header with Close Button -->
+    <div class="mobile-menu-header">
+      <div class="flex items-center justify-between p-10 border-b border-gray-200 bg-white">
+        <div class="flex items-center gap-3">
+          <img
+            src="Logo/elevated-iq-academy-logo.png"
+            alt="Elevated IQ Academy Logo"
+            class="w-12 h-12 object-contain rounded-lg"
+          />
+          <div>
+            <div class="font-bold text-gray-800 text-lg">Elevated IQ Academy</div>
+            <div class="text-gray-600 text-sm">Medical Coding • IT</div>
+          </div>
+        </div>
+        <button id="mobileMenuClose" class="mobile-close-btn" aria-label="Close menu">
+          <i class="fas fa-times text-xl text-gray-600"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-xl pt-4 pb-6 px-4 sm:px-6 overflow-y-auto" style="max-height: calc(100vh - 80px); margin-top: 80px;">
+      <div class="space-y-3 sm:space-y-4">
+        <a href="index.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-home mr-3 text-blue-500"></i> Home
+        </a>
+
+        <!-- Mobile Medical Coding -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-stethoscope mr-3 text-blue-500"></i> Medical Coding
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <a href="bmct.html" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 inline-block align-middle"></div>
+              BMCT (Basic Medical Coding)
+            </a>
+            <a href="cpc.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-green-500 rounded-full mr-3 inline-block align-middle"></div>
+              CPC Certification
+            </a>
+            <a href="abmt.html" class="block py-2 text-gray-700 hover:text-red-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-red-500 rounded-full mr-3 inline-block align-middle"></div>
+              Advanced Medical Coding
+            </a>
+            <a href="mbs.html" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-purple-500 rounded-full mr-3 inline-block align-middle"></div>
+              Medical Billing Specialist
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile IT Courses with detailed subcategories -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-laptop-code mr-3 text-purple-500"></i> IT Courses
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <!-- Programming -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-purple-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                  Programming
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="#" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  C & C++ (Fundamentals to Advanced)
+                </a>
+                <a href="java.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Java (Core & Advanced)
+                </a>
+                <a href="python.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Python Programming
+                </a>
+                <a href="web.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Web Development (HTML, PHP, MySQL)
+                </a>
+              </div>
+            </div>
+
+            <!-- App Development -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  App Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="android.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Android App Development
+                </a>
+                <a href="ios.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  iOS App Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Full Stack Development -->
+             <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  Full Stack Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="full-java.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Java Development
+                </a>
+                <a href="full-python.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Python Development
+                </a>
+                <a href="mern.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  MERN Stack Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Cloud Computing & Testing -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-orange-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                  Cloud Computing & Testing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="testing.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Automation Testing (Selenium, TestNG)
+                </a>
+                <a href="aws.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  AWS (Amazon Web Services)
+                </a>
+                <a href="google-cloud.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Google Cloud Computing
+                </a>
+              </div>
+            </div>
+
+            <!-- UI/UX Design -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-pink-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                  Design & Multimedia
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="ui.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  UI/UX Design
+                </a>
+                <a href="photoshop.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Photoshop
+                </a>
+                <a href="illustator.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Illustrator
+                </a>
+                <a href="lightroom.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Lightroom
+                </a>
+                <a href="premiere_pro.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Premiere pro
+                </a>
+                <a href="after_effect.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe After Effects
+                </a>
+              </div>
+            </div>
+
+            <!-- Data Science & AI -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-teal-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                  AI & Specialized
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="gen_AI.html" class="block py-1.5 text-gray-600 hover:text-teal-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Generative AI
+                </a>
+                <a href="vibe_marketing.html" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Marketing
+                </a>
+                <a href="vibe_coding.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Coding
+                </a>
+              </div>
+            </div>
+
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-red-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                  Digital Marketing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="digital.html" class="block py-1.5 text-gray-600 hover:text-red-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Digital Marketing
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <a href="#career" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-briefcase mr-3 text-green-500"></i> Career
+        </a> -->
+
+        <a href="about.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-info-circle mr-3 text-orange-500"></i> About Us
+        </a>
+
+        <!-- <a href="#contact" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-phone mr-3 text-teal-500"></i> Contact
+        </a> -->
+
+        <div class="pt-4 border-t border-gray-200 space-y-3">
+          <div class="text-center mb-2">
+            <div class="inline-flex flex-col items-center bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-2 rounded-lg">
+              <p class="text-xs sm:text-sm font-medium text-gray-700">Admissions Open</p>
+              <a href="tel:+919345417570" class="text-sm sm:text-base font-bold text-blue-600 hover:text-blue-700">
+                +91 93454 17570
+              </a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="tel:+919345417570" class="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-phone"></i>
+              <span class="font-semibold">Call Now</span>
+            </a>
+
+            <a href="https://forms.gle/CbnvYkT1ytVNj7CU6" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-user-plus"></i>
+              <span class="font-semibold">Register Now</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Basic resets */
+  .logo-img{ display:block; object-fit:contain; border-radius:10px; }
+  .brand-text{ display:none; }
+  .brand-main{ font-weight:800; color:#0f1724; font-size:16px; }
+  .brand-sub{ font-size:12px; color:#6b7280; margin-top:2px; }
+
+  /* Layout containers */
+  .main-nav{ display:flex; gap:18px; align-items:center; justify-content:center; flex:1; padding:0 18px; }
+  .main-nav .nav-link{ color:#374151; text-decoration:none; font-weight:600; font-size:14px; padding:8px 6px; border-radius:8px; display:inline-flex; align-items:center; gap:6px; }
+  .main-nav .nav-link:hover{ color:#0ea5e9; background:rgba(14,165,233,0.06); }
+
+  /* dropdown basics */
+  .dropdown{ position:relative; }
+  .small-chevron{ font-size:10px; transform:rotate(0deg); transition:transform .25s ease; color:#6b7280; }
+  .dropdown:hover .small-chevron{ transform:rotate(180deg); color:#0ea5e9; }
+
+  /* right actions */
+  .right-actions{ display:flex; align-items:center; gap:12px; }
+  .contact-block{ display:none; text-align:right; margin-right:6px; }
+  .contact-label{ font-size:11px; color:#6b7280; }
+  .contact-phone{ font-weight:700; color:#0ea5e9; text-decoration:none; font-size:14px; display:block; margin-top:1px; }
+
+  /* mobile menu toggle */
+  .mobile-button{ border:none; display:none; background:transparent; padding:6px 8px; font-size:18px; color:#374151; cursor:pointer; }
+
+  /* responsive */
+  @media (min-width: 768px){
+    .brand-text{ display:block; }
+  }
+  @media (min-width: 1024px){
+    .contact-block{ display:block; }
+    .mobile-button{ display:none; }
+  }
+  @media (max-width: 1023px){
+    .main-nav{ display:none; }
+    .mobile-button{ display:inline-flex; }
+  }
+
+  /* ====== MOBILE MENU FIX ====== */
+  .mobile-menu-hidden {
+    display: none !important;
+  }
+
+  #mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Mobile menu content */
+  #mobileMenu .bg-white {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  /* Mobile menu header */
+  .mobile-menu-header {
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* Mobile close button - FIXED for click */
+  .mobile-close-btn {
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .mobile-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-close-btn i {
+    pointer-events: none;
+  }
+
+  /* Mobile dropdown content */
+  .mobile-dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .mobile-dropdown-content.open {
+    max-height: 800px;
+    transition: max-height 0.4s ease-in;
+  }
+
+  /* Chevron rotation */
+  .mobile-dropdown-btn .fa-chevron-down {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-dropdown-btn .fa-chevron-down.open {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile subcategory content */
+  .mobile-subcategory-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-subcategory-content.open {
+    max-height: 500px;
+  }
+
+  /* Subcategory chevron rotation */
+  .mobile-subcategory-btn .fa-chevron-right {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-subcategory-btn .fa-chevron-right.open {
+    transform: rotate(90deg);
+  }
+</style>
+
+<script>
+// SIMPLE RELIABLE MOBILE MENU FIX
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 1. OPEN MENU - Click hamburger icon
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    // 2. CLOSE MENU - Multiple methods
+    // Method A: Click close button (×)
+    document.addEventListener('click', function(e) {
+        // Close when clicking the close button OR the X icon
+        if (e.target.closest('#mobileMenuClose') || e.target.classList.contains('fa-times')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+        
+        // Close when clicking outside the menu
+        if (!mobileMenu.classList.contains('mobile-menu-hidden')) {
+            const isMenuButton = mobileMenuButton && mobileMenuButton.contains(e.target);
+            const isInMenu = mobileMenu.contains(e.target);
+            
+            if (!isInMenu && !isMenuButton) {
+                mobileMenu.classList.add('mobile-menu-hidden');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Handle dropdown buttons
+        if (e.target.closest('.mobile-dropdown-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-dropdown-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-down');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.mobile-dropdown-content.open').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('open');
+                    const openIcon = openContent.previousElementSibling.querySelector('.fa-chevron-down');
+                    if (openIcon) openIcon.classList.remove('open');
+                }
+            });
+            
+            // Toggle current dropdown
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+        
+        // Handle subcategory buttons
+        if (e.target.closest('.mobile-subcategory-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-subcategory-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-right');
+            
+            // Toggle current subcategory
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+    });
+    
+    // Method C: Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('mobile-menu-hidden')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Method D: Close when clicking regular links (not dropdown buttons)
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (!this.classList.contains('mobile-dropdown-btn') && 
+                !this.closest('.mobile-dropdown-btn') &&
+                !this.closest('.mobile-subcategory-btn')) {
+                setTimeout(() => {
+                    mobileMenu.classList.add('mobile-menu-hidden');
+                    document.body.style.overflow = '';
+                }, 100);
+            }
+        });
+    });
+});
+</script>
+
+  <!-- ================= Hero ================= -->
+  <main class="pt-28">
+    <section id="home" class="min-h-screen relative flex items-center overflow-hidden">
+      <!-- subtle background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
+
+      <!-- rotating soft shape -->
+      <div class="absolute -right-36 top-24 w-96 h-96 rounded-full bg-gradient-to-r from-blue-400/30 to-pink-400/30 blur-3xl animate-rotate pointer-events-none" aria-hidden="true"></div>
+
+      <div class="container mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <!-- left -->
+          <div class="space-y-6 lg:space-y-8">
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass shadow-sm animate-bounce-soft">
+              <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 animate-float"></span>
+              <span class="text-sm font-semibold text-slate-700">Industry-Focused Training Since 2010</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Master <span class="bg-clip-text text-transparent gradient-shift">IT & Medical Coding</span> Skills
+            </h1>
+
+            <p class="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl">
+              Transform your career with hands-on projects, certified trainers and guaranteed internship pathways. Join 1,500+ learners who changed their careers.
+            </p>
+
+            <div class="flex flex-wrap gap-3 sm:gap-4 mt-6">
+              <a href="#it-courses" class="inline-flex items-center gap-3 px-5 sm:px-6 py-3 rounded-2xl text-white gradient-shift hover:shadow-xl transition">Explore IT Courses <i class="fas fa-laptop-code"></i></a>
+              <a href="#medical-courses" class="inline-flex items-center gap-3 px-5 sm:px-6 py-3 rounded-2xl text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition">Medical Coding Programs <i class="fas fa-stethoscope"></i></a>
+            </div>
+
+            <!-- stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-8 lg:mt-10 hero-stats">
+              <div class="text-center">
+                <div class="text-2xl sm:text-3xl md:text-4xl counter text-blue-600 font-extrabold" data-target="1500">0</div>
+                <div class="text-xs sm:text-sm text-slate-600">Students Trained</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl sm:text-3xl md:text-4xl counter text-purple-600 font-extrabold" data-target="96">0</div>
+                <div class="text-xs sm:text-sm text-slate-600">Placement Rate (%)</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl sm:text-3xl md:text-4xl counter text-pink-600 font-extrabold" data-target="80">0</div>
+                <div class="text-xs sm:text-sm text-slate-600">Partner Companies</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl sm:text-3xl md:text-4xl counter text-blue-600 font-extrabold" data-target="4.9">0</div>
+                <div class="text-xs sm:text-sm text-slate-600">Average Rating</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- right hero card -->
+          <div class="relative mt-8 lg:mt-0">
+            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 card-shine hover-lift animate-pulse-glow">
+              <div class="flex items-start gap-4 sm:gap-6">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl gradient-shift flex items-center justify-center text-white">
+                  <i class="fas fa-laptop-medical text-xl sm:text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl sm:text-2xl font-extrabold">Dual Specialization</h3>
+                  <p class="text-slate-600 text-sm sm:text-base">IT + Medical Coding — curated tracks with live projects</p>
+                </div>
+              </div>
+
+              <div class="mt-6 space-y-4 sm:space-y-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    <i class="fas fa-code"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold">IT Development</h4>
+                    <p class="text-xs sm:text-sm text-slate-600">Full Stack, MERN, Java, Python</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+                    <i class="fas fa-file-medical"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Medical Coding</h4>
+                    <p class="text-xs sm:text-sm text-slate-600">BMCT, CPC, Billing Specialist</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-50 flex items-center justify-center text-green-600">
+                    <i class="fas fa-briefcase"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Career Growth</h4>
+                    <p class="text-xs sm:text-sm text-slate-600">Resume help, mock interviews & hiring partners</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 sm:mt-8 border-t pt-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <div class="text-yellow-400 flex gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <div class="text-xs sm:text-sm text-slate-600">4.9/5 from 800+ reviews</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-extrabold">Limited Seats</div>
+                    <div class="text-xs sm:text-sm text-slate-600">Next batch starts soon</div>
+                  </div>
+                </div>
+
+                <a href="#contact" class="mt-6 block w-full text-center py-3 rounded-xl text-white gradient-shift hover:shadow-xl">Enroll Now</a>
+              </div>
+            </div>
+
+            <!-- floating badges -->
+            <div class="absolute -top-4 -left-4 sm:-left-6 bg-white px-3 sm:px-4 py-1 sm:py-2 rounded-full shadow-md font-bold text-xs sm:text-sm">🔥 Most Popular</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Why Choose Us ================= -->
+    <section id="why-choose-us" class="py-16 sm:py-20 bg-gradient-to-b from-white to-purple-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-12 animate-fade-up">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold">Why Choose <span class="text-transparent bg-clip-text gradient-shift">Elevated IQ</span></h2>
+          <p class="mt-3 text-slate-600 max-w-3xl mx-auto text-sm sm:text-base">We stand out with our industry-focused approach and proven results</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 why-choose-grid">
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-chalkboard-teacher text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Expert Trainers</h3>
+            <p class="text-slate-600 text-sm sm:text-base">Learn from industry professionals with 10+ years of experience in IT and Medical Coding domains.</p>
+          </div>
+          
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-briefcase text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Placement Assistance</h3>
+            <p class="text-slate-600 text-sm sm:text-base">96% placement rate with 80+ hiring partners. Resume building, mock interviews, and job referrals.</p>
+          </div>
+          
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-project-diagram text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Live Projects</h3>
+            <p class="text-slate-600 text-sm sm:text-base">Work on real-world projects that add value to your portfolio and give you practical experience.</p>
+          </div>
+          
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-certificate text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Industry Certifications</h3>
+            <p class="text-slate-600 text-sm sm:text-base">Get certified in high-demand skills that are recognized by employers worldwide.</p>
+          </div>
+          
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-users text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Small Batch Sizes</h3>
+            <p class="text-slate-600 text-sm sm:text-base">Personalized attention with limited students per batch ensuring quality learning experience.</p>
+          </div>
+          
+          <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover-lift card-shine">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white mb-4 sm:mb-6">
+              <i class="fas fa-handshake text-xl sm:text-2xl"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold mb-3">Internship Guarantee</h3>
+            <p class="text-slate-600 text-sm sm:text-base">Guaranteed internship opportunities with our partner companies for practical exposure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Medical Courses ================= -->
+    <section id="medical-courses" class="py-16 sm:py-20 bg-gradient-to-b from-white to-purple-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-12 animate-fade-up">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold">Medical Coding <span class="gradient-shift text-white bg-clip-text text-transparent">Programs</span></h2>
+          <p class="mt-3 text-slate-600 max-w-3xl mx-auto text-sm sm:text-base">Industry-recognized certifications and practical training for healthcare careers.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <!-- BMCT -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl card-shine hover-lift">
+            <div class="flex items-center gap-4 sm:gap-6">
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center text-white">
+                <i class="fas fa-stethoscope text-xl sm:text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-extrabold">BMCT</h3>
+                <div class="text-xs sm:text-sm text-blue-600 font-semibold">Basic Medical Coding Training</div>
+              </div>
+            </div>
+            <p class="mt-4 sm:mt-6 text-slate-600 text-sm sm:text-base">45-day intensive covering ICD-10, CPT and practical coding tasks.</p>
+            <ul class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-slate-700 text-sm sm:text-base">
+              <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> Medical terminology</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> ICD & CPT coding</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-blue-500"></i> Real-case practice</li>
+            </ul>
+            <div class="mt-4 sm:mt-6 grid grid-cols-3 gap-3 sm:gap-4 text-center">
+              <div><div class="font-extrabold text-sm sm:text-base">45 Days</div><div class="text-xs sm:text-sm text-slate-500">Duration</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">100%</div><div class="text-xs sm:text-sm text-slate-500">Practical</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">85%</div><div class="text-xs sm:text-sm text-slate-500">Placement</div></div>
+            </div>
+            <a href="#contact" class="mt-4 sm:mt-6 block text-center py-3 rounded-xl text-white gradient-shift">Enroll Now</a>
+          </div>
+
+          <!-- MBS -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl card-shine hover-lift relative">
+            <div class="absolute top-4 right-4 sm:top-6 sm:right-6 text-xs font-bold px-3 py-1 sm:px-4 sm:py-2 rounded-full gradient-shift text-white">MOST POPULAR</div>
+            <div class="flex items-center gap-4 sm:gap-6">
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-white">
+                <i class="fas fa-file-invoice-dollar text-xl sm:text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-extrabold">Medical Billing</h3>
+                <div class="text-xs sm:text-sm text-purple-600 font-semibold">Medical Billing Specialist</div>
+              </div>
+            </div>
+            <p class="mt-4 sm:mt-6 text-slate-600 text-sm sm:text-base">60-day program covering revenue cycle, claims and billing software + internship.</p>
+            <ul class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-slate-700 text-sm sm:text-base">
+              <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Claims processing</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> RCM & billing tools</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Guaranteed internship</li>
+            </ul>
+            <div class="mt-4 sm:mt-6 grid grid-cols-3 gap-3 sm:gap-4 text-center">
+              <div><div class="font-extrabold text-sm sm:text-base">60 Days</div><div class="text-xs sm:text-sm text-slate-500">Duration</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">Guaranteed</div><div class="text-xs sm:text-sm text-slate-500">Internship</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">90%</div><div class="text-xs sm:text-sm text-slate-500">Placement</div></div>
+            </div>
+            <a href="#contact" class="mt-4 sm:mt-6 block text-center py-3 rounded-xl text-white bg-gradient-to-r from-purple-500 to-pink-600">Enroll Now</a>
+          </div>
+
+          <!-- CPC -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl card-shine hover-lift">
+            <div class="flex items-center gap-4 sm:gap-6">
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r from-green-500 to-emerald-700 flex items-center justify-center text-white">
+                <i class="fas fa-user-md text-xl sm:text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-lg sm:text-xl font-extrabold">CPC</h3>
+                <div class="text-xs sm:text-sm text-green-600 font-semibold">Certified Professional Coder</div>
+              </div>
+            </div>
+            <p class="mt-4 sm:mt-6 text-slate-600 text-sm sm:text-base">90-day advanced program for professionals seeking national certification & audits training.</p>
+            <ul class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-slate-700 text-sm sm:text-base">
+              <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Advanced coding</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Auditing & compliance</li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> 1-on-1 mentoring</li>
+            </ul>
+            <div class="mt-4 sm:mt-6 grid grid-cols-3 gap-3 sm:gap-4 text-center">
+              <div><div class="font-extrabold text-sm sm:text-base">90 Days</div><div class="text-xs sm:text-sm text-slate-500">Duration</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">National</div><div class="text-xs sm:text-sm text-slate-500">Certification</div></div>
+              <div><div class="font-extrabold text-sm sm:text-base">1-on-1</div><div class="text-xs sm:text-sm text-slate-500">Mentoring</div></div>
+            </div>
+            <a href="#contact" class="mt-4 sm:mt-6 block text-center py-3 rounded-xl text-white bg-gradient-to-r from-green-500 to-emerald-600">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IT Courses ================= -->
+    <section id="it-courses" class="py-16 sm:py-20 bg-gradient-to-b from-white to-blue-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-12 animate-fade-up">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold">IT & Technology <span class="text-transparent bg-clip-text gradient-shift">Courses</span></h2>
+          <p class="mt-3 text-slate-600 max-w-3xl mx-auto text-sm sm:text-base">Hands-on, project driven training across modern stacks and cloud platforms.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 course-grid">
+          <!-- Technical Courses -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl card-shine hover-lift">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl gradient-shift flex items-center justify-center text-white">
+                <i class="fas fa-laptop-code text-xl sm:text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-extrabold">Technical Courses</h3>
+                <p class="text-slate-600 text-sm sm:text-base">Industry-relevant programming & development skills</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="course-badge tech-badge">C Programming</span>
+                <span class="course-badge tech-badge">C++</span>
+                <span class="course-badge tech-badge">Java</span>
+                <span class="course-badge tech-badge">Python</span>
+                <span class="course-badge tech-badge">Web Development</span>
+                <span class="course-badge tech-badge">Android App Development</span>
+                <span class="course-badge tech-badge">iOS App Development</span>
+                <span class="course-badge tech-badge">Full Stack Dev (Java)</span>
+                <span class="course-badge tech-badge">Full Stack Dev (Python)</span>
+                <span class="course-badge tech-badge">MERN Stack Development</span>
+                <span class="course-badge tech-badge">Automation Testing</span>
+                <span class="course-badge tech-badge">AWS</span>
+                <span class="course-badge tech-badge">Google Cloud</span>
+                <span class="course-badge tech-badge">Vibe Coding</span>
+              </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t">
+              <h4 class="font-bold mb-3">Course Highlights</h4>
+              <ul class="space-y-2 text-slate-600 text-sm sm:text-base">
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Hands-on project experience</li>
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Industry certifications</li>
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Placement assistance</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Non-Technical Courses -->
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl card-shine hover-lift">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 flex items-center justify-center text-white">
+                <i class="fas fa-palette text-xl sm:text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-extrabold">Non-Technical Courses</h3>
+                <p class="text-slate-600 text-sm sm:text-base">Creative design, multimedia & marketing skills</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="course-badge nontech-badge">UI/UX Design</span>
+                <span class="course-badge nontech-badge">Photoshop</span>
+                <span class="course-badge nontech-badge">Illustrator</span>
+                <span class="course-badge nontech-badge">Lightroom</span>
+                <span class="course-badge nontech-badge">Premier Pro</span>
+                <span class="course-badge nontech-badge">After Effects</span>
+                <span class="course-badge nontech-badge">Generative AI</span>
+                <span class="course-badge nontech-badge">Vibe Marketing</span>
+              </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t">
+              <h4 class="font-bold mb-3">Course Highlights</h4>
+              <ul class="space-y-2 text-slate-600 text-sm sm:text-base">
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Portfolio development</li>
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Real-world projects</li>
+                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Industry tools training</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Categories Grid -->
+        <div class="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="bg-white p-5 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg hover-lift">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-shift flex items-center justify-center text-white mb-3 sm:mb-4">
+              <i class="fas fa-code"></i>
+            </div>
+            <h4 class="font-bold mb-2">Programming</h4>
+            <p class="text-xs sm:text-sm text-slate-600">C, C++, Java, Python</p>
+          </div>
+          
+          <div class="bg-white p-5 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg hover-lift">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-shift flex items-center justify-center text-white mb-3 sm:mb-4">
+              <i class="fas fa-globe"></i>
+            </div>
+            <h4 class="font-bold mb-2">Web Development</h4>
+            <p class="text-xs sm:text-sm text-slate-600">Full Stack, MERN, PHP, MySQL</p>
+          </div>
+          
+          <div class="bg-white p-5 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg hover-lift">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-shift flex items-center justify-center text-white mb-3 sm:mb-4">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h4 class="font-bold mb-2">Mobile Development</h4>
+            <p class="text-xs sm:text-sm text-slate-600">Android, iOS App Development</p>
+          </div>
+          
+          <div class="bg-white p-5 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg hover-lift">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-shift flex items-center justify-center text-white mb-3 sm:mb-4">
+              <i class="fas fa-cloud"></i>
+            </div>
+            <h4 class="font-bold mb-2">Cloud & Testing</h4>
+            <p class="text-xs sm:text-sm text-slate-600">AWS, GCP, Selenium Testing</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Success Stories ================= -->
+    <section id="testimonials" class="py-16 sm:py-20 bg-gradient-to-b from-white to-pink-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-10 animate-fade-up">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Student <span class="gradient-shift text-transparent bg-clip-text">Success Stories</span></h2>
+          <p class="text-slate-600 mt-2 text-sm sm:text-base">Real graduates, real career changes.</p>
+        </div>
+
+        <!-- Horizontal Scroll Container -->
+        <div class="testimonial-scroll-container">
+          <div class="testimonial-scroll-wrapper">
+            <!-- Testimonial 1 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">RS</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Rahul Sharma</h3>
+                  <p class="text-sm text-slate-600">Full Stack Developer</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"The Full Stack Development course gave me skills to land a ₹8 LPA job. Hands-on projects were critical."</p>
+              <div class="mt-4 text-blue-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>Placed at: Tech Startup</div>
+            </article>
+
+            <!-- Testimonial 2 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up" style="animation-delay: 0.1s">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">PD</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Priya Desai</h3>
+                  <p class="text-sm text-slate-600">Medical Billing Specialist</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"MBS program changed my life — now working remotely for a US healthcare company."</p>
+              <div class="mt-4 text-purple-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>Remote Billing Specialist</div>
+            </article>
+
+            <!-- Testimonial 3 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up" style="animation-delay: 0.2s">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">AK</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Anjali Kumar</h3>
+                  <p class="text-sm text-slate-600">UI/UX Designer</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"UI/UX course helped me build a portfolio and get hired at a top digital agency."</p>
+              <div class="mt-4 text-green-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>UI/UX Designer</div>
+            </article>
+
+            <!-- NEW Testimonial 4 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up" style="animation-delay: 0.3s">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">SM</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Sanjay Mehta</h3>
+                  <p class="text-sm text-slate-600">AWS Cloud Engineer</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"AWS course with real projects helped me switch from support to cloud engineering with 3x salary hike."</p>
+              <div class="mt-4 text-blue-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>Cloud Engineer at MNC</div>
+            </article>
+
+            <!-- NEW Testimonial 5 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up" style="animation-delay: 0.4s">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">NK</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Neha Kapoor</h3>
+                  <p class="text-sm text-slate-600">Medical Coder</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"CPC certification training was comprehensive. Got placed within 2 months of course completion."</p>
+              <div class="mt-4 text-purple-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>Medical Coder at Hospital</div>
+            </article>
+
+            <!-- NEW Testimonial 6 -->
+            <article class="testimonial-card bg-white rounded-2xl sm:rounded-3xl p-6 shadow-xl hover-lift animate-fade-up" style="animation-delay: 0.5s">
+              <div class="flex items-center gap-4 sm:gap-6 mb-4">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full gradient-shift flex items-center justify-center text-white font-bold">VK</div>
+                <div>
+                  <h3 class="font-extrabold text-lg">Vikram Joshi</h3>
+                  <p class="text-sm text-slate-600">MERN Stack Developer</p>
+                </div>
+              </div>
+              <p class="text-slate-600 italic text-sm sm:text-base">"The MERN stack course with live projects gave me confidence to crack interviews. Got 3 offers!"</p>
+              <div class="mt-4 text-green-600 font-semibold text-sm sm:text-base"><i class="fas fa-briefcase mr-2"></i>Developer at Startup</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Scroll hint for mobile -->
+        <div class="mt-6 text-center text-sm text-slate-500">
+          <i class="fas fa-arrow-left mr-2"></i> Scroll for more reviews <i class="fas fa-arrow-right ml-2"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ Section ================= -->
+    <section id="faq" class="py-16 sm:py-20 bg-gradient-to-b from-white to-blue-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-12 animate-fade-up">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold">Frequently Asked <span class="text-transparent bg-clip-text gradient-shift">Questions</span></h2>
+          <p class="mt-3 text-slate-600 max-w-3xl mx-auto text-sm sm:text-base">Find answers to common questions about our courses and programs</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">What are the prerequisites for IT courses?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">Most of our IT courses require basic computer knowledge. For advanced courses like Full Stack Development or AWS, familiarity with programming concepts is helpful but not mandatory. We offer beginner to advanced level courses.</p>
+              </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">Do you provide placement assistance?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">Yes, we have a dedicated placement cell with 80+ hiring partners. We provide resume building, mock interviews, and job referral support. Our placement rate is 96% for eligible students.</p>
+              </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">What is the duration of courses?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">Course duration varies: Programming courses (2-3 months), Full Stack Development (4-6 months), Medical Coding (1.5-3 months). We offer both short-term certifications and comprehensive diploma programs.</p>
+              </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">Are classes online or offline?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">We offer both online and offline classes. You can choose based on your preference. Online classes include live sessions, recorded lectures, and virtual lab access.</p>
+              </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">Do you offer internship opportunities?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">Yes, we guarantee internships for eligible students in our Medical Billing Specialist (MBS) program and provide internship opportunities for IT students through our partner companies.</p>
+              </div>
+            </div>
+            
+            <!-- FAQ Item 6 -->
+            <div class="faq-item bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+              <button class="faq-toggle w-full flex justify-between items-center text-left">
+                <h3 class="text-base sm:text-lg font-bold">What certifications will I receive?</h3>
+                <i class="fas fa-chevron-down text-blue-500"></i>
+              </button>
+              <div class="faq-answer mt-4">
+                <p class="text-slate-600 text-sm sm:text-base">You'll receive Elevated IQ Academy certification upon course completion. For specific technologies, we prepare you for industry certifications like AWS, Google Cloud, and CPC for Medical Coding.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-10 sm:mt-12 text-center">
+            <p class="text-slate-600 text-sm sm:text-base">Still have questions? <a href="#contact" class="text-blue-600 font-semibold hover:underline">Contact us directly</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= Contact ================= -->
+    <section id="contact" class="py-16 sm:py-20 bg-gradient-to-b from-white to-blue-50">
+      <div class="container mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-10 animate-fade-up">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Start Your <span class="gradient-shift text-transparent bg-clip-text">Journey</span> Today</h2>
+          <p class="text-slate-600 mt-2 text-sm sm:text-base">Get personalized guidance and start your career transformation.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-lg animate-fade-up">
+            <h3 class="text-xl sm:text-2xl font-extrabold mb-4 sm:mb-6">Contact Information</h3>
+
+            <div class="space-y-4 sm:space-y-6">
+              <div class="flex gap-3 sm:gap-4 items-start">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600"><i class="fas fa-map-marker-alt"></i></div>
+                <div><h4 class="font-bold text-sm sm:text-base">Address</h4><p class="text-slate-600 text-sm sm:text-base">20, Vaigai colony, Anna nagar, Madurai-625020</p></div>
+              </div>
+
+              <div class="flex gap-3 sm:gap-4 items-start">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600"><i class="fas fa-phone"></i></div>
+                <div><h4 class="font-bold text-sm sm:text-base">Phone</h4><p class="text-slate-600 text-sm sm:text-base">+91 93454 17570</p><p class="text-slate-600 text-sm sm:text-base">+91 93845 84864</p></div>
+              </div>
+
+              <div class="flex gap-3 sm:gap-4 items-start">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-100 flex items-center justify-center text-green-600"><i class="fas fa-envelope"></i></div>
+                <div><h4 class="font-bold text-sm sm:text-base">Email</h4><p class="text-slate-600 text-sm sm:text-base">elevatediqacademy@gmail.com</p></div>
+              </div>
+
+              <div class="flex gap-3 sm:gap-4 items-start">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600"><i class="fas fa-clock"></i></div>
+                <div><h4 class="font-bold text-sm sm:text-base">Hours</h4><p class="text-slate-600 text-sm sm:text-base">Mon-Sat: 9AM - 7PM</p></div>
+              </div>
+
+              <div class="mt-4 sm:mt-6 flex gap-3">
+                <a class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 hover:scale-110 transition-transform" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 hover:scale-110 transition-transform" href="#"><i class="fab fa-instagram"></i></a>
+                <a class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 hover:scale-110 transition-transform" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-600 hover:scale-110 transition-transform" href="https://wa.me/919345417570" target="_blank"><i class="fab fa-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl sm:shadow-2xl animate-fade-up" style="animation-delay: 0.2s">
+            <h3 class="text-xl sm:text-2xl font-extrabold mb-4 sm:mb-6">Enroll Now</h3>
+            <form id="contactForm" class="space-y-4 sm:space-y-6" aria-label="Contact form">
+              <div class="grid md:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+<label class="block text-sm font-semibold mb-2">
+  Full Name <span class="text-red-500">*</span>
+</label>
+                  <input name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base" placeholder="Your name">
+                </div>
+                <div>
+<label class="block text-sm font-semibold mb-2">
+  Phone <span class="text-red-500">*</span>
+</label>
+
+  <div class="relative">
+    <!-- Flag + Country Code -->
+    <div class="absolute inset-y-0 left-4 flex items-center gap-2 text-slate-600 pointer-events-none">
+      <span class="fi fi-in rounded-sm"></span>
+      <span class="text-sm font-medium">+91</span>
+    </div>
+
+    <!-- Phone Input -->
+    <input
+      name="phone"
+      required
+      type="tel"
+      inputmode="numeric"
+      class="w-full pl-24 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base"
+      placeholder="98765 43210"
+    >
+  </div>
+</div>
+
+              </div>
+
+              <div>
+<label class="block text-sm font-semibold mb-2">
+  Email <span class="text-red-500">*</span>
+</label>
+                <input name="email" required type="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base" placeholder="you@email.com">
+              </div>
+
+              <div>
+<label class="block text-sm font-semibold mb-2">
+  Interested Course <span class="text-red-500">*</span>
+</label>
+                <select name="course" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base">
+                  <option value="">Select a course</option>
+                  <optgroup label="Medical Coding">
+                    <option>Basic Medical Coding - BMCT</option>
+                    <option>Advance Medical Coding - AMCT</option>
+                    <option>Medical Coding - CPC</option>
+                    <option>Medical Billing</option>
+                  </optgroup>
+                  <optgroup label="IT Technical Courses">
+                    <option>C / C++ Programming</option>
+                    <option>Java</option>
+                    <option>Python</option>
+                    <option>Web Development</option>
+                    <option>Android App Development</option>
+                    <option>iOS App Development</option>
+                    <option>Full Stack Development (Java)</option>
+                    <option>Full Stack Development (Python)</option>
+                    <option>MERN Stack Development</option>
+                    <option>Automation Testing</option>
+                    <option>AWS</option>
+                    <option>Google Cloud</option>
+                    <option>Generative AI</option>
+                    <option>Vibe Coding</option>
+                    <option>Vibe Marketing</option>
+                    <option>Digital Marketing</option>
+                  </optgroup>
+                  <optgroup label="Design & Multimedia">
+                    <option>UI/UX Design</option>
+                    <option>Photoshop</option>
+                    <option>Illustrator</option>
+                    <option>Lightroom</option>
+                    <option>Premier Pro</option>
+                    <option>After Effects</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div>
+                            <label class="block text-gray-700 font-medium mb-3" for="qualification">
+                                Highest Qualification <span class="text-red-500">*</span>
+                            </label>
+                            <select id="qualification" name="qualification" required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition text-lg">
+                                <option value="">Select your qualification</option>
+                                <option value="12th">12th Pass / High School</option>
+                                <option value="diploma">Diploma / Certificate</option>
+                                <option value="graduate">Graduate (Bachelor's Degree)</option>
+                                <option value="post-graduate">Post Graduate (Master's Degree)</option>
+                                <option value="working">Working Professional</option>
+                            </select>
+                        </div>
+                        <!-- Degree Field (Hidden by default) -->
+<div id="degreeField" style="display:none;">
+  <label class="block text-sm font-semibold mb-2">
+    Degree <span class="text-red-500">*</span>
+  </label>
+  <input
+    name="degree"
+    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base"
+    placeholder="e.g. B.Sc, BCA, M.Sc, MBA"
+  >
+</div>
+
+<div>
+  <label class="block text-sm font-semibold mb-2">
+    College Name <span class="text-red-500">*</span>
+  </label>
+  <input
+    name="college"
+    required
+    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base"
+    placeholder="Enter your college name"
+  >
+</div>
+
+                        <div>
+<label class="block text-sm font-semibold mb-2">
+  Location <span class="text-red-500">*</span>
+</label>
+                  <input name="location" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base" placeholder="Your location">
+                </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2">
+  Message <span class="text-slate-400 text-xs">(Optional)</span>
+</label>
+
+<textarea
+  name="message"
+  rows="4"
+  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base"
+  placeholder="Tell us about your goals..."
+></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3 rounded-xl text-white gradient-shift hover:shadow-xl transition text-sm sm:text-base font-semibold">Submit Application</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="bg-gray-900 text-white pt-16 pb-8" style="background: #0f172a;">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
+          </style>
+          <div>
+            <div class="flex items-center mb-4">
+              <img src="logo/elevated-iq-academy-logo.png" style="width: 150px; height: 90px;">
+              <div>
+                <h3 class="text-xl font-bold leading-none">Elevated IQ</h3>
+                <h3 class="text-xl font-bold leading-none">Academy</h3>
+              </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Transforming careers through quality tech education and industry-aligned AI programs.
+            </p>
+            <div class="flex space-x-3">
+              <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-all duration-300 text-gray-400 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://www.instagram.com/elevatediqacademy/" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-pink-600 transition-all duration-300 text-gray-400 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://in.linkedin.com/in/elevated-iq-academy-075a37379" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-700 transition-all duration-300 text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://api.whatsapp.com/send/?phone=919345417570&text=Hi%2C+I%27m+interested+in+Generative+AI+course&type=phone_number&app_absent=0" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-500 transition-all duration-300 text-gray-400 hover:text-white">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-bold mb-6 text-white">Quick Links</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="#" class="text-gray-400 hover:text-white transition"> Home</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition"> Medical Coding</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition"></i> IT Courses</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition"></i> About Us</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition"></i> Contact</a></li>
+            </ul>
+          </div>
+
+       <div>
+            <h4 class="text-lg font-bold mb-6 text-white">Our Courses</h4>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start">
+                <i class="fas fa-file-medical text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Basic Medical Coding</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-certificate text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Certified Professional Coder(CPC)</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-code text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Programming</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-mobile-screen text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">App Development</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-laptop-code text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Full Stack Development</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-cloud text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Cloud & Testing</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-palette text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">Design & Multimedia</a>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-brain text-blue-500 mt-1 mr-2"></i>
+                <a href="#" class="text-gray-400 hover:text-white transition">AI & Specialized</a>
+              </li>
+            </ul>
+          </div>
+
+
+          <div>
+            <h4 class="text-lg font-bold mb-6 text-white">Contact Info</h4>
+            <ul class="space-y-4 text-sm">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                <div>
+                  <p class="text-gray-400">20, Vaigai colony, Anna nagar,<br>Madurai-625020</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-phone-alt mt-1 mr-3 text-blue-500"></i>
+                <div>
+                  <p class="text-gray-400">+91 93454 17570</p>
+                  <p class="text-gray-400">+91 93845 84864</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope mt-1 mr-3 text-blue-500"></i>
+                <div>
+                  <a href="mailto:elevatediqacademy@gmail.com" class="text-gray-400 hover:text-white">elevatediqacademy@gmail.com</a>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-clock mt-1 mr-3 text-blue-500"></i>
+                <div>
+                  <p class="text-gray-400">Mon-Sat: 9AM - 7PM</p>
+                  <p class="text-gray-400">Sun: 10AM - 5PM</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+       <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col items-center justify-center text-sm text-center">
+          <p class="text-gray-500 mb-4">© <span id="currentYear"></span> Elevated IQ Academy. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a>
+            <a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a>
+            <a href="#" class="text-gray-500 hover:text-white transition">Refund Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <!-- Back to top & WhatsApp -->
+  <button id="backToTop" aria-label="Back to top" class="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full gradient-shift text-white shadow-lg hidden z-50 hover:scale-110 transition-transform"><i class="fas fa-chevron-up"></i></button>
+  <a href="https://wa.me/919345417570" target="_blank" aria-label="WhatsApp" class="fixed right-4 sm:right-6 bottom-16 sm:bottom-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg z-50 hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-lg sm:text-xl"></i></a>
+
+  <!-- ================= Scripts ================= -->
+  <script>
+    // short helpers & guards
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    // mobile menu toggle with aria
+    const mobileBtn = $('#mobileMenuButton');
+    const mobileMenu = $('#mobileMenu');
+
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', () => {
+        const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+        mobileBtn.setAttribute('aria-expanded', String(!expanded));
+        if (!expanded) {
+          mobileMenu?.classList.remove('invisible','opacity-0','-translate-y-6');
+          mobileMenu?.classList.add('translate-y-0','opacity-100');
+        } else {
+          mobileMenu?.classList.add('invisible','opacity-0','-translate-y-6');
+          mobileMenu?.classList.remove('translate-y-0','opacity-100');
+        }
+
+        // swap icon (safe & explicit)
+        const icon = mobileBtn.querySelector('i');
+        if (icon) {
+          // if opening, show X; if closing, show bars
+          if (!expanded) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      });
+    }
+
+    // close mobile menu when clicking a link
+    $$('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu?.classList.add('invisible','opacity-0','-translate-y-6');
+      mobileBtn?.setAttribute('aria-expanded','false');
+      const i = mobileBtn?.querySelector('i');
+      if (i){ i.classList.remove('fa-times'); i.classList.add('fa-bars'); }
+    }));
+
+    // current year
+    const currentYear = $('#currentYear');
+    if (currentYear) currentYear.textContent = new Date().getFullYear();
+
+    // Intersection Observer for simple reveal (staggered)
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = entry.target.dataset.anim || 'fadeInUp .7s ease forwards';
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12});
+
+    // attach to elements with data-anim attribute or class 'animate-fade-up' etc.
+    $$('[data-anim], .animate-fade-up, .animate-slide-left, .animate-slide-right').forEach(el => {
+      // pause initially
+      el.style.animationPlayState = 'running';
+      observer.observe(el);
+    });
+
+    // Stagger reveal for children in sections
+    $$('.container .grid, .stagger-children').forEach(parent => {
+      // guard in case selector returned non-elements
+      if (!(parent instanceof Element)) return;
+      const children = Array.from(parent.children);
+      children.forEach((child, i) => {
+        child.style.opacity = '0';
+        child.style.animation = `fadeInUp .7s ease forwards ${i * 120}ms`;
+      });
+      observer.observe(parent);
+    });
+
+    // counters (supports decimals)
+    function animateCounter(el, target) {
+      const isDecimal = (String(target).indexOf('.') >= 0);
+      const steps = 100;
+      const duration = 1500; // ms
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const value = target * progress;
+        if (isDecimal) {
+          el.textContent = (Math.round(value * 10) / 10).toFixed(1);
+        } else {
+          el.textContent = String(Math.floor(value));
+        }
+        if (progress < 1) requestAnimationFrame(tick);
+        else {
+          // ensure exact final value
+          el.textContent = isDecimal ? parseFloat(target).toFixed(1) : String(Math.floor(target));
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const counters = $$('.counter');
+    counters.forEach(counter => {
+      const target = parseFloat(counter.dataset.target || '0');
+      const io = new IntersectionObserver((entries, o) => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            animateCounter(counter, target);
+            o.unobserve(counter);
+          }
+        });
+      }, {threshold:0.4});
+      io.observe(counter);
+    });
+
+    // back to top visibility
+    const backToTop = $('#backToTop');
+    window.addEventListener('scroll', () => {
+      if (!backToTop) return;
+      if (window.scrollY > 300) backToTop.classList.remove('hidden');
+      else backToTop.classList.add('hidden');
+      updateActiveNav();
+    });
+    backToTop?.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    // smooth anchor scrolling with offset for header
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const headerOffset = 82;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({top,behavior:'smooth'});
+      });
+    });
+
+    // contact form handling (graceful fallback)
+    // Updated contact form handling with Google Sheets integration
+const contactForm = $('#contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Validation functions
+    function validatePhone(phone) {
+      // Remove any non-digit characters
+      const digits = phone.replace(/\D/g, '');
+      // Check if it's exactly 10 digits (Indian phone number)
+      return /^\d{10}$/.test(digits);
+    }
+    
+    function validateEmail(email) {
+      // Check if email ends with @gmail.com
+      return email.toLowerCase().endsWith('@gmail.com');
+    }
+    
+    // Get form values
+    const name = contactForm.querySelector('[name="name"]').value.trim();
+    const phone = contactForm.querySelector('[name="phone"]').value.trim();
+    const email = contactForm.querySelector('[name="email"]').value.trim();
+    const course = contactForm.querySelector('[name="course"]').value;
+    const qualification = contactForm.querySelector('[name="qualification"]').value;
+    const location = contactForm.querySelector('[name="location"]').value.trim(); // ✅ ADDED
+
+    
+    // Validation checks
+    let errors = [];
+    
+    if (!name) errors.push("Name is required");
+    
+    if (!phone) {
+      errors.push("Phone number is required");
+    } else if (!validatePhone(phone)) {
+      errors.push("Please enter a valid 10-digit Indian phone number");
+    }
+    
+    if (!email) {
+      errors.push("Email is required");
+    } else if (!validateEmail(email)) {
+      errors.push("Only @gmail.com emails are accepted");
+    }
+    
+    if (!course) errors.push("Please select a course");
+    if (!qualification) errors.push("Please select your highest qualification");
+    const degree = degreeInput?.value.trim();
+
+if (
+  (qualification === 'graduate' || qualification === 'post-graduate') &&
+  !degree
+) {
+  errors.push("Please enter your degree");
+}
+
+    if (!location) errors.push("Location is required"); // ✅ ADDED
+    
+    // If there are errors, show them and stop submission
+    if (errors.length > 0) {
+      alert("❌ Please fix the following errors:\n\n" + errors.join("\n"));
+      return;
+    }
+    
+    const submitBtn = contactForm.querySelector('button[type="submit"]') || contactForm.querySelector('button');
+    const original = submitBtn?.innerHTML || 'Submit Application';
+    
+    if (submitBtn) {
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+      submitBtn.disabled = true;
+    }
+    
+    try {
+      // Create FormData from the form
+      const formData = new FormData(contactForm);
+      
+      // Log all form data for debugging (you can remove this in production)
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+      
+      // Send to Google Apps Script
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzYnFFi-0vIo94gFHQ0guJQO1U5CbgiT9n2vLDYIvG3UUztApa78JotZ8Vj0s4v_rny/exec", {
+        method: "POST",
+        body: formData
+      });
+      
+      const result = await response.text();
+      console.log("Server response:", result);
+      
+      if (result.trim() === "success") {
+        // Success feedback
+        if (submitBtn) {
+          submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Submitted Successfully!';
+          submitBtn.classList.add('bg-green-600');
+        }
+        
+        // Reset form after success
+        setTimeout(() => {
+          contactForm.reset();
+          
+          // Reset button after delay
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.innerHTML = original;
+              submitBtn.disabled = false;
+              submitBtn.classList.remove('bg-green-600');
+            }
+          }, 2000);
+        }, 500);
+        
+        alert('✅ Thank you! Our counselor will contact you within 24 hours.');
+      } else {
+        throw new Error(result || 'Unknown server error');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      
+      // Reset button on error
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Try Again';
+        submitBtn.disabled = false;
+        submitBtn.classList.add('bg-red-600');
+        
+        setTimeout(() => {
+          submitBtn.innerHTML = original;
+          submitBtn.classList.remove('bg-red-600');
+        }, 3000);
+      }
+      
+      alert('❌ Failed to submit. Please check your connection and try again.');
+    }
+  });
+}
+
+// Real-time validation for phone input
+const phoneInput = contactForm.querySelector('[name="phone"]');
+if (phoneInput) {
+  phoneInput.addEventListener('input', function(e) {
+    // Remove any non-digit characters
+    let value = this.value.replace(/\D/g, '');
+    
+    // Limit to 10 digits
+    if (value.length > 10) {
+      value = value.substring(0, 10);
+    }
+    
+    // Update the input value
+    this.value = value;
+    
+    // Show/hide validation message
+    const phoneError = document.getElementById('phoneError') || createErrorElement(this, 'phoneError');
+    if (value.length > 0 && value.length !== 10) {
+      phoneError.textContent = 'Phone number must be 10 digits';
+      phoneError.style.display = 'block';
+    } else {
+      phoneError.style.display = 'none';
+    }
+  });
+  
+  // Add blur validation
+  phoneInput.addEventListener('blur', function() {
+    const phoneError = document.getElementById('phoneError') || createErrorElement(this, 'phoneError');
+    if (this.value && !/^\d{10}$/.test(this.value.replace(/\D/g, ''))) {
+      phoneError.textContent = 'Please enter a valid 10-digit phone number';
+      phoneError.style.display = 'block';
+    }
+  });
+}
+
+// Real-time validation for email input
+const emailInput = contactForm.querySelector('[name="email"]');
+if (emailInput) {
+  emailInput.addEventListener('blur', function() {
+    const emailError = document.getElementById('emailError') || createErrorElement(this, 'emailError');
+    if (this.value && !this.value.toLowerCase().endsWith('@gmail.com')) {
+      emailError.textContent = 'Only @gmail.com emails are accepted';
+      emailError.style.display = 'block';
+    } else {
+      emailError.style.display = 'none';
+    }
+  });
+}
+
+// Helper function to create error elements
+function createErrorElement(inputElement, id) {
+  const errorElement = document.createElement('div');
+  errorElement.id = id;
+  errorElement.className = 'text-red-500 text-xs mt-1';
+  errorElement.style.display = 'none';
+  inputElement.parentNode.appendChild(errorElement);
+  return errorElement;
+}
+
+    // FAQ toggle functionality
+    $$('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.closest('.faq-item');
+        faqItem.classList.toggle('active');
+      });
+    });
+
+    // subtle tilt on course cards (mouse movement)
+    $$('.course-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width/2;
+        const y = e.clientY - rect.top - rect.height/2;
+        const rx = (-y / rect.height) * 6;
+        const ry = (x / rect.width) * 6;
+        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    const qualificationSelect = contactForm.querySelector('[name="qualification"]');
+const degreeField = document.getElementById('degreeField');
+const degreeInput = degreeField.querySelector('input');
+
+qualificationSelect.addEventListener('change', function () {
+  if (this.value === 'graduate' || this.value === 'post-graduate') {
+    degreeField.style.display = 'block';
+    degreeInput.required = true;
+  } else {
+    degreeField.style.display = 'none';
+    degreeInput.required = false;
+    degreeInput.value = '';
+  }
+});
+
+
+    // light-weight particle creation (reduced count for performance)
+// document.getElementById("contactForm").addEventListener("submit", function (e) {
+//   e.preventDefault();
+
+//   const form = e.target;
+//   const data = new FormData(form);
+
+//   fetch("https://script.google.com/macros/s/AKfycbxtBMqYZ4ep5sg8updQz6Y1Q6tBmpapS0Bom9c51UTHG8Q-uJ7lerGTWXaTTpPzQtGOuA/exec", {
+//     method: "POST",
+//     body: data
+//   })
+//   .then(res => res.text())
+//   .then(text => {
+//     console.log("Server response:", text);
+
+//     if (text.trim() === "success") {
+//       alert("✅ Application submitted successfully!");
+//       form.reset();
+//     } else {
+//       alert("❌ Server error: " + text);
+//     }
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     alert("❌ Network error. Check console.");
+//   });
+// });
+  </script>
+</body>
+</html>

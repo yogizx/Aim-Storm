@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical Billing Specialist | Elevated IQ Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-blue: #1e3c72;
+        --secondary-blue: #2a5298;
+        --accent-purple: #764ba2;
+        --accent-gold: #ffd700;
+        --medical-gradient: linear-gradient(90deg, #1a2980, #26d0ce);
+        --title-gradient: linear-gradient(90deg, #1e40af, #7c3aed);
+      }
+      
+      body {
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+      }
+      
+      .progress-container {
+        width: 100%;
+        height: 4px;
+        background: #e5e7eb;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+      
+      .progress-bar {
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+      
+      .floating {
+        animation: float 5s ease-in-out infinite;
+      }
+      
+      .medical-gradient-text {
+        background: var(--title-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .course-card {
+        transition: all 0.3s ease;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      
+      .course-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+      
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #1a2980, #26d0ce);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 10px rgba(26, 41, 128, 0.2);
+      }
+      
+      .back-to-top {
+        position: fixed;
+        bottom: 90px;
+        right: 25px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        z-index: 99;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .back-to-top:hover {
+        background: var(--secondary-blue);
+        transform: translateY(-3px);
+      }
+      
+      .faq-item {
+        border-bottom: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+      
+      .faq-item:hover {
+        background: linear-gradient(90deg, rgba(26, 41, 128, 0.03), rgba(38, 208, 206, 0.03));
+        border-color: #26d0ce;
+      }
+      
+      .faq-question {
+        cursor: pointer;
+        padding: 1.5rem 0;
+        transition: all 0.3s ease;
+      }
+      
+      .faq-question:hover {
+        color: var(--primary-blue);
+        padding-left: 10px;
+      }
+      
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+      
+      .faq-answer.open {
+        max-height: 300px;
+      }
+      
+      .faq-icon {
+        transition: transform 0.3s ease;
+      }
+      
+      .faq-icon.open {
+        transform: rotate(180deg);
+      }
+      
+      .nav-link {
+        position: relative;
+        padding-bottom: 5px;
+      }
+      
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background: var(--primary-blue);
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      
+      .nav-link.active::after {
+        width: 100%;
+      }
+      
+      .hero-section {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-purple) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+      }
+      
+      .choose-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        border: 2px solid #e5e7eb;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .choose-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+        background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+        transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 0;
+      }
+      
+      .choose-card:hover::before {
+        height: 100%;
+      }
+      
+      .choose-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: transparent;
+      }
+      
+      .choose-card:hover .icon-container {
+        background: white !important;
+      }
+      
+      .choose-card:hover .icon-container i {
+        color: #1a2980 !important;
+      }
+      
+      .choose-card:hover h3,
+      .choose-card:hover p {
+        color: white !important;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .review-scroll-container {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .review-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 2rem;
+        padding: 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: #1a2980 #e5e7eb;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .review-scroll::-webkit-scrollbar {
+        height: 8px;
+      }
+      
+      .review-scroll::-webkit-scrollbar-track {
+        background: #e5e7eb;
+        border-radius: 10px;
+      }
+      
+      .review-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #1a2980, #26d0ce);
+        border-radius: 10px;
+      }
+      
+      .review-card {
+        flex: 0 0 auto;
+        width: 350px;
+        scroll-snap-align: start;
+        transition: all 0.3s ease;
+      }
+      
+      .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+      
+      .stats-section {
+        background: linear-gradient(135deg, rgba(26, 41, 128, 0.05) 0%, rgba(38, 208, 206, 0.05) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .stats-section::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 30%, rgba(26, 41, 128, 0.1) 0%, transparent 50%),
+                   radial-gradient(circle at 70% 70%, rgba(38, 208, 206, 0.1) 0%, transparent 50%);
+      }
+      
+      .stats-card {
+        transition: all 0.3s ease;
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .stats-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #1a2980, #26d0ce);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+      
+      .stats-card:hover::after {
+        transform: scaleX(1);
+      }
+      
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(26, 41, 128, 0.1);
+      }
+      
+      .highlight-number {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #1a2980, #26d0ce);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        position: relative;
+        display: inline-block;
+      }
+      
+      .highlight-number::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #1a2980, #26d0ce);
+        border-radius: 2px;
+      }
+      
+      .career-card {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+      }
+      
+      .career-card:hover {
+        border-left-color: #26d0ce;
+        transform: translateX(10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      
+      .fixed-course-field {
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
+        color: #6b7280;
+        cursor: not-allowed;
+      }
+      
+      .fixed-course-field:focus {
+        outline: none;
+        ring: 0;
+        border-color: #d1d5db;
+      }
+      
+      .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 25px;
+        right: 25px;
+        background-color: #25d366;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .whatsapp-float:hover {
+        background-color: #128c7e;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Scroll Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- WhatsApp Floating Button -->
+    <a
+      href="https://wa.me/919345417570?text=Hi,%20I'm%20interested%20in%20Medical%20Billing%20Specialist%20course"
+      class="whatsapp-float"
+      target="_blank"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Enhanced Header/Navigation with Logo -->
+    <header id="siteHeader" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+  <div class="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
+    <div class="flex items-center justify-between gap-3">
+      <!-- LEFT: Logo -->
+      <div class="flex items-center gap-3">
+        <img
+          src="Logo/elevated-iq-academy-logo.png"
+          alt="Elevated IQ Academy Logo"
+          class="logo-img w-20 h-20 sm:w-20 sm:h-14 md:w-30 md:h-18 lg:w-36 lg:h-22 object-contain rounded-lg"
+        />
+        <!-- title shown on md+ -->
+        <div class="brand-text">
+          <div class="brand-main">Elevated IQ Academy</div>
+          <div class="brand-sub">Medical Coding • IT</div>
+        </div>
+      </div>
+
+      <!-- CENTER: navigation (hidden on small screens) -->
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Medical Coding Dropdown (full original content preserved) -->
+        <div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>Medical Coding</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[300px] sm:w-[500px] md:w-[700px] lg:w-[800px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 origin-top">
+    <!-- Header Section -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-blue-600 to-teal-600 p-2 rounded-lg">
+          <i class="fas fa-stethoscope text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">Medical Coding Courses</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Specialized training programs for healthcare documentation and billing</p>
+    </div>
+
+    <!-- Medical Coding Courses Grid - Responsive columns (3 columns at large screens) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-h-[400px] overflow-y-auto pr-2 sm:pr-3 custom-scrollbar">
+
+      <!-- Column 1: Medical Coding Fundamentals -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-blue-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-book-medical text-blue-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Medical Coding Fundamentals</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="bmt.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">BMCT</p>
+              <p class="text-xs text-gray-500">Basic Medical Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Professional Certifications -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-green-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-award text-green-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Professional Certifications</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="cpc.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">CPC</p>
+              <p class="text-xs text-gray-500">Certified Professional Coder</p>
+            </div>
+          </a>
+          <a href="abmt.html" class="group flex items-center hover:text-red-600 transition">
+            <div class="w-1.5 h-1.5 bg-red-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Advanced Medical Coding</p>
+              <p class="text-xs text-gray-500">Specialized Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Medical Billing Specialist -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-file-invoice-dollar text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Billing & Practice</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="mbs.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Medical Billing Specialist</p>
+              <p class="text-xs text-gray-500">Healthcare Billing Professional</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Start your healthcare career today</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Get certified in medical coding</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all text-sm text-center">
+            View All Medical Coding →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- IT Courses Dropdown (full original content preserved) -->
+        <!-- FIXED: IT Courses Dropdown (AI & Specialized moved into the main grid; responsive columns; single scrollable panel) -->
+<div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>IT Courses</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <!-- Use a flexible width and a responsive grid. Keep the panel centered and scrollable. -->
+  <div
+    class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[92vw] max-w-[1100px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 origin-top"
+    role="menu" aria-hidden="true" aria-label="IT courses menu"
+  >
+    <!-- Header -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-2 rounded-lg">
+          <i class="fas fa-laptop-code text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">IT (Technical & Non-Technical Courses)</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Comprehensive training in modern technology and software development</p>
+    </div>
+
+    <!-- GRID: responsive columns. On XL use 5 columns so AI sits in the same row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 max-h-[420px] overflow-y-auto pr-2 sm:pr-3">
+      <!-- Programming -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-code text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Programming</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="c.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">C & C++</p>
+              <p class="text-xs text-gray-500">Fundamentals to Advanced</p>
+            </div>
+          </a>
+          <a href="java.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Java</p>
+              <p class="text-xs text-gray-500">Core & Advanced Java</p>
+            </div>
+          </a>
+          <a href="python.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Python</p>
+              <p class="text-xs text-gray-500">Python Programming</p>
+            </div>
+          </a>
+          <a href="web.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Web Development</p>
+              <p class="text-xs text-gray-500">HTML, PHP, MySQL</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- App Development -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-indigo-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-mobile-alt text-indigo-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">App Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="android.html" class="group flex items-center hover:text-indigo-600 transition">
+            <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Android App</p>
+              <p class="text-xs text-gray-500">Android Development</p>
+            </div>
+          </a>
+          <a href="ios.html" class="group flex items-center hover:text-gray-600 transition">
+            <div class="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">iOS App</p>
+              <p class="text-xs text-gray-500">iOS Development</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Full Stack -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-layer-group text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Full Stack Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="full-java.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Java</p>
+              <p class="text-xs text-gray-500">Java Full Stack Development</p>
+            </div>
+          </a>
+          <a href="full-python.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Python</p>
+              <p class="text-xs text-gray-500">Python Full Stack Development</p>
+            </div>
+          </a>
+          <a href="mern.html" class="group flex items-center hover:text-teal-600 transition">
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">MERN Stack</p>
+              <p class="text-xs text-gray-500">MongoDB, Express, React, Node</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cloud & Testing -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-orange-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-cloud text-orange-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Cloud & Testing</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="testing.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Automation Testing</p>
+              <p class="text-xs text-gray-500">Selenium, TestNG</p>
+            </div>
+          </a>
+          <a href="aws.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">AWS</p>
+              <p class="text-xs text-gray-500">Amazon Web Services</p>
+            </div>
+          </a>
+          <a href="google-cloud.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Google Cloud</p>
+              <p class="text-xs text-gray-500">Google Cloud Computing</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Design & AI (combined: this column contains Design and AI items if you prefer fewer columns) -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-pink-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-palette text-pink-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Design & Multimedia</h4>
+        </div>
+
+        <!-- Design items -->
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11 mb-4">
+          <a href="ui.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">UI/UX Design</p>
+              <p class="text-xs text-gray-500">User Interface/Experience</p>
+            </div>
+          </a>
+          <a href="photoshop.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Photoshop</p>
+              <p class="text-xs text-gray-500">Adobe Photoshop</p>
+            </div>
+          </a>
+          <a href="illustator.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Illustrator</p>
+              <p class="text-xs text-gray-500">Adobe Illustrator</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+        <a href="lightroom.html" class="group flex items-center hover:text-yellow-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-yellow-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Lightroom</p> 
+            <p class="text-xs text-gray-500">Adobe Lightroom</p> 
+          </div> 
+        </a> 
+        <a href="after_effect.html" class="group flex items-center hover:text-purple-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">After Effects</p> 
+            <p class="text-xs text-gray-500">Adobe After Effects</p> 
+          </div> 
+        </a> 
+        <a href="premiere_pro.html" class="group flex items-center hover:text-green-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Premiere Pro</p> 
+            <p class="text-xs text-gray-500">Adobe Premiere Pro</p> 
+          </div> 
+        </a> 
+        </div>
+      </div>
+
+      <!-- AI Section   -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-teal-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-robot text-teal-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">AI & Specialized</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="gen_AI.html" class="group flex items-center hover:text-teal-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Generative AI</p> 
+              <p class="text-xs text-gray-500">AI Content Generation</p> 
+            </div> 
+          </a> 
+          <a href="vibe_coding.html" class="group flex items-center hover:text-blue-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Coding</p> 
+              <p class="text-xs text-gray-500">AI-Assisted Programming</p> 
+            </div> 
+          </a> 
+          <a href="vibe_marketing.html" class="group flex items-center hover:text-purple-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Marketing</p> 
+              <p class="text-xs text-gray-500">AI Marketing Strategies</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+
+      <!-- Digital Marketing -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-red-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-globe text-red-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Digital Marketing</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="digital.html" class="group flex items-center hover:text-red-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Digital Marketing</p> 
+              <p class="text-xs text-gray-500">Digital Marketing Foundation</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Need technical career guidance?</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Talk to our IT career counselor</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-purple-600 text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-all text-sm text-center">
+            View All IT Courses →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- <a href="#career" class="nav-link">Career</a> -->
+        <a href="about.html" class="nav-link">About Us</a>
+        <!-- <a href="#contact" class="nav-link">Contact</a> -->
+      </nav>
+
+      <!-- RIGHT: small contact + icon-only Enroll CTA + mobile menu button -->
+      <div class="right-actions">
+        <!-- subtle contact (shows only on xl) -->
+        <div class="contact-block" aria-hidden="true">
+          <div class="contact-label">Admissions Open</div>
+          <a class="contact-phone" href="tel:+919345417570">+91 93454 17570</a>
+        </div>
+
+        <!-- Icon-only enroll CTA (accessible) -->
+        <a href="#enroll" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+            <i class="fas fa-user-plus"></i>
+            <span class="font-semibold">Enroll Now</span>
+          </a>
+
+        <!-- Mobile menu toggle -->
+        <button id="mobileMenuButton" class="mobile-button" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu-hidden">
+    <!-- Mobile Menu Header with Close Button -->
+    <div class="mobile-menu-header">
+      <div class="flex items-center justify-between p-10 border-b border-gray-200 bg-white">
+        <div class="flex items-center gap-3">
+          <img
+            src="Logo/elevated-iq-academy-logo.png"
+            alt="Elevated IQ Academy Logo"
+            class="w-12 h-12 object-contain rounded-lg"
+          />
+          <div>
+            <div class="font-bold text-gray-800 text-lg">Elevated IQ Academy</div>
+            <div class="text-gray-600 text-sm">Medical Coding • IT</div>
+          </div>
+        </div>
+        <button id="mobileMenuClose" class="mobile-close-btn" aria-label="Close menu">
+          <i class="fas fa-times text-xl text-gray-600"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-xl pt-4 pb-6 px-4 sm:px-6 overflow-y-auto" style="max-height: calc(100vh - 80px); margin-top: 80px;">
+      <div class="space-y-3 sm:space-y-4">
+        <a href="index.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-home mr-3 text-blue-500"></i> Home
+        </a>
+
+        <!-- Mobile Medical Coding -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-stethoscope mr-3 text-blue-500"></i> Medical Coding
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <a href="bmct.html" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 inline-block align-middle"></div>
+              BMCT (Basic Medical Coding)
+            </a>
+            <a href="cpc.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-green-500 rounded-full mr-3 inline-block align-middle"></div>
+              CPC Certification
+            </a>
+            <a href="abmt.html" class="block py-2 text-gray-700 hover:text-red-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-red-500 rounded-full mr-3 inline-block align-middle"></div>
+              Advanced Medical Coding
+            </a>
+            <a href="mbs.html" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-purple-500 rounded-full mr-3 inline-block align-middle"></div>
+              Medical Billing Specialist
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile IT Courses with detailed subcategories -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-laptop-code mr-3 text-purple-500"></i> IT Courses
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <!-- Programming -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-purple-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                  Programming
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="#" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  C & C++ (Fundamentals to Advanced)
+                </a>
+                <a href="java.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Java (Core & Advanced)
+                </a>
+                <a href="python.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Python Programming
+                </a>
+                <a href="web.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Web Development (HTML, PHP, MySQL)
+                </a>
+              </div>
+            </div>
+
+            <!-- App Development -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  App Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="android.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Android App Development
+                </a>
+                <a href="ios.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  iOS App Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Full Stack Development -->
+             <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  Full Stack Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="full-java.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Java Development
+                </a>
+                <a href="full-python.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Python Development
+                </a>
+                <a href="mern.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  MERN Stack Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Cloud Computing & Testing -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-orange-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                  Cloud Computing & Testing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="testing.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Automation Testing (Selenium, TestNG)
+                </a>
+                <a href="aws.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  AWS (Amazon Web Services)
+                </a>
+                <a href="google-cloud.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Google Cloud Computing
+                </a>
+              </div>
+            </div>
+
+            <!-- UI/UX Design -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-pink-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                  Design & Multimedia
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="ui.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  UI/UX Design
+                </a>
+                <a href="photoshop.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Photoshop
+                </a>
+                <a href="illustator.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Illustrator
+                </a>
+                <a href="lightroom.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Lightroom
+                </a>
+                <a href="premiere_pro.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Premiere pro
+                </a>
+                <a href="after_effect.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe After Effects
+                </a>
+              </div>
+            </div>
+
+            <!-- Data Science & AI -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-teal-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                  AI & Specialized
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="gen_AI.html" class="block py-1.5 text-gray-600 hover:text-teal-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Generative AI
+                </a>
+                <a href="vibe_marketing.html" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Marketing
+                </a>
+                <a href="vibe_coding.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Coding
+                </a>
+              </div>
+            </div>
+
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-red-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                  Digital Marketing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="digital.html" class="block py-1.5 text-gray-600 hover:text-red-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Digital Marketing
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <a href="#career" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-briefcase mr-3 text-green-500"></i> Career
+        </a> -->
+
+        <a href="about.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-info-circle mr-3 text-orange-500"></i> About Us
+        </a>
+
+        <!-- <a href="#contact" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-phone mr-3 text-teal-500"></i> Contact
+        </a> -->
+
+        <div class="pt-4 border-t border-gray-200 space-y-3">
+          <div class="text-center mb-2">
+            <div class="inline-flex flex-col items-center bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-2 rounded-lg">
+              <p class="text-xs sm:text-sm font-medium text-gray-700">Admissions Open</p>
+              <a href="tel:+919345417570" class="text-sm sm:text-base font-bold text-blue-600 hover:text-blue-700">
+                +91 93454 17570
+              </a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="tel:+919345417570" class="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-phone"></i>
+              <span class="font-semibold">Call Now</span>
+            </a>
+
+            <a href="#enroll" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-user-plus"></i>
+              <span class="font-semibold">Enroll Now</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Basic resets */
+  .logo-img{ display:block; object-fit:contain; border-radius:10px; }
+  .brand-text{ display:none; }
+  .brand-main{ font-weight:800; color:#0f1724; font-size:16px; }
+  .brand-sub{ font-size:12px; color:#6b7280; margin-top:2px; }
+
+  /* Layout containers */
+  .main-nav{ display:flex; gap:18px; align-items:center; justify-content:center; flex:1; padding:0 18px; }
+  .main-nav .nav-link{ color:#374151; text-decoration:none; font-weight:600; font-size:14px; padding:8px 6px; border-radius:8px; display:inline-flex; align-items:center; gap:6px; }
+  .main-nav .nav-link:hover{ color:#0ea5e9; background:rgba(14,165,233,0.06); }
+
+  /* dropdown basics */
+  .dropdown{ position:relative; }
+  .small-chevron{ font-size:10px; transform:rotate(0deg); transition:transform .25s ease; color:#6b7280; }
+  .dropdown:hover .small-chevron{ transform:rotate(180deg); color:#0ea5e9; }
+
+  /* right actions */
+  .right-actions{ display:flex; align-items:center; gap:12px; }
+  .contact-block{ display:none; text-align:right; margin-right:6px; }
+  .contact-label{ font-size:11px; color:#6b7280; }
+  .contact-phone{ font-weight:700; color:#0ea5e9; text-decoration:none; font-size:14px; display:block; margin-top:1px; }
+
+  /* mobile menu toggle */
+  .mobile-button{ border:none; display:none; background:transparent; padding:6px 8px; font-size:18px; color:#374151; cursor:pointer; }
+
+  /* responsive */
+  @media (min-width: 768px){
+    .brand-text{ display:block; }
+  }
+  @media (min-width: 1024px){
+    .contact-block{ display:block; }
+    .mobile-button{ display:none; }
+  }
+  @media (max-width: 1023px){
+    .main-nav{ display:none; }
+    .mobile-button{ display:inline-flex; }
+  }
+
+  /* ====== MOBILE MENU FIX ====== */
+  .mobile-menu-hidden {
+    display: none !important;
+  }
+
+  #mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Mobile menu content */
+  #mobileMenu .bg-white {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  /* Mobile menu header */
+  .mobile-menu-header {
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* Mobile close button - FIXED for click */
+  .mobile-close-btn {
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .mobile-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-close-btn i {
+    pointer-events: none;
+  }
+
+  /* Mobile dropdown content */
+  .mobile-dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .mobile-dropdown-content.open {
+    max-height: 800px;
+    transition: max-height 0.4s ease-in;
+  }
+
+  /* Chevron rotation */
+  .mobile-dropdown-btn .fa-chevron-down {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-dropdown-btn .fa-chevron-down.open {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile subcategory content */
+  .mobile-subcategory-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-subcategory-content.open {
+    max-height: 500px;
+  }
+
+  /* Subcategory chevron rotation */
+  .mobile-subcategory-btn .fa-chevron-right {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-subcategory-btn .fa-chevron-right.open {
+    transform: rotate(90deg);
+  }
+</style>
+
+<script>
+// SIMPLE RELIABLE MOBILE MENU FIX
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 1. OPEN MENU - Click hamburger icon
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    // 2. CLOSE MENU - Multiple methods
+    // Method A: Click close button (×)
+    document.addEventListener('click', function(e) {
+        // Close when clicking the close button OR the X icon
+        if (e.target.closest('#mobileMenuClose') || e.target.classList.contains('fa-times')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+        
+        // Close when clicking outside the menu
+        if (!mobileMenu.classList.contains('mobile-menu-hidden')) {
+            const isMenuButton = mobileMenuButton && mobileMenuButton.contains(e.target);
+            const isInMenu = mobileMenu.contains(e.target);
+            
+            if (!isInMenu && !isMenuButton) {
+                mobileMenu.classList.add('mobile-menu-hidden');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Handle dropdown buttons
+        if (e.target.closest('.mobile-dropdown-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-dropdown-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-down');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.mobile-dropdown-content.open').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('open');
+                    const openIcon = openContent.previousElementSibling.querySelector('.fa-chevron-down');
+                    if (openIcon) openIcon.classList.remove('open');
+                }
+            });
+            
+            // Toggle current dropdown
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+        
+        // Handle subcategory buttons
+        if (e.target.closest('.mobile-subcategory-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-subcategory-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-right');
+            
+            // Toggle current subcategory
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+    });
+    
+    // Method C: Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('mobile-menu-hidden')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Method D: Close when clicking regular links (not dropdown buttons)
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (!this.classList.contains('mobile-dropdown-btn') && 
+                !this.closest('.mobile-dropdown-btn') &&
+                !this.closest('.mobile-subcategory-btn')) {
+                setTimeout(() => {
+                    mobileMenu.classList.add('mobile-menu-hidden');
+                    document.body.style.overflow = '';
+                }, 100);
+            }
+        });
+    });
+});
+</script>
+
+    <!-- Enhanced Hero Section -->
+    <section id="home" class="hero-section text-white py-16 md:py-20 relative overflow-hidden">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+          <div class="lg:w-1/2 mb-12 lg:mb-0">
+            <!-- Promo Badge -->
+            <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 animate-pulse">
+              <span class="text-yellow-300 font-bold mr-2">🎯 LIMITED OFFER</span>
+              <span class="font-semibold">Enroll Now & Save 20%!</span>
+            </div>
+            
+            <!-- Main Heading with Changed Text and Color -->
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" >
+             Launch Your Healthcare Career in Medical Billing Specialist
+            </h1>
+            
+            <!-- Subheading -->
+            <p class="text-lg text-blue-100 mb-8 max-w-2xl">
+              Become a certified Medical Billing Specialist in just 60 days. Learn insurance claims processing, revenue cycle management, and secure a high-paying career in healthcare administration.
+            </p>
+            
+            <!-- Stats -->
+            <div class="flex flex-wrap gap-6 mb-8">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">600+</div>
+                <div class="text-blue-100">Billing Professionals Trained</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">90%</div>
+                <div class="text-blue-100">Placement Rate</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">60</div>
+                <div class="text-blue-100">Days Intensive Program</div>
+              </div>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#enroll" class="bg-white text-blue-700 font-bold px-6 py-3 rounded-lg text-center hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                <i class="fas fa-rocket mr-2"></i> Start Learning Now
+              </a>
+              <a href="#course-details" class="bg-transparent border-2 border-white text-white font-bold px-6 py-3 rounded-lg text-center hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-play-circle mr-2"></i> Watch Course Preview
+              </a>
+            </div>
+          </div>
+          
+          <div class="lg:w-1/2">
+            <div class="relative">
+              <!-- Smaller Floating Course Card -->
+              <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 floating max-w-md mx-auto">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-gem text-yellow-300 mr-3"></i>
+                  Course Highlights
+                </h3>
+                
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <div class="bg-green-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-check-circle text-green-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Hands-on Billing Software</h4>
+                      <p class="text-blue-100 text-sm">Train on industry-standard billing platforms</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-blue-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-file-invoice-dollar text-blue-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Insurance Claims Expert</h4>
+                      <p class="text-blue-100 text-sm">Master Medicare, Medicaid & private insurance</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-purple-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-chart-line text-purple-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Revenue Cycle Management</h4>
+                      <p class="text-blue-100 text-sm">Complete RCM process from patient to payment</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-certificate text-yellow-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Industry Certification</h4>
+                      <p class="text-blue-100 text-sm">Recognized by healthcare providers nationwide</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Course Rating -->
+                <div class="mt-6 pt-4 border-t border-white/20">
+                  <div class="flex items-center">
+                    <div>
+                      <div class="flex items-center mb-1">
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300"></i>
+                      </div>
+                      <div class="text-sm text-blue-100">4.9/5 (512 reviews)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Decorative Elements -->
+              <div class="absolute -top-3 -right-3 w-12 h-12 bg-yellow-400 rounded-full opacity-20 animate-pulse"></div>
+              <div class="absolute -bottom-3 -left-3 w-10 h-10 bg-purple-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Our MBS Program -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Why Choose Our Medical Billing Specialist Program?
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We transform beginners into billing experts with comprehensive training and real-world experience.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-blue-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-laptop-medical text-blue-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Billing Software Training</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Hands-on training with industry-leading billing software like Epic, Cerner, and Medisoft. Gain practical skills employers value.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-green-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-shield-alt text-green-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">HIPAA & Compliance</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Comprehensive training on healthcare regulations, patient privacy laws, and billing compliance requirements.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-purple-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-hand-holding-usd text-purple-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Revenue Cycle Management</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Master the complete revenue cycle from patient registration to final payment collection and denial management.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-red-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-file-medical-alt text-red-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Insurance Claims Processing</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Learn to process Medicare, Medicaid, and private insurance claims. Handle claim submissions, tracking, and appeals.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-yellow-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-headset text-yellow-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Dedicated Support</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              24/7 access to instructors, career counselors, and technical support throughout your learning journey.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-indigo-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-briefcase text-indigo-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Guaranteed Internship</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              1-month guaranteed internship with healthcare providers or billing companies to gain real-world experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Students Choose Us (Enhanced) -->
+    <section class="stats-section py-16">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Why Students Choose Us
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Our graduates succeed in the competitive healthcare billing industry
+          </p>
+        </div>
+        
+        <!-- Enhanced Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">600+</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Billing Experts Trained</h3>
+            <p class="text-gray-600">Join our network of successful medical billing professionals</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">90%</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Placement Rate</h3>
+            <p class="text-gray-600">Our graduates secure positions within 2 months of course completion</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">4.9</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Student Rating</h3>
+            <p class="text-gray-600">Based on 512 verified student reviews and feedback</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">60+</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Partner Organizations</h3>
+            <p class="text-gray-600">Hospitals, clinics, and billing companies trust our training</p>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrolling Student Reviews -->
+        <div class="mt-16">
+          <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">What Our Students Say</h3>
+          
+          <div class="review-scroll-container">
+            <div class="review-scroll">
+              <!-- Review 1 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    SP
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Sanjay Patel</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The MBS program gave me expertise in revenue cycle management. I now work remotely for a US healthcare company earning 3x my previous salary!"
+                </p>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  <i class="fas fa-briefcase mr-2"></i>
+                  <span>Remote Billing Specialist</span>
+                </div>
+              </div>
+
+              <!-- Review 2 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    RD
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Radhika Desai</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The hands-on training with billing software was invaluable. I got hired before course completion and now manage billing for a multi-specialty clinic."
+                </p>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  <i class="fas fa-briefcase mr-2"></i>
+                  <span>Billing Manager - Multi-specialty Clinic</span>
+                </div>
+              </div>
+
+              <!-- Review 3 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    AK
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Arun Kumar</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "As a career changer, the guaranteed internship was crucial. It gave me real experience and led to a full-time position at a major hospital."
+                </p>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  <i class="fas fa-briefcase mr-2"></i>
+                  <span>Insurance Claims Specialist - Apollo Hospitals</span>
+                </div>
+              </div>
+
+              <!-- Review 4 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    MP
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Meera Pillai</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The course covered everything from basic terminology to complex insurance claims. I started my own medical billing consultancy after completing!"
+                </p>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  <i class="fas fa-briefcase mr-2"></i>
+                  <span>Owner - Medical Billing Consultancy</span>
+                </div>
+              </div>
+
+              <!-- Review 5 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    VS
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Vikram Singh</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The revenue cycle management module was exceptional. I now work as an RCM analyst with excellent growth prospects and salary."
+                </p>
+                <div class="flex items-center text-sm text-blue-600 font-medium">
+                  <i class="fas fa-briefcase mr-2"></i>
+                  <span>RCM Analyst - Fortis Healthcare</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who Should Enroll & Career Opportunities -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-12">
+          <!-- Who Should Enroll -->
+          <div class="lg:w-1/2">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Who Should Enroll?</h2>
+            
+            <div class="space-y-6">
+              <div class="career-card bg-blue-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-user-graduate text-blue-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Recent Graduates</h3>
+                    <p class="text-gray-600">
+                      Ideal for commerce, science, or any graduate looking for a stable healthcare career with excellent growth potential.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-green-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-green-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Healthcare Admin Staff</h3>
+                    <p class="text-gray-600">
+                      Current healthcare staff looking to specialize in medical billing and advance their career.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-purple-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-sync-alt text-purple-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Career Changers</h3>
+                    <p class="text-gray-600">
+                      Professionals from other fields seeking a recession-proof career in the growing healthcare industry.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-yellow-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-yellow-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-home text-yellow-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Remote Work Enthusiasts</h3>
+                    <p class="text-gray-600">
+                      Perfect for those seeking work-from-home opportunities with flexible hours and good pay.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Future Career Opportunities -->
+          <div class="lg:w-1/2">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Future Career Opportunities</h2>
+            
+            <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-2xl p-8 text-white">
+              <h3 class="text-2xl font-bold mb-6">Medical Billing Specialist</h3>
+              <p class="mb-6 text-blue-100">
+                Our graduates are prepared for high-demand roles in hospitals, clinics, insurance companies, and billing firms with starting salaries of ₹4-6 LPA.
+              </p>
+
+              <h4 class="text-lg font-semibold mb-4">Career Paths After Completion:</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Medical Biller</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Claims Processor</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Revenue Cycle Analyst</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Billing Manager</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Insurance Verifier</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Remote Billing Specialist</span>
+                </div>
+              </div>
+
+              <div class="bg-white bg-opacity-20 rounded-xl p-4 mb-6">
+                <h4 class="font-semibold mb-3">Salary Expectations:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Entry Level</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹4-6 LPA</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Experienced</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹6-10 LPA</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Senior Level</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹10-15 LPA</div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="#enroll" class="block w-full bg-white text-blue-700 font-semibold py-3 rounded-lg text-center hover:bg-gray-100 transition">
+                Explore All Career Opportunities
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Curriculum Section -->
+    <section id="course-curriculum" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Course Curriculum
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Our 60-day comprehensive curriculum covers everything from insurance claims to advanced revenue cycle management
+          </p>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+          <!-- Curriculum Timeline -->
+          <div class="relative">
+            <!-- Timeline Line -->
+            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-600 via-purple-600 to-green-600"></div>
+            
+            <!-- Module 1 (Right Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <!-- Empty space on left for module 1 -->
+                  <div class="hidden md:block text-right">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">01</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Foundation Phase</h4>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+                  <i class="fas fa-graduation-cap text-white text-sm"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="bg-blue-50 rounded-2xl p-6 shadow-lg">
+                    <div class="inline-flex items-center bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-file-medical mr-2"></i> Week 1-2
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Healthcare Fundamentals</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Healthcare System Overview</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Medical Terminology & Anatomy</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Healthcare Documentation</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Introduction to Medical Coding</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 2 (Left Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="bg-purple-50 rounded-2xl p-6 shadow-lg">
+                    <div class="inline-flex items-center bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-file-invoice-dollar mr-2"></i> Week 3-4
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Insurance & Claims Basics</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Health Insurance Fundamentals</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Medicare & Medicaid Overview</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Private Insurance Plans</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Claim Form Preparation (CMS-1500)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-purple-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+                  <i class="fas fa-file-medical-alt text-white text-sm"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="hidden md:block text-left">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">02</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Insurance Phase</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 3 (Right Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="hidden md:block text-right">
+                    <div class="text-4xl font-bold text-green-600 mb-2">03</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Billing Software</h4>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-green-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+                  <i class="fas fa-laptop-medical text-white text-sm"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="bg-green-50 rounded-2xl p-6 shadow-lg">
+                    <div class="inline-flex items-center bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-laptop mr-2"></i> Week 5-7
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Billing Software & Technology</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Electronic Health Records (EHR)</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Billing Software Training (Epic/Cerner)</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Electronic Claim Submission</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Practice Management Systems</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 4 (Left Side) -->
+            <div class="relative mb-12">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="bg-red-50 rounded-2xl p-6 shadow-lg">
+                    <div class="inline-flex items-center bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-chart-line mr-2"></i> Week 8-9
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Revenue Cycle Management</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Complete RCM Process</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Denial Management & Appeals</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Patient Billing & Collections</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Accounts Receivable Management</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-red-600 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center">
+                  <i class="fas fa-chart-bar text-white text-sm"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="hidden md:block text-left">
+                    <div class="text-4xl font-bold text-red-600 mb-2">04</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">RCM & Compliance</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Curriculum Details -->
+          <div class="mt-16">
+            <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">What You'll Master</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Skill 1 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-file-invoice-dollar text-blue-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Insurance Claims Processing</h4>
+                <p class="text-gray-600">Master Medicare, Medicaid, and private insurance claims processing with real case studies.</p>
+              </div>
+
+              <!-- Skill 2 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Revenue Cycle Management</h4>
+                <p class="text-gray-600">Learn complete revenue cycle from patient registration to payment collection and denial management.</p>
+              </div>
+
+              <!-- Skill 3 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">HIPAA & Compliance</h4>
+                <p class="text-gray-600">Gain comprehensive knowledge of healthcare regulations, privacy laws, and billing compliance.</p>
+              </div>
+            </div>
+
+            <!-- Learning Tools & Resources -->
+            <div class="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Learning Tools & Resources</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-laptop-medical text-blue-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Billing Software Access</h4>
+                  <p class="text-sm text-gray-600">Practice on industry-standard software</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-book text-green-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Study Materials</h4>
+                  <p class="text-sm text-gray-600">Textbooks, manuals, workbooks</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-video text-purple-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Video Tutorials</h4>
+                  <p class="text-sm text-gray-600">Recorded sessions for revision</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-building text-red-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Guaranteed Internship</h4>
+                  <p class="text-sm text-gray-600">1-month practical experience</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-12 text-center">
+              <a href="#enroll" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                <i class="fas fa-calendar-check mr-3"></i>
+                Enroll Now to Start Learning
+              </a>
+              <p class="text-gray-500 mt-4 text-sm">
+                Next batch starts: <span class="font-semibold text-blue-600">15th December 2024</span> | Limited seats available
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+          <p class="text-gray-600 text-lg max-w-2xl mx-auto">Find answers to common questions about our Medical Billing Specialist program</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+          <div class="space-y-2" id="faqAccordion">
+            <!-- FAQ items will be loaded here by JavaScript -->
+          </div>
+          
+          <div class="mt-12 text-center">
+            <p class="text-gray-600 mb-6">Still have questions? We're here to help!</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="tel:+919345417570" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-xl transition-all">
+                <i class="fas fa-phone mr-3"></i>
+                Call Us Now
+              </a>
+              <a href="#enroll" class="inline-flex items-center border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all">
+                <i class="fas fa-question-circle mr-3"></i>
+                Ask More Questions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section id="enroll" class="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div class="md:flex">
+            <!-- Left Column - Course Info -->
+            <div class="md:w-1/2 bg-gradient-to-br from-blue-700 to-purple-800 text-white p-8">
+              <h2 class="text-2xl font-bold mb-6">Start Your Medical Billing Career Today</h2>
+              
+              <!-- Countdown Timer -->
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 flex items-center">
+                  <i class="fas fa-clock mr-3 text-yellow-300"></i>
+                  Limited Time Offer Ends In:
+                </h3>
+                <div class="grid grid-cols-4 gap-3">
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="days">05</div>
+                    <div class="text-xs">Days</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="hours">12</div>
+                    <div class="text-xs">Hours</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="minutes">45</div>
+                    <div class="text-xs">Minutes</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="seconds">30</div>
+                    <div class="text-xs">Seconds</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Features -->
+              <div class="space-y-3 mb-6">
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                  <span>Guaranteed 1-Month Internship</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                  <span>EMI Options Available</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                  <span>90% Placement Assistance</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-green-300 mr-3"></i>
+                  <span>Billing Software Training</span>
+                </div>
+              </div>
+              
+              <!-- Batch Info -->
+              <div class="bg-white/10 rounded-lg p-4">
+                <h4 class="font-semibold mb-2">Next Batch Starts:</h4>
+                <div class="flex items-center">
+                  <i class="fas fa-calendar-alt mr-3 text-yellow-300"></i>
+                  <span class="text-md">25th January 2026</span>
+                </div>
+                <p class="text-sm mt-2 text-blue-200">Only 12 seats remaining</p>
+              </div>
+            </div>
+            
+            <!-- Right Column - Form -->
+            <div class="md:w-1/2 p-8">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Enroll Now</h3>
+              <p class="text-gray-600 mb-6">Fill the form below to secure your seat</p>
+              
+              <form class="space-y-4" id="enrollmentForm">
+                <div>
+                  <label class="block text-gray-700 mb-2 font-medium" for="fullName">
+                    Full Name <span class="text-red-500">*</span>
+                  </label>
+                  <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" required>
+                </div>
+                
+                <!-- Course Field - Fixed and Pre-selected -->
+                <!-- Course Field - Fixed -->
+<div>
+  <label class="block text-gray-700 mb-2 font-medium">
+    Selected Course <span class="text-red-500">*</span>
+  </label>
+
+  <!-- Visible (locked) select -->
+  <select class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" disabled>
+    <option>Medical Billing Specialist (MBS)</option>
+  </select>
+
+  <!-- Hidden field (used for submission) -->
+  <input
+    type="hidden"
+    id="course"
+    value="Medical Billing Specialist (MBS)"
+  />
+
+  <p class="text-xs text-gray-500 mt-1">
+    This course is pre-selected and cannot be changed
+  </p>
+</div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-gray-700 mb-2 font-medium" for="email">
+                      Email <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your@email.com" required>
+                  </div>
+                  
+                  <div>
+                    <label class="block text-gray-700 mb-2 font-medium" for="phone">
+                      Phone <span class="text-red-500">*</span>
+                    </label>
+                    <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="+91 98765 43210" required>
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 mb-2 font-medium" for="education">
+                    Highest Qualification <span class="text-red-500">*</span>
+                  </label>
+                  <select id="education" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select your qualification</option>
+                    <option value="12th">12th Pass</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="graduate">Graduate</option>
+                    <option value="post-graduate">Post Graduate</option>
+                  </select>
+                </div>
+                
+                <div class="flex items-center">
+                  <input type="checkbox" id="consent" class="mr-3" required>
+                  <label for="consent" class="text-gray-600 text-sm">
+                    I agree to receive course information and updates
+                  </label>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-bold hover:shadow-xl transition-all">
+                  <i class="fas fa-lock mr-2"></i> Secure Your Seat Now
+                </button>
+                
+                <p class="text-center text-gray-500 text-sm">
+                  <i class="fas fa-shield-alt mr-2"></i>
+                  Your information is 100% secure & confidential
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center mb-6">
+              <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl mr-4">
+                <div class="font-bold text-xl">EIQ</div>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold">Elevated IQ Academy</h3>
+                <p class="text-gray-400 text-sm">ISO 9001:2015 Certified Institute</p>
+              </div>
+            </div>
+            <p class="text-gray-400 mb-6">
+              Transforming careers through quality education and industry-aligned training programs.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-600 transition">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 transition">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-green-500 transition">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+              <li><a href="#courses" class="text-gray-400 hover:text-white transition">Courses</a></li>
+              <li><a href="#career" class="text-gray-400 hover:text-white transition">Career Opportunities</a></li>
+              <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+              <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <!-- Courses -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Our Courses</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Basic Medical Coding Training</a></li>
+              <li><a href="#" class="text-blue-300 hover:text-white transition">Medical Billing Specialist</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Certified Professional Coder</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Healthcare Documentation</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Contact Info</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-blue-400 mt-1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Address</p>
+                  <p class="text-gray-400 text-sm">20, Vaigai colony, Anna nagar, Madurai-625020</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-phone text-blue-400 mt-1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Phone</p>
+                  <p class="text-gray-400 text-sm">+91 93454 17570</p>
+                  <p class="text-gray-400 text-sm">+91 93845 84864</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope text-blue-400 mt=1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Email</p>
+                  <p class="text-gray-400 text-sm">elevatediqacademy@gmail.com</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-clock text-blue-400 mt=1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Hours</p>
+                  <p class="text-gray-400 text-sm">Mon-Sat: 9AM - 7PM</p>
+                  <p class="text-gray-400 text-sm">Sun: 10AM - 5PM</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p class="text-gray-400">
+            © <span id="currentYear"></span> Elevated IQ Academy. All rights reserved.
+          </p>
+          <div class="flex justify-center space-x-6 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Refund Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // DOM Elements
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const backToTop = document.getElementById('backToTop');
+      const progressBar = document.getElementById('progressBar');
+      const enrollmentForm = document.getElementById('enrollmentForm');
+      const faqAccordion = document.getElementById('faqAccordion');
+      const reviewScroll = document.querySelector('.review-scroll');
+
+      // FAQ Data - Updated for Medical Billing Specialist
+      const faqs = [
+        {
+          question: "What are the prerequisites for Medical Billing Specialist course?",
+          answer: "No prior medical or billing knowledge required. The course is suitable for graduates from any stream. Basic computer knowledge is recommended. Minimum qualification: 12th pass."
+        },
+        {
+          question: "What is the course duration and schedule?",
+          answer: "The course duration is 60 days with flexible batches. We offer weekday (Mon-Fri, 3 hours/day) and weekend (Sat-Sun, 5 hours/day) options. Total training hours: 120 hours."
+        },
+        {
+          question: "Do you provide internship and placement assistance?",
+          answer: "Yes, we provide 1-month guaranteed internship with healthcare providers or billing companies. 90% placement assistance including resume building, mock interviews, and connections with 60+ partner organizations."
+        },
+        {
+          question: "What billing software will I learn?",
+          answer: "You'll get hands-on training on industry-standard software like Epic, Cerner, Medisoft, and Practice Management Systems used in hospitals and clinics."
+        },
+        {
+          question: "Is the certification recognized by employers?",
+          answer: "Yes, our Medical Billing Specialist certification is recognized by hospitals, clinics, insurance companies, and medical billing firms nationwide."
+        },
+        {
+          question: "Can I work remotely after completing this course?",
+          answer: "Absolutely! Medical billing offers excellent remote work opportunities. We provide specific training for remote billing positions and connect you with companies offering work-from-home options."
+        }
+      ];
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Load FAQs
+        loadFAQs();
+        
+        // Initialize countdown timer
+        initializeCountdown();
+        
+        // Add navigation arrows to review scroll
+        addReviewNavigation();
+        
+        // Disable course field selection
+        disableCourseField();
+      });
+
+      // Mobile Menu Toggle
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('opacity-0');
+        mobileMenu.classList.toggle('invisible');
+        mobileMenu.classList.toggle('-translate-y-2');
+      });
+
+      // Load FAQs Function
+      function loadFAQs() {
+        faqAccordion.innerHTML = '';
+        
+        faqs.forEach((faq, index) => {
+          const faqItem = document.createElement('div');
+          faqItem.className = 'faq-item rounded-lg p-1';
+          faqItem.innerHTML = `
+            <div class="faq-question flex justify-between items-center cursor-pointer p-4 rounded-lg hover:bg-blue-50">
+              <h3 class="text-lg font-semibold text-gray-800">${faq.question}</h3>
+              <i class="fas fa-chevron-down faq-icon text-blue-600 transition-transform duration-300"></i>
+            </div>
+            <div class="faq-answer overflow-hidden">
+              <p class="text-gray-600 p-4 pt-0">${faq.answer}</p>
+            </div>
+          `;
+          
+          const question = faqItem.querySelector('.faq-question');
+          const answer = faqItem.querySelector('.faq-answer');
+          const icon = faqItem.querySelector('.faq-icon');
+          
+          question.addEventListener('click', function() {
+            const isOpen = answer.classList.contains('open');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(el => {
+              el.classList.remove('open');
+            });
+            document.querySelectorAll('.faq-icon').forEach(el => {
+              el.classList.remove('open');
+            });
+            document.querySelectorAll('.faq-question').forEach(el => {
+              el.classList.remove('bg-blue-50');
+            });
+            
+            // Toggle current FAQ
+            if (!isOpen) {
+              answer.classList.add('open');
+              icon.classList.add('open');
+              question.classList.add('bg-blue-50');
+            }
+          });
+          
+          faqAccordion.appendChild(faqItem);
+        });
+      }
+
+      // Add Review Navigation
+      function addReviewNavigation() {
+        // Create navigation buttons
+        const container = document.querySelector('.review-scroll-container');
+        const prevButton = document.createElement('button');
+        const nextButton = document.createElement('button');
+        
+        prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        
+        prevButton.className = 'absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full w-10 h-10 shadow-lg flex items-center justify-center hover:shadow-xl transition-all z-10';
+        nextButton.className = 'absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full w-10 h-10 shadow-lg flex items-center justify-center hover:shadow-xl transition-all z-10';
+        
+        prevButton.addEventListener('click', () => {
+          reviewScroll.scrollBy({ left: -400, behavior: 'smooth' });
+        });
+        
+        nextButton.addEventListener('click', () => {
+          reviewScroll.scrollBy({ left: 400, behavior: 'smooth' });
+        });
+        
+        container.style.position = 'relative';
+        container.appendChild(prevButton);
+        container.appendChild(nextButton);
+      }
+
+      // Disable Course Field Selection
+      function disableCourseField() {
+        const courseField = document.getElementById('course');
+        
+        // Prevent any interaction with the course field
+        courseField.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          return false;
+        });
+        
+        courseField.addEventListener('keydown', (e) => {
+          e.preventDefault();
+          return false;
+        });
+        
+        courseField.addEventListener('focus', (e) => {
+          e.preventDefault();
+          courseField.blur();
+        });
+      }
+
+
+      // Countdown Timer
+      function initializeCountdown() {
+        const countdownDate = new Date();
+        countdownDate.setDate(countdownDate.getDate() + 5); // 5 days from now
+        
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const distance = countdownDate - now;
+          
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          document.getElementById('days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+          
+          if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.querySelectorAll('.countdown-timer div').forEach(el => {
+              el.textContent = '00';
+            });
+          }
+        }
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+      }
+
+      // Scroll Progress
+      window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + '%';
+        
+        // Show/hide back to top button
+        if (winScroll > 500) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+
+      // Back to Top
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Close mobile menu if open
+            mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+            
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // WhatsApp button enhancement
+      const whatsappButton = document.querySelector('.whatsapp-float');
+      whatsappButton.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1) rotate(5deg)';
+      });
+      
+      whatsappButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+      });
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const enrollmentForm = document.getElementById("enrollmentForm");
+
+  if (!enrollmentForm) {
+    console.error("Enrollment form not found");
+    return;
+  }
+
+  enrollmentForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Read values safely
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const qualification = document.getElementById("education").value;
+    const course = document.getElementById("course").value; // hidden input
+    const consent = document.getElementById("consent").checked;
+
+    if (!consent) {
+      alert("Please agree to receive course information.");
+      return;
+    }
+
+    // Data to send
+    const formData = {
+      name: fullName,
+      phone: phone,
+      email: email,
+      course: course,
+      qualification: qualification,
+      message: "Enrollment form submission for " + course
+    };
+
+    // Button UI
+    const submitButton = enrollmentForm.querySelector('button[type="submit"]');
+    const originalHTML = submitButton.innerHTML;
+
+    submitButton.innerHTML =
+      '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+    submitButton.disabled = true;
+
+    // Send to Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxkPwZTiVZGuSWlYMJXDDq8Uhu2UK9e8t-6L5VNXb6dFDbIqVMcVQRUMlHSzojy4qfx/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(formData).toString()
+      }
+    )
+      .then(() => {
+        // Success UI
+        submitButton.innerHTML =
+          '<i class="fas fa-check mr-2"></i> Registration Successful!';
+        submitButton.classList.remove("from-blue-600", "to-purple-600");
+        submitButton.classList.add("from-green-500", "to-green-600");
+
+        // Reset after delay
+        setTimeout(() => {
+          enrollmentForm.reset();
+
+          // Re-apply fixed course
+          document.getElementById("course").value =
+            "Basic Medical Coding Training (BMCT)";
+
+          submitButton.innerHTML = originalHTML;
+          submitButton.classList.remove("from-green-500", "to-green-600");
+          submitButton.classList.add("from-blue-600", "to-purple-600");
+          submitButton.disabled = false;
+
+          alert(
+            "Thank you for enrolling in Medical Billing Specialist (MBS). Our counselor will contact you within 24 hours."
+          );
+        }, 2500);
+      })
+      .catch((error) => {
+        console.error("Submission Error:", error);
+
+        submitButton.innerHTML =
+          '<i class="fas fa-exclamation-triangle mr-2"></i> Registration Failed';
+        submitButton.classList.remove("from-blue-600", "to-purple-600");
+        submitButton.classList.add("from-red-500", "to-red-600");
+
+        setTimeout(() => {
+          submitButton.innerHTML = originalHTML;
+          submitButton.classList.remove("from-red-500", "to-red-600");
+          submitButton.classList.add("from-blue-600", "to-purple-600");
+          submitButton.disabled = false;
+
+          alert("Something went wrong. Please try again.");
+        }, 2500);
+      });
+  });
+});
+</script>
+  </body>
+</html>
