@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Mobile App Design - UI/UX Hero</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-dark: #7c3aed;
+            --surface: #0f172a;
+            --surface-light: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #151522 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Phone Container - RIGHT SIDE */
+        .phone-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .phone {
+            width: 320px;
+            height: 660px;
+            background: linear-gradient(145deg, #0c0c0f, #1a1a24);
+            border-radius: 48px;
+            padding: 18px;
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 2px rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            z-index: 2;
+        }
+
+        .phone::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 26px;
+            background: #0c0c0f;
+            border-radius: 0 0 14px 14px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .screen {
+            position: relative;
+            background: linear-gradient(165deg, #0f111f, #1a1c2e);
+            height: 100%;
+            border-radius: 36px;
+            padding: 24px;
+            color: var(--text-primary);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Effects */
+        .screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 70%);
+            z-index: 0;
+        }
+
+        /* SINGLE CURSOR */
+        .design-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            opacity: 0;
+            box-shadow: 
+                0 0 0 3px rgba(139, 92, 246, 0.5),
+                0 0 20px rgba(139, 92, 246, 0.3);
+            transition: 
+                top 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.3s;
+        }
+
+        .design-cursor::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* App Content */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0;
+            padding: 8px 0;
+            z-index: 1;
+            color: var(--text-secondary);
+            animation: fadeIn 0.8s 0.4s forwards;
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            opacity: 0;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+            animation: slideDown 0.8s 0.8s forwards;
+        }
+
+        .app-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .title {
+            margin-top: 24px;
+            font-size: 32px;
+            opacity: 0;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ffffff, var(--text-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: 1;
+            animation: slideDown 0.8s 1.2s forwards;
+        }
+
+        .subtitle {
+            margin-top: 8px;
+            color: var(--text-tertiary);
+            font-size: 15px;
+            opacity: 0;
+            z-index: 1;
+            animation: fadeIn 0.8s 1.6s forwards;
+        }
+
+        .form-group {
+            margin-top: 32px;
+            opacity: 0;
+            z-index: 1;
+            animation: slideUp 0.8s 2s forwards;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            margin-left: 4px;
+            font-weight: 500;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input {
+            margin-top: 4px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 32, 48, 0.6);
+            color: var(--text-primary);
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+            background: rgba(30, 32, 48, 0.9);
+        }
+
+        .input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .input.typing {
+            border-color: var(--primary);
+            background: rgba(30, 32, 48, 0.8);
+        }
+
+        .password-container {
+            margin-top: 20px;
+            opacity: 0;
+            animation: slideUp 0.8s 2.4s forwards;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 2;
+            transition: color 0.3s;
+            padding: 8px;
+        }
+
+        .toggle-password:hover {
+            color: var(--primary);
+        }
+
+        .login-btn {
+            margin-top: 36px;
+            padding: 18px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(90deg, var(--primary), #6366f1);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            font-size: 16px;
+            transition: all 0.3s;
+            z-index: 1;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            animation: pulseIn 0.8s 2.8s forwards;
+        }
+
+        .login-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .login-btn:hover::after {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn.clicked {
+            transform: scale(0.98);
+        }
+
+        .hint {
+            margin-top: 24px;
+            font-size: 14px;
+            text-align: center;
+            color: var(--primary-light);
+            opacity: 0;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 1;
+            font-weight: 500;
+            animation: fadeIn 0.8s 3.2s forwards;
+        }
+
+        .hint:hover {
+            color: #c4b5fd;
+        }
+
+        /* Animations */
+        @keyframes fadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; } 
+        }
+        
+        @keyframes slideDown { 
+            from { transform: translateY(-20px); opacity: 0; } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        @keyframes slideUp { 
+            from { transform: translateY(20px); opacity: 0; } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        @keyframes pulseIn { 
+            0% { transform: scale(0.95); opacity: 0; } 
+            70% { transform: scale(1.05); opacity: 0.7; } 
+            100% { transform: scale(1); opacity: 1; } 
+        }
+
+        @keyframes cursorClick {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(0.7); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .content-section {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .features {
+                justify-content: center;
+            }
+            
+            .phone-container {
+                order: -1;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .phone {
+                width: 280px;
+                height: 580px;
+                border-radius: 40px;
+            }
+            
+            .screen {
+                padding: 20px;
+                border-radius: 30px;
+            }
+            
+            .title {
+                font-size: 28px;
+                margin-top: 20px;
+            }
+            
+            .app-icon {
+                width: 44px;
+                height: 44px;
+                margin-top: 15px;
+            }
+            
+            .input {
+                padding: 14px 18px;
+            }
+            
+            .login-btn {
+                padding: 16px;
+                margin-top: 30px;
+            }
+            
+            .content-section h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Tooltip */
+        .design-tooltip {
+            position: absolute;
+            background: rgba(20, 22, 36, 0.95);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .typing-cursor {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: var(--primary);
+            animation: blink 1s infinite;
+            opacity: 0;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-container">
+        <!-- Phone Container - RIGHT SIDE -->
+        <div class="phone-container">
+            <!-- SINGLE DESIGNER CURSOR -->
+            <div class="design-cursor" id="designCursor"></div>
+            <div class="design-tooltip" id="tooltip"></div>
+            
+            <div class="phone">
+                <div class="screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>88% <i class="fas fa-bolt" style="margin-left: 8px;"></i></span>
+                    </div>
+
+                    <!-- App Icon -->
+                    <div class="app-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+
+                    <h1 class="title">Welcome Back</h1>
+                    <p class="subtitle">Sign in to continue your journey</p>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label class="input-label">Email Address</label>
+                        <div class="input-container">
+                            <input type="email" class="input" id="emailInput" placeholder="your.email@example.com" disabled>
+                            <div class="typing-cursor" id="emailCursor"></div>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="password-container">
+                        <label class="input-label">Password</label>
+                        <div class="input-container">
+                            <input type="password" class="input" id="passwordInput" placeholder="Enter your password" disabled>
+                            <div class="typing-cursor" id="passwordCursor"></div>
+                            <button class="toggle-password" id="togglePassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button class="login-btn" id="loginBtn">
+                        Sign In
+                    </button>
+
+                    <p class="hint" id="forgotPassword">Forgot your password?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const designCursor = document.getElementById("designCursor");
+        const tooltip = document.getElementById("tooltip");
+        const emailInput = document.getElementById("emailInput");
+        const passwordInput = document.getElementById("passwordInput");
+        const loginBtn = document.getElementById("loginBtn");
+        const togglePassword = document.getElementById("togglePassword");
+        const forgotPassword = document.getElementById("forgotPassword");
+        const emailCursor = document.getElementById("emailCursor");
+        const passwordCursor = document.getElementById("passwordCursor");
+
+        // State
+        let isPasswordVisible = false;
+        let isAnimating = true;
+        let currentAction = null;
+
+        // Move cursor with natural human-like motion
+        function moveCursorTo(element, delay = 0, speed = 'normal') {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const rect = element.getBoundingClientRect();
+                    const phoneRect = document.querySelector('.phone').getBoundingClientRect();
+                    const screenRect = document.querySelector('.screen').getBoundingClientRect();
+                    
+                    // Calculate position within phone screen
+                    const x = rect.left - screenRect.left + rect.width / 2;
+                    const y = rect.top - screenRect.top + rect.height / 2;
+                    
+                    // Set cursor position
+                    designCursor.style.left = `${x}px`;
+                    designCursor.style.top = `${y}px`;
+                    designCursor.style.opacity = "1";
+                    
+                    // Natural movement speed
+                    const speedMap = {
+                        'slow': '1.2s',
+                        'normal': '0.8s',
+                        'fast': '0.5s'
+                    };
+                    designCursor.style.transition = `top ${speedMap[speed] || '0.8s'} cubic-bezier(0.34, 1.56, 0.64, 1), left ${speedMap[speed] || '0.8s'} cubic-bezier(0.34, 1.56, 0.64, 1)`;
+                    
+                    // Click animation
+                    setTimeout(() => {
+                        designCursor.style.animation = 'cursorClick 0.3s ease';
+                        setTimeout(() => {
+                            designCursor.style.animation = '';
+                            resolve();
+                        }, 300);
+                    }, speedMap[speed] ? parseInt(speedMap[speed]) * 1000 : 800);
+                    
+                }, delay);
+            });
+        }
+
+        // Show design tooltip
+        function showTooltip(text, duration = 1500) {
+            if (!isAnimating) return;
+            
+            const cursorRect = designCursor.getBoundingClientRect();
+            const screenRect = document.querySelector('.screen').getBoundingClientRect();
+            
+            tooltip.textContent = text;
+            tooltip.style.left = `${cursorRect.left - screenRect.left + 25}px`;
+            tooltip.style.top = `${cursorRect.top - screenRect.top - 40}px`;
+            tooltip.style.opacity = "1";
+            tooltip.style.transform = "translateY(0)";
+            
+            setTimeout(() => {
+                tooltip.style.opacity = "0";
+                tooltip.style.transform = "translateY(10px)";
+            }, duration);
+        }
+
+        // Simulate human typing
+        async function typeText(element, text, cursorElement) {
+            element.disabled = false;
+            element.focus();
+            element.value = '';
+            
+            // Show typing cursor
+            const rect = element.getBoundingClientRect();
+            cursorElement.style.left = '20px';
+            cursorElement.style.top = '50%';
+            cursorElement.style.opacity = '1';
+            
+            // Type character by character
+            for (let i = 0; i < text.length; i++) {
+                element.value += text[i];
+                
+                // Add typing effect class
+                element.classList.add('typing');
+                
+                // Small random delays for natural typing
+                await new Promise(resolve => 
+                    setTimeout(resolve, 50 + Math.random() * 100)
+                );
+            }
+            
+            // Hide typing cursor
+            cursorElement.style.opacity = '0';
+            element.classList.remove('typing');
+            element.blur();
+        }
+
+        // Login button click simulation
+        async function simulateLogin() {
+            if (currentAction === 'logging') return;
+            
+            currentAction = 'logging';
+            const originalText = loginBtn.innerHTML;
+            
+            // Button click feedback
+            loginBtn.classList.add('clicked');
+            
+            // Move cursor to button
+            await moveCursorTo(loginBtn, 0, 'fast');
+            
+            // Change to logging state
+            loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
+            loginBtn.disabled = true;
+            showTooltip("Authenticating credentials...");
+            
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1800));
+            
+            // Show success
+            loginBtn.innerHTML = '<i class="fas fa-check"></i> Login Successful';
+            loginBtn.style.background = "linear-gradient(90deg, var(--success), #34d399)";
+            showTooltip("Welcome back! Redirecting...");
+            
+            // Wait a moment
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Reset button
+            loginBtn.innerHTML = originalText;
+            loginBtn.disabled = false;
+            loginBtn.style.background = "linear-gradient(90deg, var(--primary), #6366f1)";
+            loginBtn.classList.remove('clicked');
+            
+            currentAction = null;
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            isPasswordVisible = !isPasswordVisible;
+            passwordInput.type = isPasswordVisible ? "text" : "password";
+            togglePassword.innerHTML = isPasswordVisible ? 
+                '<i class="far fa-eye-slash"></i>' : 
+                '<i class="far fa-eye"></i>';
+            
+            // Visual feedback
+            togglePassword.style.transform = "translateY(-50%) scale(1.2)";
+            setTimeout(() => {
+                togglePassword.style.transform = "translateY(-50%) scale(1)";
+            }, 200);
+            
+            showTooltip(isPasswordVisible ? "Password visible" : "Password hidden", 1000);
+        }
+
+        // Main design animation sequence
+        async function runDesignAnimation() {
+            isAnimating = true;
+            
+            // Initial pause
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Design Step 1: Layout overview
+            showTooltip("Designing layout structure...");
+            await moveCursorTo(document.querySelector('.app-icon'), 0, 'slow');
+            await moveCursorTo(document.querySelector('.title'), 800, 'slow');
+            
+            // Design Step 2: Email field
+            showTooltip("Adding email input field...");
+            await moveCursorTo(emailInput, 800, 'normal');
+            showTooltip("Simulating user typing...");
+            await typeText(emailInput, "alex@example.com", emailCursor);
+            
+            // Design Step 3: Password field
+            showTooltip("Adding secure password field...");
+            await moveCursorTo(passwordInput, 800, 'normal');
+            showTooltip("Simulating password entry...");
+            await typeText(passwordInput, "••••••••", passwordCursor);
+            
+            // Design Step 4: Password toggle
+            showTooltip("Adding password visibility toggle...");
+            await moveCursorTo(togglePassword, 800, 'fast');
+            showTooltip("Testing toggle functionality...");
+            togglePasswordVisibility();
+            
+            // Design Step 5: Login button
+            showTooltip("Designing primary action button...");
+            await moveCursorTo(loginBtn, 1000, 'normal');
+            showTooltip("Button ready for interaction!");
+            
+            // Design Step 6: Forgot password
+            showTooltip("Adding forgot password link...");
+            await moveCursorTo(forgotPassword, 800, 'normal');
+            
+            // Design complete
+            showTooltip("Design complete! Try interacting with the form.", 3000);
+            
+            // Enable interactions
+            emailInput.disabled = false;
+            passwordInput.disabled = false;
+            isAnimating = false;
+            
+            // Reset after 10 seconds
+            setTimeout(() => {
+                if (isAnimating) return;
+                resetAnimation();
+            }, 10000);
+        }
+
+        // Reset animation
+        function resetAnimation() {
+            location.reload();
+        }
+
+        // Event Listeners
+        togglePassword.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!isAnimating) {
+                togglePasswordVisibility();
+                moveCursorTo(togglePassword, 0, 'fast');
+            }
+        });
+        
+        forgotPassword.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!isAnimating) {
+                showTooltip("Password reset flow would launch here");
+                moveCursorTo(forgotPassword, 0, 'fast');
+                
+                // Visual feedback
+                forgotPassword.style.color = "var(--primary)";
+                setTimeout(() => {
+                    forgotPassword.style.color = "var(--primary-light)";
+                }, 1000);
+            }
+        });
+        
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!isAnimating) {
+                simulateLogin();
+            }
+        });
+
+        // Initialize
+        setTimeout(() => {
+            runDesignAnimation();
+        }, 2000);
+
+        // Add CSS for cursor click animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .design-cursor.clicked {
+                animation: cursorClick 0.3s ease;
+            }
+            
+            @keyframes cursorClick {
+                0% { transform: translate(-50%, -50%) scale(1); }
+                50% { transform: translate(-50%, -50%) scale(0.7); }
+                100% { transform: translate(-50%, -50%) scale(1); }
+            }
+            
+            .login-btn:disabled {
+                opacity: 0.8;
+                cursor: not-allowed;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

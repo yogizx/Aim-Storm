@@ -1,0 +1,3192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPC - Certified Professional Coder | Elevated IQ Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-blue: #1e3c72;
+        --secondary-blue: #2a5298;
+        --accent-purple: #764ba2;
+        --accent-gold: #ffd700;
+        --medical-gradient: linear-gradient(90deg, #1a2980, #26d0ce);
+        --title-gradient: linear-gradient(90deg, #1e40af, #7c3aed);
+        --cpc-gradient: linear-gradient(90deg, #10b981, #059669); /* Green gradient for CPC */
+      }
+      
+      body {
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+      }
+      
+      /* Progress Bar */
+      .progress-container {
+        width: 100%;
+        height: 4px;
+        background: #e5e7eb;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+      
+      .progress-bar {
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+      
+      /* Animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+      
+      .floating {
+        animation: float 5s ease-in-out infinite;
+      }
+      
+      .medical-gradient-text {
+        background: var(--cpc-gradient); /* Changed to CPC gradient */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      /* Custom Components */
+      .course-card {
+        transition: all 0.3s ease;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      
+      .course-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+      
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: var(--cpc-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 10px rgba(16, 185, 129, 0.2);
+      }
+      
+      /* Back to Top Button */
+      .back-to-top {
+        position: fixed;
+        bottom: 90px;
+        right: 25px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        z-index: 99;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .back-to-top:hover {
+        background: var(--secondary-blue);
+        transform: translateY(-3px);
+      }
+      
+      /* FAQ Hover Effects */
+      .faq-item {
+        border-bottom: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+      
+      .faq-item:hover {
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.03), rgba(5, 150, 105, 0.03));
+        border-color: #059669;
+      }
+      
+      .faq-question {
+        cursor: pointer;
+        padding: 1.5rem 0;
+        transition: all 0.3s ease;
+      }
+      
+      .faq-question:hover {
+        color: #059669;
+        padding-left: 10px;
+      }
+      
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+      
+      .faq-answer.open {
+        max-height: 300px;
+      }
+      
+      .faq-icon {
+        transition: transform 0.3s ease;
+      }
+      
+      .faq-icon.open {
+        transform: rotate(180deg);
+      }
+      
+      /* Navigation Enhancements */
+      .nav-link {
+        position: relative;
+        padding-bottom: 5px;
+      }
+      
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background: #059669;
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      
+      .nav-link.active::after {
+        width: 100%;
+      }
+      
+      /* Hero Section */
+      .hero-section {
+        background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+      }
+      
+      /* Why Choose Us Cards - Hover Color Change */
+      .choose-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        border: 2px solid #e5e7eb;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .choose-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+        background: var(--cpc-gradient);
+        transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 0;
+      }
+      
+      .choose-card:hover::before {
+        height: 100%;
+      }
+      
+      .choose-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: transparent;
+      }
+      
+      .choose-card:hover .icon-container {
+        background: white !important;
+      }
+      
+      .choose-card:hover .icon-container i {
+        color: #059669 !important;
+      }
+      
+      .choose-card:hover h3,
+      .choose-card:hover p {
+        color: white !important;
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* Horizontal Scrolling Reviews */
+      .review-scroll-container {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .review-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 2rem;
+        padding: 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: #059669 #e5e7eb;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .review-scroll::-webkit-scrollbar {
+        height: 8px;
+      }
+      
+      .review-scroll::-webkit-scrollbar-track {
+        background: #e5e7eb;
+        border-radius: 10px;
+      }
+      
+      .review-scroll::-webkit-scrollbar-thumb {
+        background: var(--cpc-gradient);
+        border-radius: 10px;
+      }
+      
+      .review-card {
+        flex: 0 0 auto;
+        width: 350px;
+        scroll-snap-align: start;
+        transition: all 0.3s ease;
+      }
+      
+      .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* Why Students Choose Us Enhancement */
+      .stats-section {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .stats-section::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                   radial-gradient(circle at 70% 70%, rgba(5, 150, 105, 0.1) 0%, transparent 50%);
+      }
+      
+      .stats-card {
+        transition: all 0.3s ease;
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .stats-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--cpc-gradient);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+      
+      .stats-card:hover::after {
+        transform: scaleX(1);
+      }
+      
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1);
+      }
+      
+      /* Highlight Numbers */
+      .highlight-number {
+        font-size: 4rem;
+        font-weight: 900;
+        background: var(--cpc-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        position: relative;
+        display: inline-block;
+      }
+      
+      .highlight-number::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--cpc-gradient);
+        border-radius: 2px;
+      }
+      
+      /* Career Card */
+      .career-card {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+      }
+      
+      .career-card:hover {
+        border-left-color: #059669;
+        transform: translateX(10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Fixed Course Field */
+      .fixed-course-field {
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
+        color: #6b7280;
+        cursor: not-allowed;
+      }
+      
+      .fixed-course-field:focus {
+        outline: none;
+        ring: 0;
+        border-color: #d1d5db;
+      }
+      
+      /* WhatsApp Floating Button */
+      .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 25px;
+        right: 25px;
+        background-color: #25d366;
+        color: #fff;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .whatsapp-float:hover {
+        background-color: #128c7e;
+        transform: scale(1.1);
+      }
+      
+      /* CPC Badge */
+      .cpc-badge {
+        background: var(--cpc-gradient);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        display: inline-block;
+        margin-left: 8px;
+      }
+
+      /* Timeline Styling */
+      .timeline-node {
+        transition: all 0.3s ease;
+      }
+      
+      .timeline-node:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      /* CPC Specific Colors */
+      .cpc-blue { color: #1a365d; }
+      .bg-cpc-blue { background-color: #1a365d; }
+      .bg-cpc-blue-light { background-color: #ebf8ff; }
+      
+      .cpc-green { color: #2d7d46; }
+      .bg-cpc-green { background-color: #2d7d46; }
+      .bg-cpc-green-light { background-color: #f0fff4; }
+      
+      .cpc-purple { color: #553c9a; }
+      .bg-cpc-purple { background-color: #553c9a; }
+      .bg-cpc-purple-light { background-color: #faf5ff; }
+      
+      .cpc-red { color: #c53030; }
+      .bg-cpc-red { background-color: #c53030; }
+      .bg-cpc-red-light { background-color: #fff5f5; }
+      
+      .cpc-orange { color: #ed8936; }
+      .bg-cpc-orange { background-color: #ed8936; }
+      .bg-cpc-orange-light { background-color: #fffaf0; }
+      
+      .cpc-teal { color: #319795; }
+      .bg-cpc-teal { background-color: #319795; }
+      .bg-cpc-teal-light { background-color: #e6fffa; }
+
+            /* Center Timeline Line */
+      .timeline-center-line {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #1a365d, #2d7d46, #553c9a, #c53030, #ed8936, #319795);
+        border-radius: 2px;
+        z-index: 1;
+      }
+      
+      .timeline-center-line::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background: #1a365d;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+      
+      .timeline-center-line::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background: #319795;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Scroll Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- WhatsApp Floating Button -->
+    <a
+      href="https://wa.me/919345417570?text=Hi,%20I'm%20interested%20in%20CPC%20Medical%20Coding%20course"
+      class="whatsapp-float"
+      target="_blank"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Enhanced Header/Navigation with Logo -->
+    <header id="siteHeader" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+  <div class="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
+    <div class="flex items-center justify-between gap-3">
+      <!-- LEFT: Logo -->
+      <div class="flex items-center gap-3">
+        <img
+          src="Logo/elevated-iq-academy-logo.png"
+          alt="Elevated IQ Academy Logo"
+          class="logo-img w-20 h-20 sm:w-20 sm:h-14 md:w-30 md:h-18 lg:w-36 lg:h-22 object-contain rounded-lg"
+        />
+        <!-- title shown on md+ -->
+        <div class="brand-text">
+          <div class="brand-main">Elevated IQ Academy</div>
+          <div class="brand-sub">Medical Coding • IT</div>
+        </div>
+      </div>
+
+      <!-- CENTER: navigation (hidden on small screens) -->
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <!-- Medical Coding Dropdown (full original content preserved) -->
+        <div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>Medical Coding</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[300px] sm:w-[500px] md:w-[700px] lg:w-[800px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 origin-top">
+    <!-- Header Section -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-blue-600 to-teal-600 p-2 rounded-lg">
+          <i class="fas fa-stethoscope text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">Medical Coding Courses</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Specialized training programs for healthcare documentation and billing</p>
+    </div>
+
+    <!-- Medical Coding Courses Grid - Responsive columns (3 columns at large screens) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-h-[400px] overflow-y-auto pr-2 sm:pr-3 custom-scrollbar">
+
+      <!-- Column 1: Medical Coding Fundamentals -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-blue-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-book-medical text-blue-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Medical Coding Fundamentals</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="bmt.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">BMCT</p>
+              <p class="text-xs text-gray-500">Basic Medical Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Professional Certifications -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-green-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-award text-green-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Professional Certifications</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="cpc.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">CPC</p>
+              <p class="text-xs text-gray-500">Certified Professional Coder</p>
+            </div>
+          </a>
+          <a href="abmt.html" class="group flex items-center hover:text-red-600 transition">
+            <div class="w-1.5 h-1.5 bg-red-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Advanced Medical Coding</p>
+              <p class="text-xs text-gray-500">Specialized Coding Training</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Medical Billing Specialist -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-file-invoice-dollar text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Billing & Practice</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="mbs.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Medical Billing Specialist</p>
+              <p class="text-xs text-gray-500">Healthcare Billing Professional</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Start your healthcare career today</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Get certified in medical coding</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-all text-sm text-center">
+            View All Medical Coding →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- IT Courses Dropdown (full original content preserved) -->
+        <!-- FIXED: IT Courses Dropdown (AI & Specialized moved into the main grid; responsive columns; single scrollable panel) -->
+<div class="dropdown relative group">
+  <button class="nav-link text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-700 text-sm xl:text-base">
+    <span>IT Courses</span>
+    <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <!-- Use a flexible width and a responsive grid. Keep the panel centered and scrollable. -->
+  <div
+    class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[92vw] max-w-[1100px] bg-white rounded-xl shadow-2xl py-6 sm:py-8 px-4 sm:px-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50 origin-top"
+    role="menu" aria-hidden="true" aria-label="IT courses menu"
+  >
+    <!-- Header -->
+    <div class="mb-4 sm:mb-6">
+      <div class="flex items-center space-x-2 mb-2">
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-2 rounded-lg">
+          <i class="fas fa-laptop-code text-white text-lg sm:text-xl"></i>
+        </div>
+        <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">IT (Technical & Non-Technical Courses)</h3>
+      </div>
+      <p class="text-gray-600 text-xs sm:text-sm">Comprehensive training in modern technology and software development</p>
+    </div>
+
+    <!-- GRID: responsive columns. On XL use 5 columns so AI sits in the same row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 max-h-[420px] overflow-y-auto pr-2 sm:pr-3">
+      <!-- Programming -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-code text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Programming</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="c.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">C & C++</p>
+              <p class="text-xs text-gray-500">Fundamentals to Advanced</p>
+            </div>
+          </a>
+          <a href="java.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Java</p>
+              <p class="text-xs text-gray-500">Core & Advanced Java</p>
+            </div>
+          </a>
+          <a href="python.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Python</p>
+              <p class="text-xs text-gray-500">Python Programming</p>
+            </div>
+          </a>
+          <a href="web.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Web Development</p>
+              <p class="text-xs text-gray-500">HTML, PHP, MySQL</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- App Development -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-indigo-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-mobile-alt text-indigo-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">App Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="android.html" class="group flex items-center hover:text-indigo-600 transition">
+            <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Android App</p>
+              <p class="text-xs text-gray-500">Android Development</p>
+            </div>
+          </a>
+          <a href="ios.html" class="group flex items-center hover:text-gray-600 transition">
+            <div class="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">iOS App</p>
+              <p class="text-xs text-gray-500">iOS Development</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Full Stack -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-purple-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-layer-group text-purple-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Full Stack Development</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="full-java.html" class="group flex items-center hover:text-purple-600 transition">
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Java</p>
+              <p class="text-xs text-gray-500">Java Full Stack Development</p>
+            </div>
+          </a>
+          <a href="full-python.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Full Stack Python</p>
+              <p class="text-xs text-gray-500">Python Full Stack Development</p>
+            </div>
+          </a>
+          <a href="mern.html" class="group flex items-center hover:text-teal-600 transition">
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">MERN Stack</p>
+              <p class="text-xs text-gray-500">MongoDB, Express, React, Node</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cloud & Testing -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-orange-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-cloud text-orange-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Cloud & Testing</h4>
+        </div>
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+          <a href="testing.html" class="group flex items-center hover:text-orange-600 transition">
+            <div class="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Automation Testing</p>
+              <p class="text-xs text-gray-500">Selenium, TestNG</p>
+            </div>
+          </a>
+          <a href="aws.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">AWS</p>
+              <p class="text-xs text-gray-500">Amazon Web Services</p>
+            </div>
+          </a>
+          <a href="google-cloud.html" class="group flex items-center hover:text-green-600 transition">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Google Cloud</p>
+              <p class="text-xs text-gray-500">Google Cloud Computing</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Design & AI (combined: this column contains Design and AI items if you prefer fewer columns) -->
+      <div>
+        <div class="flex items-center mb-3 sm:mb-4">
+          <div class="bg-pink-100 p-2 rounded-lg mr-2 sm:mr-3">
+            <i class="fas fa-palette text-pink-600 text-sm sm:text-base"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Design & Multimedia</h4>
+        </div>
+
+        <!-- Design items -->
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11 mb-4">
+          <a href="ui.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">UI/UX Design</p>
+              <p class="text-xs text-gray-500">User Interface/Experience</p>
+            </div>
+          </a>
+          <a href="photoshop.html" class="group flex items-center hover:text-pink-600 transition">
+            <div class="w-1.5 h-1.5 bg-pink-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Photoshop</p>
+              <p class="text-xs text-gray-500">Adobe Photoshop</p>
+            </div>
+          </a>
+          <a href="illustator.html" class="group flex items-center hover:text-blue-600 transition">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div>
+            <div>
+              <p class="font-medium text-sm sm:text-base">Illustrator</p>
+              <p class="text-xs text-gray-500">Adobe Illustrator</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11">
+        <a href="lightroom.html" class="group flex items-center hover:text-yellow-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-yellow-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Lightroom</p> 
+            <p class="text-xs text-gray-500">Adobe Lightroom</p> 
+          </div> 
+        </a> 
+        <a href="after_effect.html" class="group flex items-center hover:text-purple-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">After Effects</p> 
+            <p class="text-xs text-gray-500">Adobe After Effects</p> 
+          </div> 
+        </a> 
+        <a href="premiere_pro.html" class="group flex items-center hover:text-green-600 transition"> 
+          <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+          <div> <p class="font-medium text-sm sm:text-base">Premiere Pro</p> 
+            <p class="text-xs text-gray-500">Adobe Premiere Pro</p> 
+          </div> 
+        </a> 
+        </div>
+      </div>
+
+      <!-- AI Section   -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-teal-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-robot text-teal-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">AI & Specialized</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="gen_AI.html" class="group flex items-center hover:text-teal-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Generative AI</p> 
+              <p class="text-xs text-gray-500">AI Content Generation</p> 
+            </div> 
+          </a> 
+          <a href="vibe_coding.html" class="group flex items-center hover:text-blue-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Coding</p> 
+              <p class="text-xs text-gray-500">AI-Assisted Programming</p> 
+            </div> 
+          </a> 
+          <a href="vibe_marketing.html" class="group flex items-center hover:text-purple-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Vibe Marketing</p> 
+              <p class="text-xs text-gray-500">AI Marketing Strategies</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+
+      <!-- Digital Marketing -->
+      <div> 
+        <div class="flex items-center mb-3 sm:mb-4"> 
+          <div class="bg-red-100 p-2 rounded-lg mr-2 sm:mr-3"> 
+            <i class="fas fa-globe text-red-600 text-sm sm:text-base"></i> 
+          </div> 
+          <h4 class="text-base sm:text-lg font-bold text-gray-800">Digital Marketing</h4> 
+        </div> 
+        <div class="space-y-2 sm:space-y-3 pl-10 sm:pl-11"> 
+          <a href="digital.html" class="group flex items-center hover:text-red-600 transition"> 
+            <div class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2 sm:mr-3 group-hover:scale-125 transition"></div> 
+            <div> 
+              <p class="font-medium text-sm sm:text-base">Digital Marketing</p> 
+              <p class="text-xs text-gray-500">Digital Marketing Foundation</p> 
+            </div> 
+          </a> 
+        </div> 
+      </div>
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-xs sm:text-sm text-gray-600">Need technical career guidance?</p>
+          <p class="font-semibold text-gray-800 text-sm sm:text-base">Talk to our IT career counselor</p>
+        </div>
+        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+          <a href="tel:+919345417570" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm text-center">
+            Call Now
+          </a>
+          <a href="#" class="border border-purple-600 text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-all text-sm text-center">
+            View All IT Courses →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- <a href="#career" class="nav-link">Career</a> -->
+        <a href="about.html" class="nav-link">About Us</a>
+        <!-- <a href="#contact" class="nav-link">Contact</a> -->
+      </nav>
+
+      <!-- RIGHT: small contact + icon-only Enroll CTA + mobile menu button -->
+      <div class="right-actions">
+        <!-- subtle contact (shows only on xl) -->
+        <div class="contact-block" aria-hidden="true">
+          <div class="contact-label">Admissions Open</div>
+          <a class="contact-phone" href="tel:+919345417570">+91 93454 17570</a>
+        </div>
+
+        <!-- Icon-only enroll CTA (accessible) -->
+        <a href="#enroll" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+            <i class="fas fa-user-plus"></i>
+            <span class="font-semibold">Enroll Now</span>
+          </a>
+
+        <!-- Mobile menu toggle -->
+        <button id="mobileMenuButton" class="mobile-button" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu-hidden">
+    <!-- Mobile Menu Header with Close Button -->
+    <div class="mobile-menu-header">
+      <div class="flex items-center justify-between p-10 border-b border-gray-200 bg-white">
+        <div class="flex items-center gap-3">
+          <img
+            src="Logo/elevated-iq-academy-logo.png"
+            alt="Elevated IQ Academy Logo"
+            class="w-12 h-12 object-contain rounded-lg"
+          />
+          <div>
+            <div class="font-bold text-gray-800 text-lg">Elevated IQ Academy</div>
+            <div class="text-gray-600 text-sm">Medical Coding • IT</div>
+          </div>
+        </div>
+        <button id="mobileMenuClose" class="mobile-close-btn" aria-label="Close menu">
+          <i class="fas fa-times text-xl text-gray-600"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-xl pt-4 pb-6 px-4 sm:px-6 overflow-y-auto" style="max-height: calc(100vh - 80px); margin-top: 80px;">
+      <div class="space-y-3 sm:space-y-4">
+        <a href="index.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-home mr-3 text-blue-500"></i> Home
+        </a>
+
+        <!-- Mobile Medical Coding -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-stethoscope mr-3 text-blue-500"></i> Medical Coding
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <a href="bmct.html" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mr-3 inline-block align-middle"></div>
+              BMCT (Basic Medical Coding)
+            </a>
+            <a href="cpc.html" class="block py-2 text-gray-700 hover:text-green-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-green-500 rounded-full mr-3 inline-block align-middle"></div>
+              CPC Certification
+            </a>
+            <a href="abmt.html" class="block py-2 text-gray-700 hover:text-red-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-red-500 rounded-full mr-3 inline-block align-middle"></div>
+              Advanced Medical Coding
+            </a>
+            <a href="mbs.html" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors text-sm sm:text-base">
+              <div class="w-2 h-2 bg-purple-500 rounded-full mr-3 inline-block align-middle"></div>
+              Medical Billing Specialist
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile IT Courses with detailed subcategories -->
+        <div class="mobile-dropdown">
+          <button class="mobile-dropdown-btn w-full text-left text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between">
+            <span class="flex items-center">
+              <i class="fas fa-laptop-code mr-3 text-purple-500"></i> IT Courses
+            </span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-300"></i>
+          </button>
+          <div class="mobile-dropdown-content pl-10 sm:pl-12 pr-3 sm:pr-4 mt-1 space-y-2">
+            <!-- Programming -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-purple-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                  Programming
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="#" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  C & C++ (Fundamentals to Advanced)
+                </a>
+                <a href="java.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Java (Core & Advanced)
+                </a>
+                <a href="python.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Python Programming
+                </a>
+                <a href="web.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Web Development (HTML, PHP, MySQL)
+                </a>
+              </div>
+            </div>
+
+            <!-- App Development -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  App Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="android.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Android App Development
+                </a>
+                <a href="ios.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  iOS App Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Full Stack Development -->
+             <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-indigo-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                  Full Stack Development
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="full-java.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Java Development
+                </a>
+                <a href="full-python.html" class="block py-1.5 text-gray-600 hover:text-indigo-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2 inline-block"></div>
+                  Full Stack Python Development
+                </a>
+                <a href="mern.html" class="block py-1.5 text-gray-600 hover:text-gray-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2 inline-block"></div>
+                  MERN Stack Development
+                </a>
+              </div>
+            </div>
+
+            <!-- Cloud Computing & Testing -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-orange-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                  Cloud Computing & Testing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="testing.html" class="block py-1.5 text-gray-600 hover:text-orange-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 inline-block"></div>
+                  Automation Testing (Selenium, TestNG)
+                </a>
+                <a href="aws.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  AWS (Amazon Web Services)
+                </a>
+                <a href="google-cloud.html" class="block py-1.5 text-gray-600 hover:text-green-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 inline-block"></div>
+                  Google Cloud Computing
+                </a>
+              </div>
+            </div>
+
+            <!-- UI/UX Design -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-pink-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                  Design & Multimedia
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="ui.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  UI/UX Design
+                </a>
+                <a href="photoshop.html" class="block py-1.5 text-gray-600 hover:text-pink-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Photoshop
+                </a>
+                <a href="illustator.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Illustrator
+                </a>
+                <a href="lightroom.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Lightroom
+                </a>
+                <a href="premiere_pro.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe Premiere pro
+                </a>
+                <a href="after_effect.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Adobe After Effects
+                </a>
+              </div>
+            </div>
+
+            <!-- Data Science & AI -->
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-teal-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                  AI & Specialized
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="gen_AI.html" class="block py-1.5 text-gray-600 hover:text-teal-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Generative AI
+                </a>
+                <a href="vibe_marketing.html" class="block py-1.5 text-gray-600 hover:text-purple-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Marketing
+                </a>
+                <a href="vibe_coding.html" class="block py-1.5 text-gray-600 hover:text-blue-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 inline-block"></div>
+                  Vibe Coding
+                </a>
+              </div>
+            </div>
+
+            <div class="mobile-subcategory">
+              <button class="mobile-subcategory-btn w-full text-left text-gray-700 hover:text-red-600 py-2 flex items-center justify-between">
+                <span class="flex items-center">
+                  <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                  Digital Marketing
+                </span>
+                <i class="fas fa-chevron-right text-xs"></i>
+              </button>
+              <div class="mobile-subcategory-content pl-6 pr-2 mt-1 space-y-1">
+                <a href="digital.html" class="block py-1.5 text-gray-600 hover:text-red-600 text-sm pl-4">
+                  <div class="w-1.5 h-1.5 bg-teal-400 rounded-full mr-2 inline-block"></div>
+                  Digital Marketing
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <a href="#career" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-briefcase mr-3 text-green-500"></i> Career
+        </a> -->
+
+        <a href="about.html" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-info-circle mr-3 text-orange-500"></i> About Us
+        </a>
+
+        <!-- <a href="#contact" class="flex items-center text-base sm:text-lg font-medium text-gray-800 hover:text-blue-600 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-blue-50 transition-colors">
+          <i class="fas fa-phone mr-3 text-teal-500"></i> Contact
+        </a> -->
+
+        <div class="pt-4 border-t border-gray-200 space-y-3">
+          <div class="text-center mb-2">
+            <div class="inline-flex flex-col items-center bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-2 rounded-lg">
+              <p class="text-xs sm:text-sm font-medium text-gray-700">Admissions Open</p>
+              <a href="tel:+919345417570" class="text-sm sm:text-base font-bold text-blue-600 hover:text-blue-700">
+                +91 93454 17570
+              </a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="tel:+919345417570" class="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-phone"></i>
+              <span class="font-semibold">Call Now</span>
+            </a>
+
+            <a href="#enroll" class="flex items-center justify-center space-x-2 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 text-sm sm:text-base">
+              <i class="fas fa-user-plus"></i>
+              <span class="font-semibold">Enroll Now</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Basic resets */
+  .logo-img{ display:block; object-fit:contain; border-radius:10px; }
+  .brand-text{ display:none; }
+  .brand-main{ font-weight:800; color:#0f1724; font-size:16px; }
+  .brand-sub{ font-size:12px; color:#6b7280; margin-top:2px; }
+
+  /* Layout containers */
+  .main-nav{ display:flex; gap:18px; align-items:center; justify-content:center; flex:1; padding:0 18px; }
+  .main-nav .nav-link{ color:#374151; text-decoration:none; font-weight:600; font-size:14px; padding:8px 6px; border-radius:8px; display:inline-flex; align-items:center; gap:6px; }
+  .main-nav .nav-link:hover{ color:#0ea5e9; background:rgba(14,165,233,0.06); }
+
+  /* dropdown basics */
+  .dropdown{ position:relative; }
+  .small-chevron{ font-size:10px; transform:rotate(0deg); transition:transform .25s ease; color:#6b7280; }
+  .dropdown:hover .small-chevron{ transform:rotate(180deg); color:#0ea5e9; }
+
+  /* right actions */
+  .right-actions{ display:flex; align-items:center; gap:12px; }
+  .contact-block{ display:none; text-align:right; margin-right:6px; }
+  .contact-label{ font-size:11px; color:#6b7280; }
+  .contact-phone{ font-weight:700; color:#0ea5e9; text-decoration:none; font-size:14px; display:block; margin-top:1px; }
+
+  /* mobile menu toggle */
+  .mobile-button{ border:none; display:none; background:transparent; padding:6px 8px; font-size:18px; color:#374151; cursor:pointer; }
+
+  /* responsive */
+  @media (min-width: 768px){
+    .brand-text{ display:block; }
+  }
+  @media (min-width: 1024px){
+    .contact-block{ display:block; }
+    .mobile-button{ display:none; }
+  }
+  @media (max-width: 1023px){
+    .main-nav{ display:none; }
+    .mobile-button{ display:inline-flex; }
+  }
+
+  /* ====== MOBILE MENU FIX ====== */
+  .mobile-menu-hidden {
+    display: none !important;
+  }
+
+  #mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Mobile menu content */
+  #mobileMenu .bg-white {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  /* Mobile menu header */
+  .mobile-menu-header {
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* Mobile close button - FIXED for click */
+  .mobile-close-btn {
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .mobile-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-close-btn i {
+    pointer-events: none;
+  }
+
+  /* Mobile dropdown content */
+  .mobile-dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .mobile-dropdown-content.open {
+    max-height: 800px;
+    transition: max-height 0.4s ease-in;
+  }
+
+  /* Chevron rotation */
+  .mobile-dropdown-btn .fa-chevron-down {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-dropdown-btn .fa-chevron-down.open {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile subcategory content */
+  .mobile-subcategory-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-subcategory-content.open {
+    max-height: 500px;
+  }
+
+  /* Subcategory chevron rotation */
+  .mobile-subcategory-btn .fa-chevron-right {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-subcategory-btn .fa-chevron-right.open {
+    transform: rotate(90deg);
+  }
+</style>
+
+<script>
+// SIMPLE RELIABLE MOBILE MENU FIX
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    // 1. OPEN MENU - Click hamburger icon
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    // 2. CLOSE MENU - Multiple methods
+    // Method A: Click close button (×)
+    document.addEventListener('click', function(e) {
+        // Close when clicking the close button OR the X icon
+        if (e.target.closest('#mobileMenuClose') || e.target.classList.contains('fa-times')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+        
+        // Close when clicking outside the menu
+        if (!mobileMenu.classList.contains('mobile-menu-hidden')) {
+            const isMenuButton = mobileMenuButton && mobileMenuButton.contains(e.target);
+            const isInMenu = mobileMenu.contains(e.target);
+            
+            if (!isInMenu && !isMenuButton) {
+                mobileMenu.classList.add('mobile-menu-hidden');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Handle dropdown buttons
+        if (e.target.closest('.mobile-dropdown-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-dropdown-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-down');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.mobile-dropdown-content.open').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('open');
+                    const openIcon = openContent.previousElementSibling.querySelector('.fa-chevron-down');
+                    if (openIcon) openIcon.classList.remove('open');
+                }
+            });
+            
+            // Toggle current dropdown
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+        
+        // Handle subcategory buttons
+        if (e.target.closest('.mobile-subcategory-btn')) {
+            e.preventDefault();
+            const btn = e.target.closest('.mobile-subcategory-btn');
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-right');
+            
+            // Toggle current subcategory
+            content.classList.toggle('open');
+            if (icon) icon.classList.toggle('open');
+        }
+    });
+    
+    // Method C: Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('mobile-menu-hidden')) {
+            mobileMenu.classList.add('mobile-menu-hidden');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Method D: Close when clicking regular links (not dropdown buttons)
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (!this.classList.contains('mobile-dropdown-btn') && 
+                !this.closest('.mobile-dropdown-btn') &&
+                !this.closest('.mobile-subcategory-btn')) {
+                setTimeout(() => {
+                    mobileMenu.classList.add('mobile-menu-hidden');
+                    document.body.style.overflow = '';
+                }, 100);
+            }
+        });
+    });
+});
+</script>
+
+
+    <!-- Enhanced Hero Section for CPC -->
+    <section id="home" class="hero-section text-white py-16 md:py-20 relative overflow-hidden">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+          <div class="lg:w-1/2 mb-12 lg:mb-0">
+            <!-- Promo Badge -->
+            <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6 animate-pulse">
+              <span class="text-yellow-300 font-bold mr-2">🏆 PREMIUM PROGRAM</span>
+              <span class="font-semibold">AAPC Exam Preparation Included!</span>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              Become a<br>
+              <span class="text-yellow-300">Certified Professional Coder (CPC)</span>
+            </h1>
+            
+            <!-- Subheading -->
+            <p class="text-lg text-emerald-100 mb-8 max-w-2xl">
+              Master advanced medical coding and earn the prestigious AAPC CPC certification. Prepare for high-paying careers in healthcare with our comprehensive 90-day program.
+            </p>
+            
+            <!-- Stats -->
+            <div class="flex flex-wrap gap-6 mb-8">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">92%</div>
+                <div class="text-emerald-100">Exam Pass Rate</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">₹6-10 LPA</div>
+                <div class="text-emerald-100">Starting Salary</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-yellow-300">90</div>
+                <div class="text-emerald-100">Days Program</div>
+              </div>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#enroll" class="bg-white text-green-700 font-bold px-6 py-3 rounded-lg text-center hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl">
+                <i class="fas fa-trophy mr-2"></i> Enroll in Premium Program
+              </a>
+              <a href="#course-details" class="bg-transparent border-2 border-white text-white font-bold px-6 py-3 rounded-lg text-center hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-play-circle mr-2"></i> View Course Details
+              </a>
+            </div>
+          </div>
+          
+          <div class="lg:w-1/2">
+            <div class="relative">
+              <!-- Floating Course Card -->
+              <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 floating max-w-md mx-auto">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-crown text-yellow-300 mr-3"></i>
+                  CPC Program Highlights
+                </h3>
+                
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <div class="bg-emerald-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-award text-emerald-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">AAPC CPC Exam Prep</h4>
+                      <p class="text-emerald-100 text-sm">Comprehensive preparation for certification exam</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-green-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-user-md text-green-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Expert CPC Instructors</h4>
+                      <p class="text-emerald-100 text-sm">AAPC certified professionals with 15+ years experience</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-teal-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-laptop-medical text-teal-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Advanced Coding Software</h4>
+                      <p class="text-emerald-100 text-sm">Training on industry-standard coding tools</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="bg-yellow-500/20 p-2 rounded-lg mr-3">
+                      <i class="fas fa-handshake text-yellow-300"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold">Job Placement Support</h4>
+                      <p class="text-emerald-100 text-sm">Connect with premium healthcare employers</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Certification Info -->
+                <div class="mt-6 pt-4 border-t border-white/20">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="flex items-center mb-1">
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300 mr-1"></i>
+                        <i class="fas fa-star text-yellow-300"></i>
+                      </div>
+                      <div class="text-sm text-emerald-100">4.9/5 (256 reviews)</div>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-xs text-emerald-200">AAPC Recognized</div>
+                      <div class="text-sm font-bold">Training Center</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Decorative Elements -->
+              <div class="absolute -top-3 -right-3 w-12 h-12 bg-yellow-400 rounded-full opacity-20 animate-pulse"></div>
+              <div class="absolute -bottom-3 -left-3 w-10 h-10 bg-emerald-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Our CPC Program -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Why Choose Our CPC Certification Program?
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Advance your career with the most recognized medical coding certification in the healthcare industry.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-emerald-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-graduation-cap text-emerald-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">AAPC Exam Preparation</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Comprehensive training covering all CPC exam domains with mock tests, practice questions, and exam strategies.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-green-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-book-medical text-green-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">CPT, ICD-10, HCPCS</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Master all three coding systems: CPT procedures, ICD-10 diagnoses, and HCPCS supplies/equipment.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-teal-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-chart-line text-teal-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Revenue Cycle Management</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Learn complete revenue cycle from patient registration to final payment collection and denial management.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-blue-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-user-md text-blue-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Specialty Coding</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Training in specialty coding areas: Surgery, Anesthesia, Radiology, Pathology, and Evaluation & Management.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-purple-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-laptop-code text-purple-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Coding Software Training</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Hands-on training with industry-standard coding software and electronic health record systems.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="choose-card rounded-xl p-6">
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="icon-container bg-amber-100 p-3 rounded-lg mr-4">
+                <i class="fas fa-handshake text-amber-600 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800">Job Placement Assistance</h3>
+            </div>
+            <p class="text-gray-600 relative z-10">
+              Dedicated placement cell connecting CPC certified graduates with top healthcare employers nationwide.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Students Choose Us (Enhanced) -->
+    <section class="stats-section py-16">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            CPC Program Success Metrics
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Join hundreds of successful CPC certified professionals who transformed their careers with our program
+          </p>
+        </div>
+        
+        <!-- Enhanced Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">92%</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Exam Pass Rate</h3>
+            <p class="text-gray-600">Our students consistently achieve above-average CPC exam results</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">300+</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">CPC Certified</h3>
+            <p class="text-gray-600">Successful CPC professionals launched in healthcare industry</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">4.9</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Student Rating</h3>
+            <p class="text-gray-600">Based on 256 verified CPC student reviews</p>
+          </div>
+          
+          <div class="stats-card rounded-2xl p-8 text-center">
+            <div class="highlight-number mb-4">₹6-10</div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">LPA Salary</h3>
+            <p class="text-gray-600">Average starting salary for our CPC graduates</p>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrolling Student Reviews -->
+        <div class="mt-16">
+          <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">What Our CPC Students Say</h3>
+          
+          <div class="review-scroll-container">
+            <div class="review-scroll">
+              <!-- Review 1 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    AK
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Arun Kumar</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "Passed my CPC exam on first attempt! The comprehensive training and mock tests prepared me perfectly. Now working as a Senior Coder at a leading hospital."
+                </p>
+                <div class="flex items-center text-sm text-green-600 font-medium">
+                  <i class="fas fa-award mr-2"></i>
+                  <span>CPC Certified | Salary: ₹8.5 LPA</span>
+                </div>
+              </div>
+
+              <!-- Review 2 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    SM
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Sneha Menon</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The AAPC exam preparation was exceptional. The faculty's expertise in specialty coding helped me secure a position in a surgical coding department."
+                </p>
+                <div class="flex items-center text-sm text-green-600 font-medium">
+                  <i class="fas fa-award mr-2"></i>
+                  <span>CPC Certified | Surgical Coder</span>
+                </div>
+              </div>
+
+              <!-- Review 3 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    RP
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Rajesh Patel</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "As a career changer from IT to healthcare, this program made the transition smooth. The placement assistance team helped me get a remote coding job."
+                </p>
+                <div class="flex items-center text-sm text-green-600 font-medium">
+                  <i class="fas fa-award mr-2"></i>
+                  <span>CPC Certified | Remote Medical Coder</span>
+                </div>
+              </div>
+
+              <!-- Review 4 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    PM
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Priya Menon</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The revenue cycle management training was incredibly valuable. I now work as a coding auditor with 40% higher salary than before certification."
+                </p>
+                <div class="flex items-center text-sm text-green-600 font-medium">
+                  <i class="fas fa-award mr-2"></i>
+                  <span>CPC Certified | Coding Auditor</span>
+                </div>
+              </div>
+
+              <!-- Review 5 -->
+              <div class="review-card bg-white rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <div class="w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    VK
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Vikram Kumar</h4>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  "The software training on actual coding tools gave me a competitive edge. Landed a job at a multinational healthcare company within a month of certification."
+                </p>
+                <div class="flex items-center text-sm text-green-600 font-medium">
+                  <i class="fas fa-award mr-2"></i>
+                  <span>CPC Certified | MNC Healthcare</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who Should Enroll & Career Opportunities -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-12">
+          <!-- Who Should Enroll -->
+          <div class="lg:w-1/2">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Who Should Enroll in CPC?</h2>
+            
+            <div class="space-y-6">
+              <div class="career-card bg-emerald-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-emerald-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-stethoscope text-emerald-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Medical Coders Seeking Advancement</h3>
+                    <p class="text-gray-600">
+                      Current medical coders looking to upgrade skills and earn the prestigious AAPC CPC certification for career growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-green-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-green-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-user-graduate text-green-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Healthcare Graduates</h3>
+                    <p class="text-gray-600">
+                      MBBS, BDS, BPT, Nursing graduates seeking alternative career paths in healthcare administration.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-teal-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-teal-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-sync-alt text-teal-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Career Changers</h3>
+                    <p class="text-gray-600">
+                      Professionals from other fields seeking stable, high-growth careers in the booming healthcare sector.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="career-card bg-blue-50 rounded-xl p-6">
+                <div class="flex items-start">
+                  <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                    <i class="fas fa-briefcase text-blue-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Healthcare Administrators</h3>
+                    <p class="text-gray-600">
+                      Hospital administrators, clinic managers wanting to enhance their medical coding knowledge for better operations management.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Future Career Opportunities -->
+          <div class="lg:w-1/2">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">CPC Career Opportunities</h2>
+            
+            <div class="bg-gradient-to-br from-emerald-600 to-green-700 rounded-2xl p-8 text-white">
+              <h3 class="text-2xl font-bold mb-6">Certified Professional Coder</h3>
+              <p class="mb-6 text-emerald-100">
+                CPC certification opens doors to premium healthcare careers with starting salaries of ₹6-10 LPA and global recognition.
+              </p>
+
+              <h4 class="text-lg font-semibold mb-4">Advanced Career Paths:</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Senior Medical Coder</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Coding Supervisor</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Coding Auditor</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Compliance Officer</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Revenue Cycle Manager</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-right mt-1 mr-3 text-yellow-300"></i>
+                  <span>Consultant</span>
+                </div>
+              </div>
+
+              <div class="bg-white bg-opacity-20 rounded-xl p-4 mb-6">
+                <h4 class="font-semibold mb-3">CPC Salary Expectations:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Entry Level</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹6-8 LPA</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Experienced</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹8-12 LPA</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-lg font-bold">Senior Level</div>
+                    <div class="text-2xl font-bold text-yellow-300">₹12-18 LPA</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white bg-opacity-10 rounded-lg p-4 mb-6">
+                <h4 class="font-semibold mb-2">Global Recognition:</h4>
+                <p class="text-sm text-emerald-100">
+                  AAPC CPC certification is recognized worldwide, opening opportunities in USA, UK, Australia, Middle East, and India.
+                </p>
+              </div>
+
+              <a href="#enroll" class="block w-full bg-white text-emerald-700 font-semibold py-3 rounded-lg text-center hover:bg-gray-100 transition">
+                Explore CPC Career Paths
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- CPC Course Curriculum Section -->
+    <section id="course-curriculum" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            CPC Course Curriculum
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Comprehensive 120-hour training program designed to prepare you for the AAPC CPC certification exam
+          </p>
+          <div class="mt-6 inline-flex items-center bg-green-100 text-green-800 px-6 py-2 rounded-full">
+            <i class="fas fa-clock mr-2"></i>
+            <span class="font-semibold">Course Duration: 3 Months | 120 Hours</span>
+          </div>
+        </div>
+
+                <div class="max-w-6xl mx-auto">
+          <!-- Curriculum Timeline -->
+          <div class="relative">
+            <!-- Center Timeline Line -->
+            <div class="timeline-center-line"></div>
+            
+            <!-- Module 1 (Right Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <!-- Empty space on left for module 1 -->
+                  <div class="hidden md:block text-right pr-4">
+                    <div class="text-4xl font-bold cpc-blue mb-2">01</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Medical Coding Foundation</h4>
+                    <p class="text-gray-500 text-sm">Month 1, Weeks 1-2</p>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-blue rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-book-medical text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="bg-cpc-blue-light rounded-2xl p-6 shadow-lg border border-blue-100 ml-4">
+                    <div class="inline-flex items-center bg-cpc-blue text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-graduation-cap mr-2"></i> Foundation Phase
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">CPT & Anatomy Review</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Introduction to CPT coding system</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Anatomy & Physiology for coders</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Medical terminology review</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Healthcare delivery systems</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>CPT coding conventions</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-blue-100">
+                      <span class="text-sm text-cpc-blue font-medium"><i class="fas fa-book mr-1"></i> Reference: CPT® Professional Edition</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 2 (Left Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="bg-cpc-green-light rounded-2xl p-6 shadow-lg border border-green-100 mr-4">
+                    <div class="inline-flex items-center bg-cpc-green text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-file-medical mr-2"></i> Core Coding
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Evaluation & Management Coding</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>E/M guidelines and documentation</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>History, exam, and MDM components</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>New vs. established patients</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Office, hospital, and consults</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Modifiers for E/M services</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-green-100">
+                      <span class="text-sm text-cpc-green font-medium"><i class="fas fa-clipboard-list mr-1"></i> Practice: 50+ E/M cases</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-green rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-stethoscope text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="hidden md:block text-left pl-4">
+                    <div class="text-4xl font-bold cpc-green mb-2">02</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">E/M Coding Mastery</h4>
+                    <p class="text-gray-500 text-sm">Month 1, Weeks 3-4</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 3 (Right Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="hidden md:block text-right pr-4">
+                    <div class="text-4xl font-bold cpc-purple mb-2">03</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Surgical Coding</h4>
+                    <p class="text-gray-500 text-sm">Month 2, Weeks 1-2</p>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-purple rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-syringe text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="bg-cpc-purple-light rounded-2xl p-6 shadow-lg border border-purple-100 ml-4">
+                    <div class="inline-flex items-center bg-cpc-purple text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-procedures mr-2"></i> Surgical Coding
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Surgery & Anesthesia Coding</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Integumentary, musculoskeletal systems</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Respiratory, cardiovascular coding</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Digestive, urinary system procedures</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Anesthesia coding and modifiers</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Surgical package concept</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-purple-100">
+                      <span class="text-sm text-cpc-purple font-medium"><i class="fas fa-laptop-medical mr-1"></i> Lab: Surgery coding exercises</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 4 (Left Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="bg-cpc-red-light rounded-2xl p-6 shadow-lg border border-red-100 mr-4">
+                    <div class="inline-flex items-center bg-cpc-red text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-file-invoice-dollar mr-2"></i> HCPCS & Radiology
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">HCPCS, Radiology & Pathology</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>HCPCS Level II coding system</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Radiology coding (diagnostic/therapeutic)</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Pathology and laboratory coding</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Medicine section coding</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>DME, supplies, and drugs coding</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-red-100">
+                      <span class="text-sm text-cpc-red font-medium"><i class="fas fa-flask mr-1"></i> Practice: Lab coding scenarios</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-red rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-x-ray text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="hidden md:block text-left pl-4">
+                    <div class="text-4xl font-bold cpc-red mb-2">04</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Advanced Procedures</h4>
+                    <p class="text-gray-500 text-sm">Month 2, Weeks 3-4</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 5 (Right Side) -->
+            <div class="relative mb-12 md:mb-16">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="hidden md:block text-right pr-4">
+                    <div class="text-4xl font-bold cpc-orange mb-2">05</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">ICD-10-CM Mastery</h4>
+                    <p class="text-gray-500 text-sm">Month 3, Weeks 1-2</p>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-orange rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-diagnoses text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="bg-cpc-orange-light rounded-2xl p-6 shadow-lg border border-orange-100 ml-4">
+                    <div class="inline-flex items-center bg-cpc-orange text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-clipboard-check mr-2"></i> ICD-10-CM
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">ICD-10-CM Diagnosis Coding</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>ICD-10-CM guidelines and conventions</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Chapter-specific coding guidelines</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Neoplasms, diabetes, hypertension</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Injury, poisoning, external causes</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>V codes, Z codes, and laterality</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-orange-100">
+                      <span class="text-sm text-cpc-orange font-medium"><i class="fas fa-book-medical mr-1"></i> Reference: ICD-10-CM Code Set</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Module 6 (Left Side) -->
+            <div class="relative mb-12">
+              <div class="md:flex items-center">
+                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                  <div class="bg-cpc-teal-light rounded-2xl p-6 shadow-lg border border-teal-100 mr-4">
+                    <div class="inline-flex items-center bg-cpc-teal text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      <i class="fas fa-chart-bar mr-2"></i> Exam Prep
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">CPC Exam Preparation</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Full-length mock exams (5+ tests)</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Time management strategies</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Test-taking techniques</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>Review of difficult concepts</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                        <span>CPC exam registration guidance</span>
+                      </li>
+                    </ul>
+                    <div class="mt-4 pt-3 border-t border-teal-100">
+                      <span class="text-sm text-cpc-teal font-medium"><i class="fas fa-trophy mr-1"></i> Target: 90%+ pass rate</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Timeline Node -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 bg-cpc-teal rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center timeline-node">
+                  <i class="fas fa-award text-white"></i>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                  <div class="hidden md:block text-left pl-4">
+                    <div class="text-4xl font-bold cpc-teal mb-2">06</div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Certification Prep</h4>
+                    <p class="text-gray-500 text-sm">Month 3, Weeks 3-4</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional CPC Curriculum Details -->
+          <div class="mt-16">
+            <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">CPC Certification Benefits</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Benefit 1 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-dollar-sign text-blue-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Higher Earning Potential</h4>
+                <p class="text-gray-600">CPC certified professionals earn 20-30% more than non-certified coders. Average salary: $55,000 - $75,000.</p>
+              </div>
+
+              <!-- Benefit 2 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-globe-americas text-green-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">National Recognition</h4>
+                <p class="text-gray-600">AAPC CPC certification is recognized nationwide by hospitals, clinics, and insurance companies.</p>
+              </div>
+
+              <!-- Benefit 3 -->
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                  <i class="fas fa-briefcase text-purple-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Career Advancement</h4>
+                <p class="text-gray-600">Open doors to senior coding positions, auditing, compliance, and management roles.</p>
+              </div>
+            </div>
+
+            <!-- Exam Details -->
+            <div class="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">AAPC CPC Exam Details</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-clock text-blue-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Exam Duration</h4>
+                  <p class="text-sm text-gray-600">5 hours 40 minutes</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-question-circle text-green-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Questions</h4>
+                  <p class="text-sm text-gray-600">150 multiple-choice</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-percentage text-purple-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Passing Score</h4>
+                  <p class="text-sm text-gray-600">70% or higher</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <i class="fas fa-book-open text-red-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold text-gray-800 mb-2">Open Book</h4>
+                  <p class="text-sm text-gray-600">CPT, ICD-10-CM, HCPCS</p>
+                </div>
+              </div>
+              
+              <div class="mt-8 text-center">
+                <a href="https://www.aapc.com/certification/cpc/" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold">
+                  <i class="fas fa-external-link-alt mr-2"></i>
+                  Official AAPC CPC Exam Information
+                </a>
+              </div>
+            </div>
+
+            <!-- Required Materials -->
+            <div class="mt-12">
+              <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Required Coding Books</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 border border-blue-200 shadow-sm">
+                  <div class="flex items-center mb-4">
+                    <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                      <i class="fas fa-book text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-800">CPT® Professional</h4>
+                      <p class="text-sm text-gray-500">Current Year Edition</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 text-sm">Current Procedural Terminology code book published by AMA.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 border border-green-200 shadow-sm">
+                  <div class="flex items-center mb-4">
+                    <div class="bg-green-100 p-3 rounded-lg mr-4">
+                      <i class="fas fa-book-medical text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-800">ICD-10-CM</h4>
+                      <p class="text-sm text-gray-500">Current Year Edition</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 text-sm">International Classification of Diseases, 10th Revision.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 border border-purple-200 shadow-sm">
+                  <div class="flex items-center mb-4">
+                    <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                      <i class="fas fa-prescription-bottle-alt text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-800">HCPCS Level II</h4>
+                      <p class="text-sm text-gray-500">Current Year Edition</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 text-sm">Healthcare Common Procedure Coding System for supplies and drugs.</p>
+                </div>
+              </div>
+              
+              <div class="mt-6 text-center">
+                <p class="text-gray-500 text-sm">
+                  <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+                  All required coding books are provided as part of the course materials
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-12 text-center">
+              <a href="#enroll" class="inline-flex items-center bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                <i class="fas fa-user-graduate mr-3"></i>
+                Enroll in CPC Certification Program
+              </a>
+              <p class="text-gray-500 mt-4 text-sm">
+                Next batch starts: <span class="font-semibold text-green-600">January 5, 2025</span> | Only 12 seats remaining
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+          <p class="text-gray-600 text-lg max-w-2xl mx-auto">Find answers to common questions about our CPC certification program</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+          <div class="space-y-2" id="faqAccordion">
+            <!-- FAQ items will be loaded here by JavaScript -->
+          </div>
+          
+          <div class="mt-12 text-center">
+            <p class="text-gray-600 mb-6">Still have questions about CPC certification?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="tel:+919345417570" class="inline-flex items-center bg-gradient-to-r from-emerald-600 to-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-xl transition-all">
+                <i class="fas fa-phone mr-3"></i>
+                Call for CPC Consultation
+              </a>
+              <a href="#enroll" class="inline-flex items-center border-2 border-emerald-600 text-emerald-600 px-6 py-3 rounded-lg font-semibold hover:bg-emerald-50 transition-all">
+                <i class="fas fa-question-circle mr-3"></i>
+                Ask CPC Specific Questions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section id="enroll" class="py-16 bg-gradient-to-br from-emerald-50 to-green-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div class="md:flex">
+            <!-- Left Column - Course Info -->
+            <div class="md:w-1/2 bg-gradient-to-br from-emerald-700 to-green-800 text-white p-8">
+              <h2 class="text-2xl font-bold mb-6">Start Your CPC Certification Journey</h2>
+              
+              <!-- Countdown Timer -->
+              <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 flex items-center">
+                  <i class="fas fa-clock mr-3 text-yellow-300"></i>
+                  Limited Seats Available:
+                </h3>
+                <div class="grid grid-cols-4 gap-3">
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="days">08</div>
+                    <div class="text-xs">Days</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="hours">15</div>
+                    <div class="text-xs">Hours</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="minutes">30</div>
+                    <div class="text-xs">Minutes</div>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-3 text-center">
+                    <div class="text-xl font-bold" id="seconds">45</div>
+                    <div class="text-xs">Seconds</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Program Inclusions -->
+              <div class="space-y-3 mb-6">
+                <h4 class="font-semibold text-lg">Program Inclusions:</h4>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-emerald-300 mr-3"></i>
+                  <span>AAPC CPC Study Guide (Latest Edition)</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-emerald-300 mr-3"></i>
+                  <span>CPT, ICD-10, HCPCS Code Books</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-emerald-300 mr-3"></i>
+                  <span>10+ Mock CPC Exams</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-emerald-300 mr-3"></i>
+                  <span>One-on-One Mentoring Sessions</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check-circle text-emerald-300 mr-3"></i>
+                  <span>Exam Fee Guidance & Support</span>
+                </div>
+              </div>
+              
+              <!-- Batch Info -->
+              <div class="bg-white/10 rounded-lg p-4">
+                <h4 class="font-semibold mb-2">Next CPC Batch:</h4>
+                <div class="flex items-center">
+                  <i class="fas fa-calendar-alt mr-3 text-yellow-300"></i>
+                  <span class="text-md">20th January 2025</span>
+                </div>
+                <div class="flex items-center mt-2">
+                  <i class="fas fa-users mr-3 text-yellow-300"></i>
+                  <span class="text-sm">Only 12 seats remaining</span>
+                </div>
+              </div>
+
+              <!-- Investment -->
+              <div class="mt-6">
+                <div class="flex items-baseline">
+                  <span class="text-3xl font-bold">₹49,999</span>
+                  <span class="text-lg ml-2 text-emerald-200">only</span>
+                </div>
+                <div class="flex items-center mt-1">
+                  <span class="text-lg line-through opacity-75 mr-4">₹62,499</span>
+                  <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                    <i class="fas fa-bolt mr-1"></i> Save 20%
+                  </span>
+                </div>
+                <p class="text-sm text-emerald-200 mt-2">EMI options available starting ₹4,166/month</p>
+              </div>
+            </div>
+            
+            <!-- Right Column - Form -->
+            <div class="md:w-1/2 p-8">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">Enroll in CPC Program</h3>
+              <p class="text-gray-600 mb-6">Fill the form below to secure your premium seat</p>
+              
+              <form class="space-y-4" id="enrollmentForm">
+                <div>
+                  <label class="block text-gray-700 mb-2 font-medium" for="fullName">
+                    Full Name <span class="text-red-500">*</span>
+                  </label>
+                  <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Enter your full name" required>
+                </div>
+                
+                <!-- Course Field - Fixed and Pre-selected -->
+                <!-- Course Field - Fixed -->
+<div>
+  <label class="block text-gray-700 mb-2 font-medium">
+    Selected Course <span class="text-red-500">*</span>
+  </label>
+
+  <!-- Visible (locked) select -->
+  <select class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" disabled>
+    <option>Certified Professional Coder (CPC) - Premium Program</option>
+  </select>
+
+  <!-- Hidden field (used for submission) -->
+  <input
+    type="hidden"
+    id="course"
+    value="Certified Professional Coder (CPC)"
+  />
+
+  <p class="text-xs text-gray-500 mt-1">
+    This course is pre-selected and cannot be changed
+  </p>
+</div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-gray-700 mb-2 font-medium" for="email">
+                      Email <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="your@email.com" required>
+                  </div>
+                  
+                  <div>
+                    <label class="block text-gray-700 mb-2 font-medium" for="phone">
+                      Phone <span class="text-red-500">*</span>
+                    </label>
+                    <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="+91 98765 43210" required>
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 mb-2 font-medium" for="education">
+                    Highest Qualification <span class="text-red-500">*</span>
+                  </label>
+                  <select id="education" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500" required>
+                    <option value="">Select your qualification</option>
+                    <option value="12th">12th Pass</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="graduate">Graduate</option>
+                    <option value="post-graduate">Post Graduate</option>
+                    <option value="medical">Medical Graduate (MBBS/BDS)</option>
+                    <option value="paramedical">Paramedical</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2 font-medium" for="experience">
+                    Work Experience (if any)
+                  </label>
+                  <select id="experience" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option value="">Select experience</option>
+                    <option value="fresh">Fresh Graduate</option>
+                    <option value="1-2">1-2 Years</option>
+                    <option value="3-5">3-5 Years</option>
+                    <option value="5+">5+ Years</option>
+                    <option value="healthcare">Healthcare Experience</option>
+                  </select>
+                </div>
+                
+                <div class="flex items-center">
+                  <input type="checkbox" id="consent" class="mr-3" required>
+                  <label for="consent" class="text-gray-600 text-sm">
+                    I agree to receive CPC program information and updates
+                  </label>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-green-700 text-white py-3 rounded-lg font-bold hover:shadow-xl transition-all">
+                  <i class="fas fa-trophy mr-2"></i> Enroll in Premium CPC Program
+                </button>
+                
+                <p class="text-center text-gray-500 text-sm">
+                  <i class="fas fa-shield-alt mr-2"></i>
+                  Your information is 100% secure & confidential
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center mb-6">
+              <div class="bg-gradient-to-r from-emerald-600 to-green-700 p-3 rounded-xl mr-4">
+                <div class="font-bold text-xl">EIQ</div>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold">Elevated IQ Academy</h3>
+                <p class="text-gray-400 text-sm">AAPC Recognized Training Center</p>
+              </div>
+            </div>
+            <p class="text-gray-400 mb-6">
+              Premier medical coding training institute offering AAPC CPC certification and career advancement programs.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-emerald-600 transition">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-600 transition">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 transition">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-green-500 transition">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="../index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+              <li><a href="../bmct/index.html" class="text-gray-400 hover:text-white transition">BMCT Course</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">CPC Certification</a></li>
+              <li><a href="#career" class="text-gray-400 hover:text-white transition">Career Opportunities</a></li>
+              <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <!-- Courses -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Our Programs</h4>
+            <ul class="space-y-2">
+              <li><a href="../bmct/index.html" class="text-gray-400 hover:text-white transition">Basic Medical Coding (BMCT)</a></li>
+              <li><a href="#" class="text-emerald-300 hover:text-white transition">Certified Professional Coder (CPC)</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Medical Billing Specialist</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">AAPC Exam Preparation</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition">Corporate Training</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact -->
+          <div>
+            <h4 class="text-lg font-bold mb-4">Contact Info</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-emerald-400 mt-1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Address</p>
+                  <p class="text-gray-400 text-sm">20, Vaigai colony, Anna nagar, Madurai-625020</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-phone text-emerald-400 mt-1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Phone</p>
+                  <p class="text-gray-400 text-sm">+91 93454 17570</p>
+                  <p class="text-gray-400 text-sm">+91 93845 84864</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope text-emerald-400 mt=1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Email</p>
+                  <p class="text-gray-400 text-sm">elevatediqacademy@gmail.com</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-clock text-emerald-400 mt=1 mr-3"></i>
+                <div>
+                  <p class="font-medium">Hours</p>
+                  <p class="text-gray-400 text-sm">Mon-Sat: 9AM - 7PM</p>
+                  <p class="text-gray-400 text-sm">Sun: 10AM - 5PM</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p class="text-gray-400">
+            © <span id="currentYear"></span> Elevated IQ Academy. All rights reserved.
+          </p>
+          <div class="flex justify-center space-x-6 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm">Refund Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // DOM Elements
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const backToTop = document.getElementById('backToTop');
+      const progressBar = document.getElementById('progressBar');
+      const enrollmentForm = document.getElementById('enrollmentForm');
+      const faqAccordion = document.getElementById('faqAccordion');
+      const reviewScroll = document.querySelector('.review-scroll');
+
+      // CPC FAQ Data
+      const faqs = [
+        {
+          question: "What is CPC certification and why is it important?",
+          answer: "CPC (Certified Professional Coder) is the gold standard certification from AAPC (American Academy of Professional Coders). It's the most recognized medical coding certification globally and significantly increases earning potential and job opportunities in healthcare."
+        },
+        {
+          question: "What are the prerequisites for CPC certification?",
+          answer: "While there are no formal prerequisites, we recommend having basic medical knowledge or completing our BMCT program first. The CPC exam requires understanding of medical terminology, anatomy, and coding guidelines."
+        },
+        {
+          question: "How long is the CPC training program?",
+          answer: "Our comprehensive CPC program is 90 days (approximately 4 months) with 3-4 hours of training per day. This includes theory, practical sessions, mock exams, and exam preparation."
+        },
+        {
+          question: "What is the CPC exam pass rate of your students?",
+          answer: "Our students have a 92% first-time pass rate on the AAPC CPC exam, which is significantly higher than the national average. We provide extensive mock exams and personalized coaching."
+        },
+        {
+          question: "What is included in the course fee?",
+          answer: "Course fee includes: AAPC CPC study guide, CPT/ICD-10/HCPCS code books, 10+ mock exams, one-on-one mentoring, exam guidance, placement assistance, and lifetime access to updated materials."
+        },
+        {
+          question: "Can I work internationally with CPC certification?",
+          answer: "Yes! AAPC CPC certification is recognized in USA, UK, Australia, Middle East, and many other countries. It opens global career opportunities in healthcare coding and billing."
+        },
+        {
+          question: "What is the salary expectation after CPC certification?",
+          answer: "CPC certified professionals in India earn ₹6-10 LPA starting salary, with experienced coders earning ₹12-18 LPA. International opportunities offer even higher compensation packages."
+        },
+        {
+          question: "Do you provide job placement assistance?",
+          answer: "Yes, we have a dedicated placement cell that connects CPC certified graduates with top hospitals, clinics, insurance companies, and healthcare organizations nationwide."
+        }
+      ];
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Load FAQs
+        loadFAQs();
+        
+        // Initialize countdown timer
+        initializeCountdown();
+        
+        // Add navigation arrows to review scroll
+        addReviewNavigation();
+        
+        // Disable course field selection
+        disableCourseField();
+      });
+
+      // Mobile Menu Toggle
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('opacity-0');
+        mobileMenu.classList.toggle('invisible');
+        mobileMenu.classList.toggle('-translate-y-2');
+      });
+
+      // Load FAQs Function
+      function loadFAQs() {
+        faqAccordion.innerHTML = '';
+        
+        faqs.forEach((faq, index) => {
+          const faqItem = document.createElement('div');
+          faqItem.className = 'faq-item rounded-lg p-1';
+          faqItem.innerHTML = `
+            <div class="faq-question flex justify-between items-center cursor-pointer p-4 rounded-lg hover:bg-emerald-50">
+              <h3 class="text-lg font-semibold text-gray-800">${faq.question}</h3>
+              <i class="fas fa-chevron-down faq-icon text-emerald-600 transition-transform duration-300"></i>
+            </div>
+            <div class="faq-answer overflow-hidden">
+              <p class="text-gray-600 p-4 pt-0">${faq.answer}</p>
+            </div>
+          `;
+          
+          const question = faqItem.querySelector('.faq-question');
+          const answer = faqItem.querySelector('.faq-answer');
+          const icon = faqItem.querySelector('.faq-icon');
+          
+          question.addEventListener('click', function() {
+            const isOpen = answer.classList.contains('open');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(el => {
+              el.classList.remove('open');
+            });
+            document.querySelectorAll('.faq-icon').forEach(el => {
+              el.classList.remove('open');
+            });
+            document.querySelectorAll('.faq-question').forEach(el => {
+              el.classList.remove('bg-emerald-50');
+            });
+            
+            // Toggle current FAQ
+            if (!isOpen) {
+              answer.classList.add('open');
+              icon.classList.add('open');
+              question.classList.add('bg-emerald-50');
+            }
+          });
+          
+          faqAccordion.appendChild(faqItem);
+        });
+      }
+
+      // Add Review Navigation
+      function addReviewNavigation() {
+        // Create navigation buttons
+        const container = document.querySelector('.review-scroll-container');
+        const prevButton = document.createElement('button');
+        const nextButton = document.createElement('button');
+        
+        prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        
+        prevButton.className = 'absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full w-10 h-10 shadow-lg flex items-center justify-center hover:shadow-xl transition-all z-10';
+        nextButton.className = 'absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full w-10 h-10 shadow-lg flex items-center justify-center hover:shadow-xl transition-all z-10';
+        
+        prevButton.addEventListener('click', () => {
+          reviewScroll.scrollBy({ left: -400, behavior: 'smooth' });
+        });
+        
+        nextButton.addEventListener('click', () => {
+          reviewScroll.scrollBy({ left: 400, behavior: 'smooth' });
+        });
+        
+        container.style.position = 'relative';
+        container.appendChild(prevButton);
+        container.appendChild(nextButton);
+      }
+
+      // Disable Course Field Selection
+      function disableCourseField() {
+        const courseField = document.getElementById('course');
+        
+        // Prevent any interaction with the course field
+        courseField.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          return false;
+        });
+        
+        courseField.addEventListener('keydown', (e) => {
+          e.preventDefault();
+          return false;
+        });
+        
+        courseField.addEventListener('focus', (e) => {
+          e.preventDefault();
+          courseField.blur();
+        });
+      }
+
+      // Enrollment Form Submission
+      
+
+      // Countdown Timer
+      function initializeCountdown() {
+        const countdownDate = new Date();
+        countdownDate.setDate(countdownDate.getDate() + 8); // 8 days from now
+        
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const distance = countdownDate - now;
+          
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          document.getElementById('days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+          
+          if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.querySelectorAll('.countdown-timer div').forEach(el => {
+              el.textContent = '00';
+            });
+          }
+        }
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+      }
+
+      // Scroll Progress
+      window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + '%';
+        
+        // Show/hide back to top button
+        if (winScroll > 500) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+
+      // Back to Top
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Close mobile menu if open
+            mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+            
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // WhatsApp button enhancement
+      const whatsappButton = document.querySelector('.whatsapp-float');
+      whatsappButton.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1) rotate(5deg)';
+      });
+      
+      whatsappButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+      });
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const enrollmentForm = document.getElementById("enrollmentForm");
+
+  if (!enrollmentForm) {
+    console.error("Enrollment form not found");
+    return;
+  }
+
+  enrollmentForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Read values safely
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const qualification = document.getElementById("education").value;
+    const course = document.getElementById("course").value; // hidden input
+    const consent = document.getElementById("consent").checked;
+
+    if (!consent) {
+      alert("Please agree to receive course information.");
+      return;
+    }
+
+    // Data to send
+    const formData = {
+      name: fullName,
+      phone: phone,
+      email: email,
+      course: course,
+      qualification: qualification,
+      message: "Enrollment form submission for " + course
+    };
+
+    // Button UI
+    const submitButton = enrollmentForm.querySelector('button[type="submit"]');
+    const originalHTML = submitButton.innerHTML;
+
+    submitButton.innerHTML =
+      '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+    submitButton.disabled = true;
+
+    // Send to Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxkPwZTiVZGuSWlYMJXDDq8Uhu2UK9e8t-6L5VNXb6dFDbIqVMcVQRUMlHSzojy4qfx/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(formData).toString()
+      }
+    )
+      .then(() => {
+        // Success UI
+        submitButton.innerHTML =
+          '<i class="fas fa-check mr-2"></i> Registration Successful!';
+        submitButton.classList.remove("from-blue-600", "to-purple-600");
+        submitButton.classList.add("from-green-500", "to-green-600");
+
+        // Reset after delay
+        setTimeout(() => {
+          enrollmentForm.reset();
+
+          // Re-apply fixed course
+          document.getElementById("course").value =
+            "Basic Medical Coding Training (BMCT)";
+
+          submitButton.innerHTML = originalHTML;
+          submitButton.classList.remove("from-green-500", "to-green-600");
+          submitButton.classList.add("from-blue-600", "to-purple-600");
+          submitButton.disabled = false;
+
+          alert(
+            "Thank you for enrolling in Certified Professional Coder (CPC) - Premium Program. Our counselor will contact you within 24 hours."
+          );
+        }, 2500);
+      })
+      .catch((error) => {
+        console.error("Submission Error:", error);
+
+        submitButton.innerHTML =
+          '<i class="fas fa-exclamation-triangle mr-2"></i> Registration Failed';
+        submitButton.classList.remove("from-blue-600", "to-purple-600");
+        submitButton.classList.add("from-red-500", "to-red-600");
+
+        setTimeout(() => {
+          submitButton.innerHTML = originalHTML;
+          submitButton.classList.remove("from-red-500", "to-red-600");
+          submitButton.classList.add("from-blue-600", "to-purple-600");
+          submitButton.disabled = false;
+
+          alert("Something went wrong. Please try again.");
+        }, 2500);
+      });
+  });
+});
+</script>
+  </body>
+</html>
