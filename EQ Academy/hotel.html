@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Hotels | District-wise Hotel Search</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Critical inline CSS for initial render */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* Layout Styles */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon i {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.district-filter-info {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe) !important;
+    border: 1px solid #bae6fd;
+    font-weight: 500;
+}
+
+.main-content {
+    min-height: calc(100vh - 140px);
+}
+
+.hotel-listings-container {
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    height: calc(100vh - 76px);
+    overflow-y: auto;
+}
+
+.map-container-wrapper {
+    background-color: #f8fafc;
+    height: calc(100vh - 76px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 15px;
+}
+
+.app-footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+}
+
+.app-footer a {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+.app-footer a:hover {
+    color: #60a5fa;
+    text-decoration: underline;
+}
+
+/* Custom scrollbar for listings */
+.hotel-listings-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.hotel-listings-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.hotel-listings-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.hotel-listings-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Tamil Nadu Map Container */
+.tamilnadu-map-container {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.tamilnadu-map {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tamilnadu-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    transform-origin: center;
+}
+
+/* District Path Styles */
+.district-path {
+    fill: #dbeafe;
+    stroke: #ffffff;
+    stroke-width: 1;
+    stroke-linejoin: round;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.district-path:hover {
+    fill: #93c5fd;
+    stroke-width: 1.5;
+    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+}
+
+.district-path.active {
+    fill: #3b82f6 !important;
+    stroke: #1d4ed8 !important;
+    stroke-width: 2.5 !important;
+    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.4));
+    animation: district-pulse 2s infinite;
+}
+
+@keyframes district-pulse {
+    0% {
+        stroke-width: 2.5;
+    }
+    50% {
+        stroke-width: 3.5;
+    }
+    100% {
+        stroke-width: 2.5;
+    }
+}
+
+/* District Labels */
+.district-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    fill: #475569;
+    pointer-events: none;
+    text-anchor: middle;
+    transition: all 0.3s ease;
+}
+
+.district-path:hover + .district-label {
+    fill: #1e40af;
+    font-weight: 700;
+}
+
+.district-path.active + .district-label {
+    fill: #ffffff !important;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Map Tooltip */
+.map-tooltip {
+    position: absolute;
+    background: rgba(30, 41, 59, 0.95);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+}
+
+.map-tooltip:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(30, 41, 59, 0.95);
+}
+
+.map-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Map Controls */
+.map-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    display: flex;
+    gap: 5px;
+}
+
+.map-control-btn {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #475569;
+    transition: all 0.2s ease;
+}
+
+.map-control-btn:hover {
+    background: #f8fafc;
+    color: #3b82f6;
+}
+
+/* Quick Links */
+.district-quick-links {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-top: 15px;
+}
+
+.district-btn {
+    font-size: 11px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.district-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+}
+
+.district-btn.active {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+/* Hotel Card Styles */
+.hotel-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: card-fade-in 0.5s ease forwards;
+}
+
+@keyframes card-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hotel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: #3b82f6;
+}
+
+.hotel-card:hover .hotel-image img {
+    transform: scale(1.05);
+}
+
+.hotel-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+}
+
+.hotel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hotel-district-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(30, 41, 59, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.hotel-content {
+    padding: 20px;
+}
+
+.hotel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.hotel-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.hotel-rating {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hotel-stars {
+    color: #f59e0b;
+    font-size: 12px;
+}
+
+.hotel-description {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hotel-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.hotel-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+.hotel-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #64748b;
+}
+
+.hotel-amenities {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.amenity-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.amenity-icon i {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: #3b82f6;
+}
+
+.hotel-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-view-details {
+    flex: 1;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-view-details:hover {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    color: white;
+}
+
+.btn-book-now {
+    background: white;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-book-now:hover {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Empty State */
+.empty-state {
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.empty-state i {
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .hotel-listings-container {
+        height: auto;
+        max-height: 60vh;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .map-container-wrapper {
+        height: auto;
+        max-height: 40vh;
+    }
+    
+    .map-wrapper {
+        padding: 15px;
+    }
+    
+    .tamilnadu-map-container {
+        min-height: 350px;
+    }
+    
+    .hotel-listings-container,
+    .map-container-wrapper {
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-header .navbar-brand h1 {
+        font-size: 1.1rem;
+    }
+    
+    .district-filter-info {
+        display: none !important;
+    }
+    
+    .listings-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .hotel-card {
+        margin-bottom: 15px;
+    }
+    
+    .hotel-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .hotel-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hotel-actions button {
+        width: 100%;
+    }
+    
+    /* Mobile District Quick Links */
+    .district-quick-links {
+        display: block !important;
+    }
+    
+    .district-quick-links .row {
+        justify-content: center;
+    }
+    
+    .district-quick-links .col-4 {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    
+    .district-btn {
+        white-space: nowrap;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-content {
+        padding: 0;
+    }
+    
+    .listings-header,
+    .listings-body,
+    .map-header,
+    .map-wrapper {
+        padding: 15px;
+    }
+    
+    .hotel-image {
+        height: 180px;
+    }
+    
+    .hotel-content {
+        padding: 16px;
+    }
+    
+    .hotel-name {
+        font-size: 16px;
+    }
+    
+    .hotel-price {
+        font-size: 18px;
+    }
+    
+    .district-quick-links .row {
+        gap: 8px;
+    }
+    
+    .district-quick-links .col-4 {
+        width: calc(50% - 4px);
+    }
+    
+    .map-controls {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .map-control-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <div class="d-flex align-items-center">
+                        <div class="logo-icon">
+                            <i class="fas fa-hotel text-primary"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h1 class="h5 mb-0 fw-bold">Tamil Nadu Hotels</h1>
+                            <small class="text-muted">Government Verified Accommodations</small>
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="d-flex align-items-center">
+                    <div class="district-filter-info bg-light px-3 py-2 rounded-pill me-3">
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                        <span id="current-district">All Districts</span>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" id="clear-filter-btn">
+                        <i class="fas fa-times me-1"></i> Clear Filter
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid px-0">
+            <div class="row g-0">
+                <!-- Left Column - Hotel Listings -->
+                <div class="col-lg-8 col-md-12 hotel-listings-container">
+                    <div class="listings-header p-4 border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="h4 mb-1 fw-semibold">
+                                    <span id="listings-title">Available Hotels</span>
+                                    <span class="badge bg-primary ms-2" id="hotel-count">0</span>
+                                </h2>
+                                <p class="text-muted mb-0" id="listings-subtitle">
+                                    Select a district from the map to filter hotels
+                                </p>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-sort me-2"></i>Sort by
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item active" href="#" data-sort="rating-desc">Rating: High to Low</a></li>
+                                    <li><a class="dropdown-item" href="#" data-sort="price-asc">Price: Low to High</a></li>
+                                    <li><a class="dropdown-item" href="#" data-sort="price-desc">Price: High to Low</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listings-body p-4" id="hotels-container">
+                        <!-- Hotel cards will be dynamically inserted here -->
+                        <div class="text-center py-5 empty-state">
+                            <i class="fas fa-map-marked-alt fa-3x text-muted mb-3"></i>
+                            <h3 class="h5 mb-2">Select a District</h3>
+                            <p class="text-muted">Click on any district in the Tamil Nadu map to view hotels in that area</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Tamil Nadu Map -->
+                <div class="col-lg-4 col-md-12 map-container-wrapper">
+                    <div class="map-header p-4 bg-white border-bottom">
+                        <h3 class="h5 mb-2 fw-semibold">
+                            <i class="fas fa-map me-2 text-primary"></i>
+                            Tamil Nadu District Map
+                        </h3>
+                        <p class="text-muted mb-0 small">Click on any district to filter hotels by location</p>
+                        <div class="attribution mt-2 small text-muted">
+                            Map source: <a href="https://commons.wikimedia.org/wiki/File:Tamil_Nadu_district_map.svg" target="_blank" class="text-decoration-none">Nirinsanity, CC BY-SA 4.0</a>
+                        </div>
+                    </div>
+                    
+                    <div class="map-wrapper">
+                        <div class="tamilnadu-map-container">
+                            <div class="tamilnadu-map" id="tamilnadu-map">
+                                <!-- Tamil Nadu map will be loaded here -->
+                            </div>
+                            <div class="map-controls">
+                                <button class="map-control-btn" id="zoom-in-btn" title="Zoom In">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="map-control-btn" id="zoom-out-btn" title="Zoom Out">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="map-control-btn" id="reset-map-btn" title="Reset View">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            <div class="map-tooltip"></div>
+                        </div>
+                        
+                        <!-- District Quick Links -->
+                        <div class="district-quick-links">
+                            <h6 class="mb-3 text-center">Popular Districts</h6>
+                            <div class="row g-2">
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Chennai">Chennai</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Madurai">Madurai</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Coimbatore">Coimbatore</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Trichy">Trichy</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Salem">Salem</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Tirunelveli">Tirunelveli</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="Thanjavur">Thanjavur</button>
+                                </div>
+                                <div class="col-4 col-md-3">
+                                    <button class="btn btn-outline-primary btn-sm district-btn w-100" data-district="All">Show All</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer py-3 mt-auto border-top">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-0 small text-muted">
+                        © 2024 Tamil Nadu Tourism Department. All hotel data is for demonstration purposes.
+                        <br class="d-none d-md-block">
+                        Tamil Nadu map by <a href="https://commons.wikimedia.org/wiki/File:Tamil_Nadu_district_map.svg" target="_blank" class="text-decoration-none">Nirinsanity, CC BY-SA 4.0</a>
+                    </p>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-link btn-sm text-muted" id="accessibility-btn">
+                        <i class="fas fa-universal-access me-1"></i> Accessibility
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Hotel Data -->
+    <script>
+        const hotelData = [
+            {
+                id: 1,
+                name: "The Park Chennai",
+                district: "Chennai",
+                rating: 4.7,
+                price: 8500,
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "pool", "spa", "restaurant"],
+                description: "Luxury hotel in the heart of Chennai with premium amenities"
+            },
+            {
+                id: 2,
+                name: "Madurai Heritage Resort",
+                district: "Madurai",
+                rating: 4.8,
+                price: 5200,
+                image: "https://images.unsplash.com/photo-1559508551-44bff1de756b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "pool", "restaurant"],
+                description: "Traditional Tamil architecture with modern comforts"
+            },
+            {
+                id: 3,
+                name: "Coimbatore Business Hotel",
+                district: "Coimbatore",
+                rating: 4.3,
+                price: 3800,
+                image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "gym", "conference"],
+                description: "Perfect for business travelers with full facilities"
+            },
+            {
+                id: 4,
+                name: "Trichy Grand Plaza",
+                district: "Trichy",
+                rating: 4.5,
+                price: 4500,
+                image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "restaurant"],
+                description: "Centrally located with easy access to major attractions"
+            },
+            {
+                id: 5,
+                name: "Salem City Center Hotel",
+                district: "Salem",
+                rating: 4.1,
+                price: 3200,
+                image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking"],
+                description: "Comfortable stay in the heart of Salem city"
+            },
+            {
+                id: 6,
+                name: "Tirunelveli Palace Hotel",
+                district: "Tirunelveli",
+                rating: 4.6,
+                price: 4800,
+                image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "pool", "spa"],
+                description: "Royal experience with traditional Tamil hospitality"
+            },
+            {
+                id: 7,
+                name: "Thanjavur Heritage Inn",
+                district: "Thanjavur",
+                rating: 4.4,
+                price: 4100,
+                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "restaurant"],
+                description: "Experience cultural heritage with modern amenities"
+            },
+            {
+                id: 8,
+                name: "Dindigul Hills Resort",
+                district: "Dindigul",
+                rating: 4.2,
+                price: 3600,
+                image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "mountain-view"],
+                description: "Scenic hill resort with breathtaking views"
+            },
+            {
+                id: 9,
+                name: "Chennai Marina Bay",
+                district: "Chennai",
+                rating: 4.9,
+                price: 12000,
+                image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "pool", "spa", "beach", "restaurant"],
+                description: "Premium beachfront luxury resort"
+            },
+            {
+                id: 10,
+                name: "Madurai Temple View",
+                district: "Madurai",
+                rating: 4.7,
+                price: 5800,
+                image: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "temple-view", "restaurant"],
+                description: "Stunning views of Meenakshi Temple"
+            },
+            {
+                id: 11,
+                name: "Coimbatore Garden Resort",
+                district: "Coimbatore",
+                rating: 4.5,
+                price: 4200,
+                image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "garden", "pool"],
+                description: "Lush green resort in the outskirts"
+            },
+            {
+                id: 12,
+                name: "Salem Executive Suites",
+                district: "Salem",
+                rating: 4.0,
+                price: 3500,
+                image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "conference"],
+                description: "Business-class accommodation with full services"
+            },
+            {
+                id: 13,
+                name: "Vellore Fort View Hotel",
+                district: "Vellore",
+                rating: 4.3,
+                price: 3900,
+                image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "historic-view"],
+                description: "Overlooking the historic Vellore Fort"
+            },
+            {
+                id: 14,
+                name: "Erode Business Center",
+                district: "Erode",
+                rating: 4.1,
+                price: 3400,
+                image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "conference", "gym"],
+                description: "Modern business hotel with conference facilities"
+            },
+            {
+                id: 15,
+                name: "Trichy Riverfront Hotel",
+                district: "Trichy",
+                rating: 4.6,
+                price: 4900,
+                image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                amenities: ["wifi", "ac", "parking", "river-view", "restaurant"],
+                description: "Beautiful views of the Kaveri River"
+            }
+        ];
+    </script>
+    
+    <!-- Map Integration and Application Logic -->
+    <script>
+        class TamilNaduMap {
+            constructor(containerId, onDistrictClick) {
+                this.container = document.getElementById(containerId);
+                this.onDistrictClick = onDistrictClick;
+                this.selectedDistrict = null;
+                this.tooltip = null;
+                this.svgElement = null;
+                this.scale = 1;
+                this.minScale = 0.5;
+                this.maxScale = 2;
+                this.initialized = false;
+                
+                this.districtMapping = {
+                    'Chennai': ['chennai', 'thiruvallur'],
+                    'Madurai': ['madurai'],
+                    'Coimbatore': ['coimbatore'],
+                    'Trichy': ['tiruchirappalli'],
+                    'Salem': ['salem'],
+                    'Tirunelveli': ['tirunelveli'],
+                    'Thanjavur': ['thanjavur'],
+                    'Dindigul': ['dindigul'],
+                    'Vellore': ['vellore'],
+                    'Erode': ['erode'],
+                    'Kanniyakumari': ['kanniyakumari'],
+                    'Kanchipuram': ['kanchipuram'],
+                    'Virudhunagar': ['virudhunagar'],
+                    'Ramanathapuram': ['ramanathapuram'],
+                    'Thoothukudi': ['thoothukudi'],
+                    'Tiruppur': ['tiruppur'],
+                    'Theni': ['theni'],
+                    'Namakkal': ['namakkal'],
+                    'Dharmapuri': ['dharmapuri'],
+                    'Krishnagiri': ['krishnagiri'],
+                    'Karur': ['karur'],
+                    'Nagapattinam': ['nagapattinam'],
+                    'Cuddalore': ['cuddalore'],
+                    'Tiruvannamalai': ['tiruvannamalai'],
+                    'Villupuram': ['villupuram'],
+                    'Perambalur': ['perambalur'],
+                    'Ariyalur': ['ariyalur'],
+                    'Pudukkottai': ['pudukkottai'],
+                    'Sivagangai': ['sivagangai'],
+                    'Nilgiris': ['nilgiris'],
+                    'Thiruvarur': ['thiruvarur']
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.createTooltip();
+                this.loadOfficialMap();
+                this.setupMapControls();
+            }
+
+            createTooltip() {
+                this.tooltip = document.createElement('div');
+                this.tooltip.className = 'map-tooltip';
+                this.container.appendChild(this.tooltip);
+            }
+
+            async loadOfficialMap() {
+                try {
+                    const response = await fetch('https://upload.wikimedia.org/wikipedia/commons/6/68/Tamil_Nadu_district_map.svg');
+                    const svgText = await response.text();
+                    
+                    const parser = new DOMParser();
+                    const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+                    this.svgElement = svgDoc.querySelector('svg');
+                    
+                    if (this.svgElement) {
+                        // Set proper viewBox and preserve aspect ratio
+                        this.svgElement.setAttribute('viewBox', '0 0 1000 1200');
+                        this.svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                        this.svgElement.style.width = '100%';
+                        this.svgElement.style.height = '100%';
+                        
+                        // Clean up and prepare SVG for interaction
+                        this.prepareSVGForInteraction();
+                        
+                        // Append SVG to container
+                        this.container.innerHTML = '';
+                        this.container.appendChild(this.svgElement);
+                        
+                        // Set up event listeners after a short delay to ensure SVG is rendered
+                        setTimeout(() => {
+                            this.setupEventListeners();
+                            this.initialized = true;
+                        }, 100);
+                    } else {
+                        this.loadFallbackMap();
+                    }
+                } catch (error) {
+                    console.error('Error loading Tamil Nadu map:', error);
+                    this.loadFallbackMap();
+                }
+            }
+
+            prepareSVGForInteraction() {
+                // Set initial styles for all paths
+                const paths = this.svgElement.querySelectorAll('path');
+                paths.forEach(path => {
+                    const districtName = this.getDistrictNameFromPath(path);
+                    if (districtName) {
+                        // Set base styles
+                        path.classList.add('district-path');
+                        path.setAttribute('data-district', districtName);
+                        path.setAttribute('aria-label', `${districtName} district`);
+                        path.style.cursor = 'pointer';
+                        path.style.fill = '#dbeafe';
+                        path.style.stroke = '#ffffff';
+                        path.style.strokeWidth = '1';
+                        path.style.transition = 'all 0.3s ease';
+                        
+                        // Store original style for reset
+                        path.dataset.originalFill = path.style.fill;
+                        path.dataset.originalStroke = path.style.stroke;
+                    }
+                });
+                
+                // Add district labels if they don't exist
+                this.addDistrictLabels();
+            }
+
+            addDistrictLabels() {
+                // Create labels for major districts
+                const labelData = {
+                    'Chennai': { x: 850, y: 300 },
+                    'Madurai': { x: 500, y: 700 },
+                    'Coimbatore': { x: 300, y: 500 },
+                    'Trichy': { x: 600, y: 500 },
+                    'Salem': { x: 450, y: 450 },
+                    'Tirunelveli': { x: 450, y: 900 },
+                    'Thanjavur': { x: 650, y: 450 },
+                    'Dindigul': { x: 500, y: 550 },
+                    'Vellore': { x: 550, y: 350 },
+                    'Erode': { x: 400, y: 450 }
+                };
+                
+                Object.entries(labelData).forEach(([district, position]) => {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.classList.add('district-label');
+                    text.setAttribute('x', position.x);
+                    text.setAttribute('y', position.y);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.textContent = district;
+                    text.style.pointerEvents = 'none';
+                    this.svgElement.appendChild(text);
+                });
+            }
+
+            getDistrictNameFromPath(path) {
+                const id = path.id || path.getAttribute('id');
+                if (!id) return null;
+                
+                for (const [districtName, districtIds] of Object.entries(this.districtMapping)) {
+                    if (districtIds.includes(id.toLowerCase())) {
+                        return districtName;
+                    }
+                }
+                return null;
+            }
+
+            setupEventListeners() {
+                if (!this.svgElement) return;
+                
+                const paths = this.svgElement.querySelectorAll('.district-path');
+                
+                paths.forEach(path => {
+                    // Remove existing listeners to avoid duplicates
+                    const newPath = path.cloneNode(true);
+                    path.parentNode.replaceChild(newPath, path);
+                    
+                    // Add new listeners
+                    newPath.addEventListener('mouseenter', (e) => this.handleMouseEnter(e));
+                    newPath.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
+                    newPath.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                    newPath.addEventListener('click', (e) => this.handleDistrictClick(e));
+                    
+                    // Keyboard accessibility
+                    newPath.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.handleDistrictClick(e);
+                        }
+                    });
+                    
+                    // Set tabindex for keyboard navigation
+                    newPath.setAttribute('tabindex', '0');
+                });
+            }
+
+            handleMouseEnter(e) {
+                const district = e.target.getAttribute('data-district');
+                if (district) {
+                    this.tooltip.textContent = district;
+                    this.tooltip.classList.add('visible');
+                }
+            }
+
+            handleMouseLeave() {
+                this.tooltip.classList.remove('visible');
+            }
+
+            handleMouseMove(e) {
+                const containerRect = this.container.getBoundingClientRect();
+                const x = e.clientX - containerRect.left + 10;
+                const y = e.clientY - containerRect.top - 30;
+                
+                this.tooltip.style.left = `${x}px`;
+                this.tooltip.style.top = `${y}px`;
+            }
+
+            handleDistrictClick(e) {
+                const district = e.target.getAttribute('data-district');
+                if (district) {
+                    this.updateSelectedDistrict(district);
+                    if (this.onDistrictClick) {
+                        this.onDistrictClick(district);
+                    }
+                }
+            }
+
+            updateSelectedDistrict(district) {
+                if (!this.svgElement) return;
+                
+                const paths = this.svgElement.querySelectorAll('.district-path');
+                
+                // Reset all districts to original style
+                paths.forEach(path => {
+                    path.classList.remove('active');
+                    path.style.fill = path.dataset.originalFill || '#dbeafe';
+                    path.style.stroke = path.dataset.originalStroke || '#ffffff';
+                    path.style.strokeWidth = '1';
+                });
+                
+                // Highlight selected district
+                if (district) {
+                    const selectedPaths = this.svgElement.querySelectorAll(`[data-district="${district}"]`);
+                    selectedPaths.forEach(path => {
+                        path.classList.add('active');
+                        path.style.fill = '#3b82f6';
+                        path.style.stroke = '#1d4ed8';
+                        path.style.strokeWidth = '2.5';
+                    });
+                }
+                
+                this.selectedDistrict = district;
+            }
+
+            clearSelection() {
+                this.updateSelectedDistrict(null);
+            }
+
+            setupMapControls() {
+                document.getElementById('zoom-in-btn').addEventListener('click', () => {
+                    this.zoomMap(0.2);
+                });
+                
+                document.getElementById('zoom-out-btn').addEventListener('click', () => {
+                    this.zoomMap(-0.2);
+                });
+                
+                document.getElementById('reset-map-btn').addEventListener('click', () => {
+                    this.resetMap();
+                });
+            }
+
+            zoomMap(delta) {
+                if (!this.svgElement) return;
+                
+                this.scale = Math.max(this.minScale, Math.min(this.maxScale, this.scale + delta));
+                this.svgElement.style.transform = `scale(${this.scale})`;
+                this.svgElement.style.transformOrigin = 'center';
+            }
+
+            resetMap() {
+                if (!this.svgElement) return;
+                
+                this.scale = 1;
+                this.svgElement.style.transform = 'scale(1)';
+                this.svgElement.style.transformOrigin = 'center';
+            }
+
+            loadFallbackMap() {
+                this.container.innerHTML = `
+                    <div class="alert alert-warning m-3">
+                        <p class="mb-2">Official map could not be loaded. Using simplified map.</p>
+                        <p class="mb-0 small">Original map source: <a href="https://commons.wikimedia.org/wiki/File:Tamil_Nadu_district_map.svg" target="_blank">Nirinsanity, CC BY-SA 4.0</a></p>
+                    </div>
+                `;
+                
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('viewBox', '0 0 1000 1200');
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                svg.style.width = '100%';
+                svg.style.height = '100%';
+                
+                // Create simplified district paths
+                const districtPaths = {
+                    'Chennai': 'M850,280 L880,300 L870,320 L840,310 Z',
+                    'Madurai': 'M500,680 L550,700 L540,740 L490,720 Z',
+                    'Coimbatore': 'M300,480 L350,500 L340,540 L290,520 Z',
+                    'Trichy': 'M600,480 L650,500 L640,540 L590,520 Z',
+                    'Salem': 'M450,430 L500,450 L490,490 L440,470 Z',
+                    'Tirunelveli': 'M450,880 L500,900 L490,940 L440,920 Z',
+                    'Thanjavur': 'M650,430 L700,450 L690,490 L640,470 Z',
+                    'Dindigul': 'M500,530 L550,550 L540,590 L490,570 Z',
+                    'Vellore': 'M550,330 L600,350 L590,390 L540,370 Z',
+                    'Erode': 'M400,430 L450,450 L440,490 L390,470 Z'
+                };
+                
+                Object.entries(districtPaths).forEach(([district, pathData]) => {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.classList.add('district-path');
+                    path.setAttribute('d', pathData);
+                    path.setAttribute('data-district', district);
+                    path.setAttribute('aria-label', `${district} district`);
+                    path.style.cursor = 'pointer';
+                    path.style.fill = '#dbeafe';
+                    path.style.stroke = '#ffffff';
+                    path.style.strokeWidth = '1';
+                    path.style.transition = 'all 0.3s ease';
+                    
+                    // Store original style
+                    path.dataset.originalFill = '#dbeafe';
+                    path.dataset.originalStroke = '#ffffff';
+                    
+                    svg.appendChild(path);
+                    
+                    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    label.classList.add('district-label');
+                    label.setAttribute('x', district === 'Chennai' ? 865 : district === 'Madurai' ? 525 : 525);
+                    label.setAttribute('y', district === 'Chennai' ? 295 : district === 'Madurai' ? 710 : 510);
+                    label.setAttribute('text-anchor', 'middle');
+                    label.textContent = district;
+                    label.style.pointerEvents = 'none';
+                    svg.appendChild(label);
+                });
+                
+                this.container.appendChild(svg);
+                this.svgElement = svg;
+                this.setupEventListeners();
+                this.initialized = true;
+            }
+        }
+
+        class HotelSearchApp {
+            constructor() {
+                this.currentDistrict = null;
+                this.currentSort = 'rating-desc';
+                this.hotels = [...hotelData];
+                this.filteredHotels = [...hotelData];
+                
+                this.init();
+            }
+
+            init() {
+                this.map = new TamilNaduMap('tamilnadu-map', (district) => {
+                    this.handleDistrictSelection(district);
+                });
+                
+                this.renderHotels(this.hotels);
+                this.attachEventListeners();
+                this.updateCounts();
+            }
+
+            attachEventListeners() {
+                document.getElementById('clear-filter-btn').addEventListener('click', () => {
+                    this.clearFilters();
+                });
+                
+                document.querySelectorAll('.district-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const district = e.target.dataset.district;
+                        if (district === 'All') {
+                            this.clearFilters();
+                        } else {
+                            this.handleDistrictSelection(district);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('[data-sort]').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const sortType = e.target.dataset.sort;
+                        this.setSorting(sortType);
+                        
+                        document.querySelectorAll('[data-sort]').forEach(i => {
+                            i.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        
+                        const sortText = e.target.textContent;
+                        document.getElementById('sortDropdown').innerHTML = 
+                            `<i class="fas fa-sort me-2"></i>${sortText}`;
+                    });
+                });
+                
+                document.getElementById('accessibility-btn').addEventListener('click', () => {
+                    this.toggleHighContrast();
+                });
+            }
+
+            handleDistrictSelection(district) {
+                this.currentDistrict = district;
+                
+                this.updateDistrictDisplay(district);
+                this.map.updateSelectedDistrict(district);
+                this.filterHotels();
+                this.updateQuickLinks();
+            }
+
+            updateDistrictDisplay(district) {
+                const districtElement = document.getElementById('current-district');
+                const titleElement = document.getElementById('listings-title');
+                const subtitleElement = document.getElementById('listings-subtitle');
+                
+                if (district) {
+                    districtElement.textContent = district;
+                    titleElement.textContent = `Hotels in ${district}`;
+                    subtitleElement.textContent = `Showing hotels located in ${district} district`;
+                } else {
+                    districtElement.textContent = 'All Districts';
+                    titleElement.textContent = 'Available Hotels';
+                    subtitleElement.textContent = 'Select a district from the map to filter hotels';
+                }
+            }
+
+            filterHotels() {
+                if (!this.currentDistrict) {
+                    this.filteredHotels = [...this.hotels];
+                } else {
+                    this.filteredHotels = this.hotels.filter(hotel => 
+                        hotel.district.toLowerCase() === this.currentDistrict.toLowerCase()
+                    );
+                }
+                
+                this.sortHotels();
+                this.renderHotels(this.filteredHotels);
+                this.updateCounts();
+            }
+
+            sortHotels() {
+                switch (this.currentSort) {
+                    case 'rating-desc':
+                        this.filteredHotels.sort((a, b) => {
+                            if (b.rating !== a.rating) {
+                                return b.rating - a.rating;
+                            }
+                            return a.price - b.price;
+                        });
+                        break;
+                        
+                    case 'price-asc':
+                        this.filteredHotels.sort((a, b) => {
+                            if (a.price !== b.price) {
+                                return a.price - b.price;
+                            }
+                            return b.rating - a.rating;
+                        });
+                        break;
+                        
+                    case 'price-desc':
+                        this.filteredHotels.sort((a, b) => {
+                            if (b.price !== a.price) {
+                                return b.price - a.price;
+                            }
+                            return b.rating - a.rating;
+                        });
+                        break;
+                }
+            }
+
+            setSorting(sortType) {
+                this.currentSort = sortType;
+                this.sortHotels();
+                this.renderHotels(this.filteredHotels);
+            }
+
+            renderHotels(hotels) {
+                const container = document.getElementById('hotels-container');
+                
+                if (hotels.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-5 empty-state">
+                            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                            <h3 class="h5 mb-2">No hotels found</h3>
+                            <p class="text-muted">No hotels available in ${this.currentDistrict}. Try selecting another district.</p>
+                            <button class="btn btn-primary mt-3" id="clear-empty-btn">
+                                <i class="fas fa-times me-2"></i>Clear Filter
+                            </button>
+                        </div>
+                    `;
+                    
+                    document.getElementById('clear-empty-btn')?.addEventListener('click', () => {
+                        this.clearFilters();
+                    });
+                    return;
+                }
+                
+                container.innerHTML = '';
+                
+                hotels.forEach((hotel, index) => {
+                    const card = this.createHotelCard(hotel, index);
+                    container.appendChild(card);
+                });
+            }
+
+            createHotelCard(hotel, index) {
+                const card = document.createElement('div');
+                card.className = 'hotel-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const starsHtml = this.generateStars(hotel.rating);
+                const amenitiesHtml = this.generateAmenities(hotel.amenities);
+                
+                card.innerHTML = `
+                    <div class="hotel-image">
+                        <div class="hotel-district-badge">${hotel.district}</div>
+                        <img src="${hotel.image}" alt="${hotel.name} in ${hotel.district}" loading="lazy">
+                    </div>
+                    <div class="hotel-content">
+                        <div class="hotel-header">
+                            <h3 class="hotel-name">${hotel.name}</h3>
+                            <div class="hotel-rating">
+                                <span class="hotel-stars">${starsHtml}</span>
+                                ${hotel.rating}
+                            </div>
+                        </div>
+                        <p class="hotel-description">${hotel.description}</p>
+                        <div class="hotel-details">
+                            <div class="hotel-price">
+                                ₹${hotel.price.toLocaleString()}<span>/night</span>
+                            </div>
+                            <div class="hotel-amenities">
+                                ${amenitiesHtml}
+                            </div>
+                        </div>
+                        <div class="hotel-actions">
+                            <button class="btn-view-details" data-hotel-id="${hotel.id}">
+                                <i class="fas fa-info-circle me-1"></i>View Details
+                            </button>
+                            <button class="btn-book-now" data-hotel-id="${hotel.id}">
+                                <i class="fas fa-calendar-check me-1"></i>Book Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                card.querySelector('.btn-view-details').addEventListener('click', () => {
+                    this.showHotelDetails(hotel);
+                });
+                
+                card.querySelector('.btn-book-now').addEventListener('click', () => {
+                    this.bookHotel(hotel);
+                });
+                
+                return card;
+            }
+
+            generateStars(rating) {
+                let stars = '';
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= fullStars) {
+                        stars += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars + 1 && hasHalfStar) {
+                        stars += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        stars += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                return stars;
+            }
+
+            generateAmenities(amenities) {
+                const iconMap = {
+                    'wifi': 'fa-wifi',
+                    'ac': 'fa-snowflake',
+                    'parking': 'fa-parking',
+                    'pool': 'fa-swimming-pool',
+                    'spa': 'fa-spa',
+                    'restaurant': 'fa-utensils',
+                    'gym': 'fa-dumbbell',
+                    'beach': 'fa-umbrella-beach',
+                    'conference': 'fa-briefcase',
+                    'mountain-view': 'fa-mountain',
+                    'temple-view': 'fa-place-of-worship',
+                    'historic-view': 'fa-landmark',
+                    'river-view': 'fa-water',
+                    'garden': 'fa-tree'
+                };
+                
+                const labelMap = {
+                    'wifi': 'WiFi',
+                    'ac': 'AC',
+                    'parking': 'Parking',
+                    'pool': 'Pool',
+                    'spa': 'Spa',
+                    'restaurant': 'Restaurant',
+                    'gym': 'Gym',
+                    'beach': 'Beach',
+                    'conference': 'Conference',
+                    'mountain-view': 'Mountain View',
+                    'temple-view': 'Temple View',
+                    'historic-view': 'Historic View',
+                    'river-view': 'River View',
+                    'garden': 'Garden'
+                };
+                
+                return amenities.slice(0, 4).map(amenity => `
+                    <div class="amenity-icon" title="${labelMap[amenity] || amenity}">
+                        <i class="fas ${iconMap[amenity] || 'fa-check'}"></i>
+                        <span>${labelMap[amenity] || amenity}</span>
+                    </div>
+                `).join('');
+            }
+
+            showHotelDetails(hotel) {
+                alert(`Hotel Details:\n\nName: ${hotel.name}\nDistrict: ${hotel.district}\nRating: ${hotel.rating}/5\nPrice: ₹${hotel.price}/night\n\n${hotel.description}`);
+            }
+
+            bookHotel(hotel) {
+                alert(`Booking ${hotel.name}\n\nProceeding to booking form...`);
+            }
+
+            clearFilters() {
+                this.currentDistrict = null;
+                this.updateDistrictDisplay(null);
+                this.map.clearSelection();
+                this.filteredHotels = [...this.hotels];
+                this.sortHotels();
+                this.renderHotels(this.filteredHotels);
+                this.updateCounts();
+                this.updateQuickLinks();
+            }
+
+            updateCounts() {
+                const countElement = document.getElementById('hotel-count');
+                countElement.textContent = this.filteredHotels.length;
+            }
+
+            updateQuickLinks() {
+                document.querySelectorAll('.district-btn').forEach(btn => {
+                    const district = btn.dataset.district;
+                    if (district === 'All' && !this.currentDistrict) {
+                        btn.classList.add('active');
+                    } else if (district === this.currentDistrict) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            toggleHighContrast() {
+                document.body.classList.toggle('high-contrast');
+                
+                if (document.body.classList.contains('high-contrast')) {
+                    alert('High contrast mode enabled for better accessibility.');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new HotelSearchApp();
+            
+            const highContrastStyles = `
+                .high-contrast {
+                    filter: contrast(1.2) brightness(0.9);
+                }
+                
+                .high-contrast .hotel-card {
+                    border: 2px solid #000;
+                }
+                
+                .high-contrast .district-path {
+                    stroke: #000 !important;
+                    stroke-width: 2 !important;
+                }
+                
+                .high-contrast .district-path.active {
+                    stroke: #000 !important;
+                    stroke-width: 4 !important;
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = highContrastStyles;
+            document.head.appendChild(styleSheet);
+        });
+    </script>
+</body>
+</html>
